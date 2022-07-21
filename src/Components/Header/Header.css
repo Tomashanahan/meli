@@ -1,0 +1,138 @@
+.fondo {
+    background: #FFF059;
+}
+
+.header {
+    margin-top: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 15px;
+    grid-template-areas:
+        "logo input disney"
+        "datos_cliente links cliente";
+    padding-top: 10px;
+    width: 75%;
+    margin: auto;
+}
+
+.header_superior_logo {
+    grid-area: logo;
+}
+
+.img_disney {
+    grid-area: disney;
+}
+
+.header_inferior-datos_del_cliente {
+    grid-area: datos_cliente;
+}
+
+.header_inferior_carrito {
+    grid-area: cliente;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.datos_envio {
+    margin-left: 43px;
+}
+
+
+.header_superior-input {
+    padding: 12px 60px 12px 15px;
+    width: 80%;
+    border: none;
+    background-color: #ffffff;
+    font-size: 15px;
+    line-height: 12px;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 20%);
+}
+
+.header_superior-input::-moz-focus-inner {
+    border: none;
+}
+
+::placeholder {
+    color: #BFBFBF;
+}
+
+
+.header_superior-input_btn {
+    background-color: #FFF059;
+    border: none;
+    border-radius: 3px;
+    padding: 0px 10px;
+    color: #000;
+    font-size: 15px;
+    width: 100%;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.header_superior-img {
+    position: relative;
+    /* top: 10px; */
+    right: 6%;
+    border-left: 1px solid #E6E6E6;
+    padding-left: 8px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+
+.header_superior-search {
+    min-width: 650px;
+    grid-area: input;
+}
+
+.header_inferior-datos_del_cliente {
+    display: flex;
+    justify-content: center;
+}
+
+.header_inferior-datos_del_cliente-envio {
+    margin: 3px;
+    font-size: 14px;
+    margin-left: -40px;
+    margin-top: auto;
+}
+
+span {
+    color: #7F782D;
+    font-size: 12px;
+}
+
+
+.header_inferior_links {
+    grid-area: links;
+    font-size: 15px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.categorias{
+    margin-left: 10px;
+}
+
+.header_inferior_a {
+    margin-right: 15px;
+    /* margin-right: 30px; */
+    text-decoration: none;
+    color: #7F782D;
+    font-size: 14px;
+}
+
+.flecha {
+    position: relative;
+    left: 5px;
+    top: 1px;
+}
+
+.carrito {
+    color: #363633;
+}
