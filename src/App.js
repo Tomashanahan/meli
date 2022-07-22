@@ -1,12 +1,13 @@
+import { Box } from '@chakra-ui/react';
 import './App.css';
 
 import Header from './Components/Header/Header.jsx';
 
 function App() {
   return (
-    <div className="App">
+    <Box className="App">
       <Header/>
-    </div>
+    </Box>
   );
 }
 

@@ -1,6 +1,24 @@
+@font-face {
+	font-family: "Proxima Nova";
+	src: url("/src/Families/proximanova-light.woff2");
+	font-weight: 100;
+}
+
+@font-face {
+	font-family: "Proxima Nova";
+	src: url("/src/Families/proximanova-regular.woff2");
+	font-weight: normal;
+}
+
+@font-face {
+	font-family: "Proxima Nova";
+	src: url("/src/Families/proximanova-semibold.woff2");
+	font-weight: 500;
+}
+
 body {
   margin: 0;
-  font-family: "Proxima Nova", -apple-system, "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif, sans-serif;
+  font-family: "Proxima Nova", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #EBEBEB;

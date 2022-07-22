@@ -75,7 +75,6 @@
 
 .header_superior-img {
     position: relative;
-    /* top: 10px; */
     right: 6%;
     border-left: 1px solid #E6E6E6;
     padding-left: 8px;
@@ -85,7 +84,7 @@
 
 
 .header_superior-search {
-    min-width: 650px;
+    min-width: 100%;
     grid-area: input;
 }
 
