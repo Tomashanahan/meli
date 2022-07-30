@@ -1,12 +1,12 @@
 import React from "react";
 import "./Header.css";
 import img_dyney from "../../img/header_disney.png";
-import logo from "../../img/logo.png";
+// import logo from "../../img/logo.png";
 import img_ubicacion from "../../img/icons8-marker-o-50.png";
 import svg_lupa from "../../img/icons8-búsqueda.png";
 import flecha from "../../img/flecha.png";
 import usuario from "../../img/user_logo.png";
-import carrito from "../../img/carrito.png";
+// import carrito from "../../img/carrito.png";
 import {
 	Box,
 	GridItem,
@@ -30,20 +30,21 @@ function Header() {
 				fontWeight="bold"
 				p="5px"
 				alignItems="center"
-                w='90%'
-                m='auto'
+				w="80%"
+				m="auto"
 			>
-				<GridItem area={"logo"}>
+				<GridItem area={"logo"} justifySelf='flex-start'>
 					<a
 						href="http://mercadolibre.com.ar"
 						target="_blank"
 						rel="noopener noreferrer"
 					>
 						<Image
-							src={'https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/5.19.1/mercadolibre/logo__large_plus@2x.png'}
-							// src={logo}
-                            w='134px'
-                            h='34px'
+							src={
+								"https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/5.19.1/mercadolibre/logo__large_plus@2x.png"
+							}
+							w="134px"
+							h="34px"
 							alt="Mercado libre donde comprar todo lo que queres"
 						/>
 					</a>
@@ -81,16 +82,16 @@ function Header() {
 					</button>
 				</GridItem>
 				<GridItem area={"diney"}>
-                    <Flex justify='flex-end'>
-					<Image
-						className="img_disney"
-						src={img_dyney}
-						alt="foto"
-						width="340px"
-					/>
-                    </Flex>
+					<Flex justify="flex-end">
+						<Image
+							className="img_disney"
+							src={img_dyney}
+							alt="foto"
+							width="340px"
+						/>
+					</Flex>
 				</GridItem>
-				<GridItem mr="20px" area="direc">
+				<GridItem mr="20px" area="direc" justifySelf='flex-start'>
 					<Flex justify="center" align="center">
 						<Image src={img_ubicacion} alt="img" height="27px" with="18px" />
 						<Box ml="5px">
@@ -108,7 +109,7 @@ function Header() {
 						<Text
 							mx="10px"
 							fontSize="14px"
-                            fontWeight={400}
+							fontWeight={400}
 							color="rgba(50,50,50,.6)"
 						>
 							Categorías
@@ -142,11 +143,22 @@ function Header() {
 				<GridItem area="carrito">
 					<Flex align="center" justify="right">
 						<Text color="#3C3B35" fontSize="14px" fontWeight={400} mx="10px">
-                            <Flex align='center'>
-							<Image alt="Foto" className="flecha" src={usuario} width="22px" mr="10px"/>
-							Tomas
-							<Image alt="Foto" className="flecha" src={flecha} width="10px" />
-                            </Flex>
+							<Flex align="center">
+								<Image
+									alt="Foto"
+									className="flecha"
+									src={usuario}
+									width="22px"
+									mr="10px"
+								/>
+								Tomas
+								<Image
+									alt="Foto"
+									className="flecha"
+									src={flecha}
+									width="10px"
+								/>
+							</Flex>
 						</Text>
 						<Text color="#3C3B35" fontSize="14px" fontWeight={400} mx="10px">
 							Mis compras
