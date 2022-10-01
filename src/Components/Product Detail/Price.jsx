@@ -6,7 +6,6 @@ import { IoIosArrowDown } from "react-icons/io";
 function Price() {
 	return (
 		<Stack
-			w="100%"
 			border="1px solid rgba(0,0,0,.1)"
 			borderRadius="8"
 			p="24px 16px"
@@ -103,7 +102,7 @@ function Price() {
 						</Stack>
 					</Flex>
 				</Box>
-				{/* nose */}
+
 				<Box>
 					<Flex color="#05A550" align="flex-start">
 						<Box fontSize="23px" m={0} mr="10">
