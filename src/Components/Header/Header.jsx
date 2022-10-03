@@ -56,7 +56,7 @@ function Header() {
 							width="100%"
 							border="none"
 							background-color="#ffffff"
-							font-size="15px"
+							fontSize="15px"
 							line-height="12px"
 							box-shadow="0 1px 2px 0 rgb(0 0 0 / 20%)"
 							type="text"

@@ -1,7 +1,67 @@
 import React from "react";
 import { Box, Flex, Image, Stack, Text } from "@chakra-ui/react";
 
-function Vendedor() {
+function Vendedor({ product_detail, seller_data }) {
+	const { seller_address } = product_detail;
+	const { seller_reputation } = seller_data;
+
+	const colorReputation = (level_id) => {
+		switch (level_id) {
+			case "1_red":
+				return (
+					<>
+						<Box h="12px" w="60px" bg="#F83535"></Box>
+						<Box h="8px" w="60px" bg="#FFF5E8"></Box>
+						<Box h="8px" w="60px" bg="#FEFCD8"></Box>
+						<Box h="8px" w="60px" bg="#F1FDD6"></Box>
+						<Box h="8px" w="60px" bg="#BAEEC0"></Box>
+					</>
+				);
+			case "2_orange":
+				return (
+					<>
+						<Box h="8px" w="60px" bg="#fff0f0"></Box>
+						<Box h="12px" w="60px" bg="#F7AB49"></Box>
+						<Box h="8px" w="60px" bg="#FEFCD8"></Box>
+						<Box h="8px" w="60px" bg="#F1FDD6"></Box>
+						<Box h="8px" w="60px" bg="#BAEEC0"></Box>
+					</>
+				);
+			case "3_yellow":
+				return (
+					<>
+						<Box h="8px" w="60px" bg="#fff0f0"></Box>
+						<Box h="8px" w="60px" bg="#FFF5E8"></Box>
+						<Box h="12px" w="60px" bg="#F8EE36"></Box>
+						<Box h="8px" w="60px" bg="#F1FDD6"></Box>
+						<Box h="8px" w="60px" bg="#BAEEC0"></Box>
+					</>
+				);
+			case "4_light_green":
+				return (
+					<>
+						<Box h="8px" w="60px" bg="#fff0f0"></Box>
+						<Box h="8px" w="60px" bg="#FFF5E8"></Box>
+						<Box h="8px" w="60px" bg="#FEFCD8"></Box>
+						<Box h="12px" w="60px" bg="#B6F131"></Box>
+						<Box h="8px" w="60px" bg="#BAEEC0"></Box>
+					</>
+				);
+			case "5_green":
+				return (
+					<>
+						<Box h="8px" w="60px" bg="#fff0f0"></Box>
+						<Box h="8px" w="60px" bg="#FFF5E8"></Box>
+						<Box h="8px" w="60px" bg="#FEFCD8"></Box>
+						<Box h="8px" w="60px" bg="#F1FDD6"></Box>
+						<Box h="12px" w="60px" bg="#3BB449"></Box>
+					</>
+				);
+			default:
+				<></>;
+		}
+	};
+
 	return (
 		<Stack border="1px solid rgba(0,0,0,.1)" borderRadius="8" p="24px 16px">
 			<Text m={0} fontSize="18px" textAlign="left" fontWeight={400}>
@@ -13,14 +73,14 @@ function Vendedor() {
 						<svg
 							stroke="currentColor"
 							fill="currentColor"
-							stroke-width="0"
+							strokeWidth="0"
 							viewBox="0 0 12 16"
-							class="location-and-mercadoLider-icon"
+							className="location-and-mercadoLider-icon"
 							height="1em"
 							width="1em"
 						>
 							<path
-								fill-rule="evenodd"
+								fillRule="evenodd"
 								d="M6 0C2.69 0 0 2.5 0 5.5 0 10.02 6 16 6 16s6-5.98 6-10.5C12 2.5 9.31 0 6 0zm0 14.55C4.14 12.52 1 8.44 1 5.5 1 3.02 3.25 1 6 1c1.34 0 2.61.48 3.56 1.36.92.86 1.44 1.97 1.44 3.14 0 2.94-3.14 7.02-5 9.05zM8 5.5c0 1.11-.89 2-2 2-1.11 0-2-.89-2-2 0-1.11.89-2 2-2 1.11 0 2 .89 2 2z"
 							></path>
 						</svg>
@@ -35,7 +95,7 @@ function Vendedor() {
 							fontSize="14"
 							fontWeight={300}
 						>
-							Caballito, Capital Federal
+							{seller_address?.city?.name}, {seller_address?.state?.name}
 						</Text>
 					</Stack>
 				</Flex>
@@ -65,20 +125,16 @@ function Vendedor() {
 				</Flex>
 			</Box>
 			<Flex justifyContent="space-between" align="center" pt="20px">
-				<Box h="8px" w="60px" bg="#fff0f0"></Box>
-				<Box h="8px" w="60px" bg="#FFF5E8"></Box>
-				<Box h="8px" w="60px" bg="#FEFCD8"></Box>
-				<Box h="8px" w="60px" bg="#F1FDD6"></Box>
-				<Box h="12px" w="60px" bg="#3BB449"></Box>
+				{colorReputation(seller_reputation?.level_id)}
 			</Flex>
 
 			<Flex marginTop={10} align="center" justify="space-between" w="100%">
 				<Box borderRight="1px solid #ddd" w="106px" m="auto">
 					<Text fontSize="24px" display="inline-block" m={0}>
-						2090
+						{seller_reputation?.transactions?.completed}
 					</Text>
 					<Text fontSize="12px" m={0} color="#515151">
-						Ventas en los últimos 60 días
+						Ventas en los completadas
 					</Text>
 				</Box>
 				<Box pt="10px" borderRight="1px solid #ddd" w="106px" m="auto">

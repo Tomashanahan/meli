@@ -3,21 +3,41 @@ import { Box, Button, Container, Flex, Stack, Text } from "@chakra-ui/react";
 import { TbArrowBack } from "react-icons/tb";
 import { IoIosArrowDown } from "react-icons/io";
 
-function Price() {
+function Price({ product_detail }) {
+	const {
+		title,
+		price,
+		condition,
+		sold_quantity,
+		available_quantity,
+		warranty,
+		original_price,
+	} = product_detail;
+
+	const formatPrice = (number) => {
+		return new Intl.NumberFormat("de-DE", {
+			maximumSignificantDigits: 10,
+		}).format(number);
+	};
+
+	const calculateDiscount = (price, originalPrice) => {
+		const diference = originalPrice - price;
+		return Math.ceil((diference * 100) / originalPrice);
+	};
+
+	const monthlyFee = ((price * 101) / 100 + price) / 12;
+
 	return (
-		<Stack
-			border="1px solid rgba(0,0,0,.1)"
-			borderRadius="8"
-			p="24px 16px"
-		>
+		<Stack border="1px solid rgba(0,0,0,.1)" borderRadius="8" p="24px 16px">
 			<Text
 				m={0}
 				color="rgba(0,0,0,.55)"
 				fontSize="14px"
 				textAlign="left"
-				fontWeight={500}
+				fontWeight={400}
+				textTransform="capitalize"
 			>
-				Nuevo | 50 vendidos
+				{condition} | {sold_quantity} vendidos
 			</Text>
 			<Flex align="flex-start">
 				<Text
@@ -28,15 +48,15 @@ function Price() {
 					color="rgba(0,0,0,.9)"
 					fontWeight={500}
 				>
-					Peluche Almohada Soft Animales Acostados 46cm Largo
+					{title}
 				</Text>
 				<Box color="#3483fa">
 					<svg
 						stroke="currentColor"
 						fill="currentColor"
-						stroke-width="0"
+						strokeWidth="0"
 						viewBox="0 0 16 16"
-						class="fav-icon"
+						className="fav-icon"
 						height="21px"
 						width="24px"
 						xmlns="http://www.w3.org/2000/svg"
@@ -46,12 +66,41 @@ function Price() {
 				</Box>
 			</Flex>
 			<Box>
-				<Text textAlign="left" fontWeight={300}>
-					<Box fontSize="36px">$ 3.099</Box> en 12x 457 pesos con 64 centavos
-					$457
-				</Text>
+				{original_price ? (
+					<Box textAlign="left" fontWeight={300}>
+						<Box
+							fontSize="16px"
+							mb="-8px"
+							textDecor="line-through"
+							color="rgba(0,0,0,.55)"
+							fontWeight={400}
+						>
+							$ {formatPrice(original_price)}
+						</Box>
+						<Flex align="center" fontSize="36px">
+							{formatPrice(price)}{" "}
+							<span
+								style={{
+									color: "#00a650",
+									fontSize: "18px",
+									marginLeft: "10px",
+									fontWeight: 400,
+								}}
+							>
+								{calculateDiscount(price, original_price)}% OFF
+							</span>
+						</Flex>{" "}
+						en 12x $ {monthlyFee.toFixed(2)} pesos
+					</Box>
+				) : (
+					<Box textAlign="left" fontWeight={300}>
+						<Flex align="center" fontSize="36px">
+							{formatPrice(price)}{" "}
+						</Flex>{" "}
+						en 12x $ {monthlyFee.toFixed(2)} pesos
+					</Box>
+				)}
 				<Text
-					mt={-10}
 					textAlign="left"
 					color="#3483fa"
 					cursor={"pointer"}
@@ -69,17 +118,17 @@ function Price() {
 							<svg
 								stroke="currentColor"
 								fill="none"
-								stroke-width="0"
+								strokeWidth="0"
 								viewBox="0 0 24 24"
-								class="green-icon"
+								className="green-icon"
 								height="23px"
 								width="23px"
 							>
 								<path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z"></path>
 								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									stroke-width="2"
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									strokeWidth="2"
 									d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"
 								></path>
 							</svg>
@@ -134,7 +183,9 @@ function Price() {
 				{/* nose */}
 				{/* Stock */}
 				<Box textAlign="left">
-					<Text fontWeight={600}>Stock disponible</Text>
+					<Text fontWeight={600}>
+						{available_quantity > 0 ? "Stock disponible" : "Sin Stock"}
+					</Text>
 					<Flex align="center">
 						Cantidad:
 						<Text m={0} ml="5" fontWeight={600} display="inline-block">
@@ -149,7 +200,8 @@ function Price() {
 							color="rgba(0,0,0,.55)"
 							fontSize="14"
 						>
-							(2 disponibles)
+							({available_quantity}{" "}
+							{available_quantity > 1 ? "disponibles" : "disponible"})
 						</Text>
 					</Flex>
 				</Box>
@@ -195,24 +247,24 @@ function Price() {
 					<svg
 						stroke="#737373"
 						fill="currentColor"
-						stroke-width="0"
+						strokeWidth="0"
 						viewBox="0 0 512 512"
-						class="benefits-icon"
+						className="benefits-icon"
 						height="16px"
 						width="16px"
 					>
 						<path
 							fill="none"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="42"
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							strokeWidth="42"
 							d="M336 176L225.2 304 176 255.8"
 						></path>
 						<path
 							fill="none"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="42"
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							strokeWidth="42"
 							d="M463.1 112.37C373.68 96.33 336.71 84.45 256 48c-80.71 36.45-117.68 48.33-207.1 64.37C32.7 369.13 240.58 457.79 256 464c15.42-6.21 223.3-94.87 207.1-351.63z"
 						></path>
 					</svg>
@@ -234,9 +286,9 @@ function Price() {
 					<svg
 						stroke="#737373"
 						fill="#737373"
-						stroke-width="0"
+						strokeWidth="0"
 						viewBox="0 0 24 24"
-						class="benefits-icon"
+						className="benefits-icon"
 						height="1em"
 						width="1em"
 					>
@@ -247,6 +299,17 @@ function Price() {
 							Mercado Puntos
 						</Text>
 						. Sumás 22 puntos.
+					</Text>
+				</Flex>
+				<Flex justify="space-around" align="center">
+					<img
+						src="https://img.icons8.com/fluency-systems-regular/48/737373/warranty.png"
+						alt="a"
+						height="20px"
+						width="20px"
+					/>
+					<Text w="88%" textAlign="left" fontSize="14px" fontWeight={400}>
+						{warranty}
 					</Text>
 				</Flex>
 				{/* Datos de color */}
