@@ -1,16 +1,16 @@
 import { Box, Flex, Image } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { IoIosArrowForward, IoIosArrowBack, IoMdClose } from "react-icons/io";
 
 function ImageCarousel({ images, setShow }) {
-	// const { setShowImageCarousel } = setShow;
-	// console.log(setShowImageCarousel);
+	const img = useRef();
+	const prev = useRef();
+	const next = useRef();
 	const { urlCurrentImage, allImages } = images;
 	const [imageScale, setImageScale] = useState(1);
 	const [currentImg, setCurrentImg] = useState();
 
 	const nexImg = (_currentImg) => {
-		console.log(_currentImg);
 		let currentIndex = allImages
 			?.map((e, i) => e.url === _currentImg && i)
 			.filter((e) => e !== false)[0];
@@ -22,7 +22,6 @@ function ImageCarousel({ images, setShow }) {
 	};
 
 	const prevImg = (_currentImg) => {
-		console.log(_currentImg);
 		let currentIndex = allImages
 			?.map((e, i) => e.url === _currentImg && i)
 			.filter((e) => e !== false)[0];
@@ -44,14 +43,6 @@ function ImageCarousel({ images, setShow }) {
 		);
 	}, []);
 
-	function logit(e) {
-		console.log(e);
-		e.preventDefault();
-		e.stopPropagation();
-
-		return false;
-		// setShow(window.pageYOffset > 0 && false);
-	}
 	function preventScroll(e) {
 		e.preventDefault();
 		e.stopPropagation();
@@ -59,16 +50,25 @@ function ImageCarousel({ images, setShow }) {
 	}
 
 	const keyPress = (e) => {
-		console.log(e)
 		const key = e.key;
 		if (key === "ArrowRight") {
 			nexImg(currentImg.url);
 		} else if (key === "ArrowLeft") {
 			prevImg(currentImg.url);
 		} else if (key === "ArrowDown") {
-			e.preventDefault()
+			e.preventDefault();
 		} else if (key === "Escape") {
-			setShow(false)
+			setShow(false);
+		}
+	};
+
+	const closeImg = (e) => {
+		if (
+			!img.current.contains(e.target) &&
+			!prev.current.contains(e.target) &&
+			!next.current.contains(e.target)
+		) {
+			setShow(false);
 		}
 	};
 
@@ -76,10 +76,11 @@ function ImageCarousel({ images, setShow }) {
 		function watchScroll() {
 			window.addEventListener("wheel", preventScroll, { passive: false });
 			window.addEventListener("keydown", keyPress);
+			window.addEventListener("click", closeImg);
 		}
 		watchScroll();
 		return () => {
-			// window.removeEventListener("scroll", logit);
+			window.removeEventListener("click", closeImg);
 			window.removeEventListener("wheel", preventScroll, { passive: false });
 			window.removeEventListener("keydown", keyPress);
 		};
@@ -110,7 +111,7 @@ function ImageCarousel({ images, setShow }) {
 				color="#FFFF"
 				fontSize="40px"
 				bg="rgba(0,0,0, .25)"
-        onClick={() => setShow(false)}
+				onClick={() => setShow(false)}
 			>
 				<IoMdClose />
 			</Flex>
@@ -141,10 +142,12 @@ function ImageCarousel({ images, setShow }) {
 					bg="rgba(0,0,0, .25)"
 					fontSize="40px"
 					onClick={() => prevImg(currentImg?.url)}
+					ref={prev}
 				>
 					<IoIosArrowBack />
 				</Flex>
 				<Image
+					ref={img}
 					transform={`scale(${imageScale})`}
 					onClick={() => setImageScale(imageScale === 1 ? 1.5 : 1)}
 					cursor={imageScale === 1 ? "zoom-in" : "zoom-out"}
@@ -162,6 +165,7 @@ function ImageCarousel({ images, setShow }) {
 					bg="rgba(0,0,0, .25)"
 					fontSize="40px"
 					onClick={() => nexImg(currentImg?.url)}
+					ref={next}
 				>
 					<IoIosArrowForward />
 				</Flex>
