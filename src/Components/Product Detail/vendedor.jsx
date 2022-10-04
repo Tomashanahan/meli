@@ -129,7 +129,7 @@ function Vendedor({ product_detail, seller_data }) {
 			</Flex>
 
 			<Flex marginTop={10} align="center" justify="space-between" w="100%">
-				<Box borderRight="1px solid #ddd" w="106px" m="auto">
+				<Box borderRight="1px solid #ddd" w="106px" m="auto" textAlign="center">
 					<Text fontSize="24px" display="inline-block" m={0}>
 						{seller_reputation?.transactions?.completed}
 					</Text>
@@ -137,7 +137,13 @@ function Vendedor({ product_detail, seller_data }) {
 						Ventas en los completadas
 					</Text>
 				</Box>
-				<Box pt="10px" borderRight="1px solid #ddd" w="106px" m="auto">
+				<Box
+					textAlign="center"
+					pt="10px"
+					borderRight="1px solid #ddd"
+					w="106px"
+					m="auto"
+				>
 					<Image
 						w="28px"
 						decoding="async"
@@ -148,7 +154,7 @@ function Vendedor({ product_detail, seller_data }) {
 						Brinda buena atención
 					</Text>
 				</Box>
-				<Box pt="10px" w="106px">
+				<Box pt="10px" w="106px" textAlign="center">
 					<Image
 						w="28px"
 						alt="f"

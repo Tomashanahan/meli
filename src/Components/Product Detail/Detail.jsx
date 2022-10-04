@@ -178,9 +178,6 @@ function Detail() {
 									w="500px"
 									id="myimage"
 									objectFit="contain"
-									// onClick={(e) => {
-									// 	console.log(e);
-									// }}
 									src={
 										image === undefined
 											? product_detail?.pictures &&
