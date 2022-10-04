@@ -12,6 +12,7 @@ function Price({ product_detail }) {
 		available_quantity,
 		warranty,
 		original_price,
+		currency_id,
 	} = product_detail;
 
 	const formatPrice = (number) => {
@@ -95,7 +96,7 @@ function Price({ product_detail }) {
 				) : (
 					<Box textAlign="left" fontWeight={300}>
 						<Flex align="center" fontSize="36px">
-							{formatPrice(price)}{" "}
+						{currency_id?.symbol}	{formatPrice(price)}{" "}
 						</Flex>{" "}
 						en 12x $ {monthlyFee.toFixed(2)} pesos
 					</Box>

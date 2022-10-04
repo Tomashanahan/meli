@@ -53,6 +53,11 @@ const reducer = (state = initialState, { type, payload }) => {
 				...state,
 				product_opinions: payload,
 			};
+		case actionstypes.PRODUCT_CURRENCY:
+			return {
+				...state,
+				product_detail: { ...state.product_detail, currency_id: payload },
+			};
 		default:
 			return state;
 	}
@@ -80,7 +85,7 @@ export function ProductsProvider({ children }) {
 		});
 	};
 
-	const getProduct = async (productId) => {
+	const getProductDetail = async (productId) => {
 		const product = await fetch(
 			`https://api.mercadolibre.com/items/${productId}`
 		);
@@ -91,10 +96,20 @@ export function ProductsProvider({ children }) {
 		);
 		const sellerData = await seller.json();
 
+		const currency = await fetch(
+			`https://api.mercadolibre.com/currencies/${productData.currency_id}`
+		);
+		const productCurrency = await currency.json();
+		// console.log(productCurrency, " 🎸")
+
 		dispatch({ type: actionstypes.SELLER_DATA, payload: sellerData });
-		return dispatch({
+		dispatch({
 			type: actionstypes.PRODUCT_DETAIL,
 			payload: productData,
+		});
+		dispatch({
+			type: actionstypes.PRODUCT_CURRENCY,
+			payload: productCurrency,
 		});
 	};
 
@@ -135,7 +150,7 @@ export function ProductsProvider({ children }) {
 		searchedProduct,
 		searchProduct,
 		dispatch,
-		getProduct,
+		getProductDetail,
 		product_detail,
 		getProductDescription,
 		product_description,

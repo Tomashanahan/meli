@@ -11,7 +11,6 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 function ProductOpinions({ product_opinions }) {
 	/*  */
 	const calcStars = (rating, size) => {
-		console.log(rating);
 		const fillStar = new Array(rating || 0);
 		const emptyStar = new Array(5 - rating || 0);
 		fillStar.fill();
@@ -214,7 +213,6 @@ function ProductOpinions({ product_opinions }) {
 							<Flex justify="space-between" align="center" color="#3483fa">
 								{calcStars(rate, "small")}
 								<Text color="rgba(0,0,0,.55)" fontSize="12px">
-									{/* 10 Jan. 2020 */}
 									{getComentDate(date_created)}
 								</Text>
 							</Flex>
@@ -272,7 +270,6 @@ function ProductOpinions({ product_opinions }) {
 							<Box h="1px" w="97%" bg="#e8e8ec" m="auto" mt="24px" />
 						</Box>
 					))}
-					{/*  */}
 				</Stack>
 			</Flex>
 		</div>

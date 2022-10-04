@@ -1,5 +1,5 @@
 import { Box, Flex, Image, Stack } from "@chakra-ui/react";
-import React, { useEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import Descriptioin from "./Descriptioin";
 import Price from "./Price";
 import Vendedor from "./vendedor";
@@ -14,7 +14,7 @@ import ImageCarousel from "./ImageCarousel";
 
 function Detail() {
 	const {
-		getProduct,
+		getProductDetail,
 		product_detail,
 		dispatch,
 		getProductDescription,
@@ -32,6 +32,7 @@ function Detail() {
 	const img_zoom_lens = useRef();
 	const [imageCarousel, setImageCarousel] = useState({});
 	const [showImageCarousel, setShowImageCarousel] = useState(false);
+	console.log(product_detail)
 	/*  */
 	function imageZoom(imgID, resultID) {
 		var img, lens, result, cx, cy;
@@ -95,15 +96,11 @@ function Detail() {
 		}
 	}
 	/*  */
-
-	useEffect(() => {
-		// dispatch(getProduct("MLA821673713"));
-		// dispatch(getProductDescription("MLA821673713"));
-		// dispatch(getProductQuestions("MLA821673713"));
-		dispatch(getProduct("MLA761599974"));
-		dispatch(getProductDescription("MLA761599974"));
-		dispatch(getProductQuestions("MLA761599974"));
-		dispatch(getProductOpinions("MLA761599974"));
+	useLayoutEffect(() => {
+		dispatch(getProductDetail("MLA1139507191"));
+		dispatch(getProductDescription("MLA1139507191"));
+		dispatch(getProductQuestions("MLA1139507191"));
+		dispatch(getProductOpinions("MLA1139507191"));
 	}, []);
 
 	return (
@@ -125,30 +122,104 @@ function Detail() {
 				<Stack>
 					<Flex h="fit-content" minH="600px">
 						<Stack>
-							{product_detail?.pictures?.map(({ id, url }) => (
-								<Image
-									onMouseEnter={(e) => {
-										setImage(url);
-										setBorderImage(e.target.id);
-									}}
-									boxSizing="border-box"
-									cursor="pointer"
-									border={borderImage === id && "2px solid #3483fa"}
-									key={url}
-									id={
-										borderImage === undefined
-											? setBorderImage(product_detail?.pictures[0]?.id)
-											: id
-									}
+							{product_detail?.pictures?.length > 7
+								? product_detail?.pictures?.slice(0, 7)?.map(({ id, url }) => (
+										<Image
+											onMouseEnter={(e) => {
+												setImage(url);
+												setBorderImage(e.target.id);
+											}}
+											boxSizing="border-box"
+											cursor="pointer"
+											border={
+												borderImage === id
+													? "2px solid #3483fa"
+													: "1px solid rgba(0,0,0,.25)"
+											}
+											key={url}
+											id={
+												borderImage === undefined
+													? setBorderImage(product_detail?.pictures[0]?.id)
+													: id
+											}
+											borderRadius="6px"
+											p="4"
+											h="50px"
+											w="50px"
+											src={url}
+											alt="profucto_1"
+											objectFit={"contain"}
+										/>
+								  ))
+								: product_detail?.pictures?.map(({ id, url }) => (
+										<Image
+											onMouseEnter={(e) => {
+												setImage(url);
+												setBorderImage(e.target.id);
+											}}
+											boxSizing="border-box"
+											cursor="pointer"
+											border={
+												borderImage === id
+													? "2px solid #3483fa"
+													: "1px solid rgba(0,0,0,.25)"
+											}
+											key={url}
+											id={
+												borderImage === undefined
+													? setBorderImage(product_detail?.pictures[0]?.id)
+													: id
+											}
+											borderRadius="6px"
+											p="4"
+											h="50px"
+											w="50px"
+											src={url}
+											alt="profucto_1"
+											objectFit={"contain"}
+										/>
+								  ))}
+							{product_detail?.pictures?.length > 7 && (
+								<Box
+									pos="relative"
+									border="1px solid rgba(0,0,0,.25)"
+									h="50px"
 									borderRadius="6px"
-									p="4"
-									h="44px"
-									w="44px"
-									src={url}
-									alt="profucto_1"
-									objectFit={"contain"}
-								/>
-							))}
+									w="50px"
+								>
+									<Box
+										color="#3483fa"
+										pos="absolute"
+										top="50%"
+										transform="translate(-50%,-50%)"
+										left="50%"
+										fontSize="25px"
+										fontWeight={400}
+									>
+										+{product_detail?.pictures?.length - 6}
+									</Box>
+									<Image
+										opacity={0.2}
+										onMouseEnter={(e) => {
+											setImage(product_detail?.pictures[7]?.url);
+											setBorderImage(e.target.id);
+										}}
+										boxSizing="border-box"
+										cursor="pointer"
+										border={
+											borderImage === product_detail?.pictures[7]?.id &&
+											"2px solid #3483fa"
+										}
+										p="4"
+										id={product_detail?.pictures[7]?.id}
+										h="50px"
+										w="50px"
+										src={product_detail?.pictures[7]?.url}
+										alt="profucto_1"
+										objectFit={"contain"}
+									/>
+								</Box>
+							)}
 						</Stack>
 						<Flex w="100%" justify="center">
 							<Box
@@ -225,7 +296,7 @@ function Detail() {
 							borderBottom="1px solid rgba(0,0,0,.1)"
 							h="3px"
 						/>
-						<ProductOpinions product_opinions={product_opinions} />
+						{product_opinions?.reviews?.length > 0 && <ProductOpinions product_opinions={product_opinions} />}
 					</Box>
 				</Stack>
 				<Stack pos="relative">

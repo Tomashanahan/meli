@@ -100,30 +100,32 @@ function Vendedor({ product_detail, seller_data }) {
 					</Stack>
 				</Flex>
 			</Box>
-			<Box>
-				<Flex align="flex-start">
-					<Flex mr="8" pt="5">
-						<img
-							decoding="async"
-							src="https://http2.mlstatic.com/frontend-assets/vpp-frontend/medal.svg"
-							alt="s"
-						/>
+			{seller_reputation?.power_seller_status === "platinum" && (
+				<Box>
+					<Flex align="flex-start">
+						<Flex mr="8" pt="5">
+							<img
+								decoding="async"
+								src="https://http2.mlstatic.com/frontend-assets/vpp-frontend/medal.svg"
+								alt="s"
+							/>
+						</Flex>
+						<Stack align="flex-start">
+							<Text m={0} mb="-10px" fontWeight={400} color="#05A550">
+								MercadoLíder Platinum{" "}
+							</Text>
+							<Text
+								color="rgba(0,0,0,.55)"
+								cursor={"pointer"}
+								fontSize="14"
+								fontWeight={300}
+							>
+								¡Es uno de los mejores del sitio!
+							</Text>
+						</Stack>
 					</Flex>
-					<Stack align="flex-start">
-						<Text m={0} mb="-10px" fontWeight={400} color="#05A550">
-							MercadoLíder Platinum{" "}
-						</Text>
-						<Text
-							color="rgba(0,0,0,.55)"
-							cursor={"pointer"}
-							fontSize="14"
-							fontWeight={300}
-						>
-							¡Es uno de los mejores del sitio!
-						</Text>
-					</Stack>
-				</Flex>
-			</Box>
+				</Box>
+			)}
 			<Flex justifyContent="space-between" align="center" pt="20px">
 				{colorReputation(seller_reputation?.level_id)}
 			</Flex>
