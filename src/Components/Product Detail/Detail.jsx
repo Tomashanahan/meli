@@ -10,6 +10,7 @@ import { ProductsContext } from "../../Context/ProductsContext";
 import { useState } from "react";
 import "../../index.css";
 import { useRef } from "react";
+import ImageCarousel from "./ImageCarousel";
 
 function Detail() {
 	const {
@@ -25,10 +26,10 @@ function Detail() {
 	const [zoom, setZoom] = useState(false);
 	const imagen = useRef();
 	const img_zoom_lens = useRef();
-
+	const [imageCarousel, setImageCarousel] = useState({});
+	const [showImageCarousel, setShowImageCarousel] = useState(false);
 	/*  */
 	function imageZoom(imgID, resultID) {
-		imagen.current.style.color = "red";
 		var img, lens, result, cx, cy;
 		img = document.getElementById(imgID);
 		result = document.getElementById(resultID);
@@ -97,130 +98,150 @@ function Detail() {
 	}, []);
 
 	return (
-		<Flex
-			boxSizing="border-box"
-			justify="space-between"
-			p="20"
-			w="85%"
-			m="auto"
-			bg="#FFFF"
-			boxShadow="0 1px 2px 0 rgb(0 0 0 / 25%)"
-			borderRadius="4"
-			my="40"
-		>
-			<Stack>
-				<Flex h="fit-content">
-					<Stack>
-						{product_detail?.pictures?.map(({ id, url }) => (
-							<Image
-								onMouseEnter={(e) => {
-									setImage(url);
-									setBorderImage(e.target.id);
-								}}
-								boxSizing="border-box"
-								cursor="pointer"
-								border={borderImage === id && "2px solid #3483fa"}
-								key={id}
-								id={
-									borderImage === undefined
-										? setBorderImage(product_detail?.pictures[0]?.id)
-										: id
-								}
-								borderRadius="6px"
-								p="4"
-								h="44px"
-								w="44px"
-								src={url}
-								alt="profucto_1"
-								objectFit={"contain"}
-							/>
-						))}
-					</Stack>
-					<Flex w="100%" justify="center">
-						<Box
-							id={"img-zoom-container"}
-							pos="relative"
-							cursor="zoom-in"
-							onMouseMove={() => {
-								setZoom(true);
-								imageZoom("myimage", "myresult");
-							}}
-							onMouseLeave={() => setZoom(false)}
-						>
-							{zoom && (
-								<Box
-									ref={img_zoom_lens}
-									pos="absolute"
-									bg="rgba(0,0,0,.43)"
-									w="182px"
-									h="182px"
+		<>
+			{showImageCarousel && (
+				<ImageCarousel images={imageCarousel} setShow={setShowImageCarousel} />
+			)}
+			<Flex
+				boxSizing="border-box"
+				justify="space-between"
+				p="20"
+				w="85%"
+				m="auto"
+				bg="#FFFF"
+				boxShadow="0 1px 2px 0 rgb(0 0 0 / 25%)"
+				borderRadius="4"
+				my="40"
+			>
+				<Stack>
+					<Flex h="fit-content">
+						<Stack>
+							{product_detail?.pictures?.map(({ id, url }) => (
+								<Image
+									onMouseEnter={(e) => {
+										setImage(url);
+										setBorderImage(e.target.id);
+									}}
+									boxSizing="border-box"
+									cursor="pointer"
+									border={borderImage === id && "2px solid #3483fa"}
+									key={url}
+									id={
+										borderImage === undefined
+											? setBorderImage(product_detail?.pictures[0]?.id)
+											: id
+									}
+									borderRadius="6px"
+									p="4"
+									h="44px"
+									w="44px"
+									src={url}
+									alt="profucto_1"
+									objectFit={"contain"}
 								/>
-							)}
-							<Image
-								h="500px"
-								w="500px"
-								id="myimage"
-								objectFit="contain"
-								src={
-									image === undefined
-										? product_detail?.pictures &&
-										  product_detail?.pictures[0]?.url
-										: image
-								}
-								alt="image"
-							/>
-						</Box>
+							))}
+						</Stack>
+						<Flex w="100%" justify="center">
+							<Box
+								id={"img-zoom-container"}
+								pos="relative"
+								cursor="zoom-in"
+								onMouseMove={() => {
+									setZoom(true);
+									imageZoom("myimage", "myresult");
+								}}
+								onMouseLeave={() => setZoom(false)}
+							>
+								{zoom && (
+									<Box
+										ref={img_zoom_lens}
+										pos="absolute"
+										bg="rgba(0,0,0,.43)"
+										w="182px"
+										h="182px"
+										onClick={(e) => {
+											setShowImageCarousel(true);
+											window.scrollTo(0, 0);
+											setImageCarousel({
+												urlCurrentImage:
+													image === undefined
+														? product_detail?.pictures &&
+														  product_detail?.pictures[0]?.url
+														: image,
+												allImages: product_detail?.pictures,
+											});
+										}}
+									/>
+								)}
+								<Image
+									h="500px"
+									w="500px"
+									id="myimage"
+									objectFit="contain"
+									// onClick={(e) => {
+									// 	console.log(e);
+									// }}
+									src={
+										image === undefined
+											? product_detail?.pictures &&
+											  product_detail?.pictures[0]?.url
+											: image
+									}
+									alt="image"
+								/>
+							</Box>
+						</Flex>
 					</Flex>
-				</Flex>
-				<Box px="45px">
-					<Box
-						w="100%"
-						pt="30px"
-						m="auto"
-						alignSelf="center"
-						borderBottom="1px solid rgba(0,0,0,.1)"
-						h="3px"
-					/>
-					<Descriptioin product_description={product_description} />
-					<Box
-						w="100%"
-						m="auto"
-						mt="30px"
-						alignSelf="center"
-						borderBottom="1px solid rgba(0,0,0,.1)"
-						h="3px"
-					/>
-					<ProductQuestions />
-					<Box
-						w="100%"
-						m="auto"
-						mt="30px"
-						alignSelf="center"
-						borderBottom="1px solid rgba(0,0,0,.1)"
-						h="3px"
-					/>
-					<ProductOpinions />
-				</Box>
-			</Stack>
-			<Stack pos="relative">
-				{zoom && (
-					<Box
-						id="myresult"
-						ref={imagen}
-						pos="absolute"
-						r="0"
-						top="8px"
-						border="1px solid #d4d4d4"
-						w="100%"
-						h="500px"
-						backgroundSize="1650px 2400px"
-						zIndex={1000}
-					/>
-				)}
-				<Price product_detail={product_detail} />
-				<Vendedor product_detail={product_detail} seller_data={seller_data} />
-			</Stack>
-		</Flex>
+					<Box px="45px">
+						<Box
+							w="100%"
+							pt="30px"
+							m="auto"
+							alignSelf="center"
+							borderBottom="1px solid rgba(0,0,0,.1)"
+							h="3px"
+						/>
+						<Descriptioin product_description={product_description} />
+						<Box
+							w="100%"
+							m="auto"
+							mt="30px"
+							alignSelf="center"
+							borderBottom="1px solid rgba(0,0,0,.1)"
+							h="3px"
+						/>
+						<ProductQuestions />
+						<Box
+							w="100%"
+							m="auto"
+							mt="30px"
+							alignSelf="center"
+							borderBottom="1px solid rgba(0,0,0,.1)"
+							h="3px"
+						/>
+						<ProductOpinions />
+					</Box>
+				</Stack>
+				<Stack pos="relative">
+					{zoom && (
+						<Box
+							id="myresult"
+							ref={imagen}
+							pos="absolute"
+							r="0"
+							top="8px"
+							border="1px solid #d4d4d4"
+							w="100%"
+							h="500px"
+							backgroundSize="1650px 2400px"
+							zIndex={1000}
+						/>
+					)}
+					<Price product_detail={product_detail} />
+					<Vendedor product_detail={product_detail} seller_data={seller_data} />
+				</Stack>
+			</Flex>
+		</>
 	);
 }
 

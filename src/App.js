@@ -6,7 +6,7 @@ import Detail from "./Components/Product Detail/Detail";
 
 function App() {
 	return (
-		<Box className="App" bg="#ECEDEC">
+		<Box className="App" bg="#ECEDEC" pos="relative">
 			<Header />
 			<Detail />
 		</Box>

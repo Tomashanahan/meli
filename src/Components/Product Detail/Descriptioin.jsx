@@ -39,7 +39,7 @@ function Descriptioin({ product_description }) {
 				fontSize="20px"
 				textAlign="left"
 			>
-				{urlTags?.reduce((total, line) => [total, <br />, line])}
+				{urlTags?.reduce((total, line) => [total, <br key={line} />, line])}
 			</Text>
 		</Box>
 	);
