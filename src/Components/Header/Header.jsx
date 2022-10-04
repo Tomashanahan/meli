@@ -142,7 +142,7 @@ function Header() {
 				</GridItem>
 				<GridItem area="carrito">
 					<Flex align="center" justify="right">
-						<Text color="#3C3B35" fontSize="14px" fontWeight={400} mx="10px">
+						<Box color="#3C3B35" fontSize="14px" fontWeight={400} mx="10px">
 							<Flex align="center">
 								<Image
 									alt="Foto"
@@ -159,7 +159,7 @@ function Header() {
 									width="10px"
 								/>
 							</Flex>
-						</Text>
+						</Box>
 						<Text color="#3C3B35" fontSize="14px" fontWeight={400} mx="10px">
 							Mis compras
 						</Text>

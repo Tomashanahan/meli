@@ -20,6 +20,10 @@ function Detail() {
 		getProductDescription,
 		product_description,
 		seller_data,
+		getProductQuestions,
+		product_questions,
+		product_opinions,
+		getProductOpinions,
 	} = useContext(ProductsContext);
 	const [image, setImage] = useState();
 	const [borderImage, setBorderImage] = useState();
@@ -93,8 +97,13 @@ function Detail() {
 	/*  */
 
 	useEffect(() => {
-		dispatch(getProduct("MLA821673713"));
-		dispatch(getProductDescription("MLA821673713"));
+		// dispatch(getProduct("MLA821673713"));
+		// dispatch(getProductDescription("MLA821673713"));
+		// dispatch(getProductQuestions("MLA821673713"));
+		dispatch(getProduct("MLA761599974"));
+		dispatch(getProductDescription("MLA761599974"));
+		dispatch(getProductQuestions("MLA761599974"));
+		dispatch(getProductOpinions("MLA761599974"));
 	}, []);
 
 	return (
@@ -114,7 +123,7 @@ function Detail() {
 				my="40"
 			>
 				<Stack>
-					<Flex h="fit-content">
+					<Flex h="fit-content" minH="600px">
 						<Stack>
 							{product_detail?.pictures?.map(({ id, url }) => (
 								<Image
@@ -207,7 +216,7 @@ function Detail() {
 							borderBottom="1px solid rgba(0,0,0,.1)"
 							h="3px"
 						/>
-						<ProductQuestions />
+						<ProductQuestions product_questions={product_questions} />
 						<Box
 							w="100%"
 							m="auto"
@@ -216,7 +225,7 @@ function Detail() {
 							borderBottom="1px solid rgba(0,0,0,.1)"
 							h="3px"
 						/>
-						<ProductOpinions />
+						<ProductOpinions product_opinions={product_opinions} />
 					</Box>
 				</Stack>
 				<Stack pos="relative">

@@ -89,6 +89,16 @@ function ImageCarousel({ images, setShow }) {
 	return (
 		<Flex
 			pos="absolute"
+			_focus={{ outline: "none" }}
+			css={{
+				"::-moz-selection": {
+					backgroundColor: "red",
+				},
+				"-webkit-user-select": "none",
+				"-moz-user-select": "none",
+				"-khtml-user-select": "none",
+				"-ms-user-select": "none",
+			}}
 			w="100%"
 			bg="rgba(0,0,0, .8)"
 			h="100vh"

@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Button, Flex, Input, Stack, Text } from "@chakra-ui/react";
 import { GoSearch } from "react-icons/go";
 import { TbHelp } from "react-icons/tb";
+import { IoIosArrowDown } from "react-icons/io";
 
-function ProductQuestions() {
+function ProductQuestions({ product_questions }) {
+	const [seeAllQuestions, setSeeAllQuestions] = useState(5);
+
 	return (
 		<Box>
 			<Text textAlign="left" fontSize="24px" fontWeight={400} mr="10px">
@@ -95,14 +98,14 @@ function ProductQuestions() {
 				>
 					<Input
 						w="90%"
-            _focus={{outline: "none"}}
+						_focus={{ outline: "none" }}
 						border="none"
 						pl="16px"
 						placeholder="Escribí una pregunta o palabra clave..."
 						_placeholder={{ fontFamily: "Proxima Nova", fontSize: "16px" }}
 					/>
 					<Button
-            cursor={"pointer"}
+						cursor={"pointer"}
 						m="0"
 						bg="#3483fa"
 						position="absolute"
@@ -125,64 +128,55 @@ function ProductQuestions() {
 				</Flex>
 				<Box mt="40px">
 					<Text>Últimas realizadas</Text>
-					<Box mt="24px">
-						<Text fontSize="16px" color="rgba(0,0,0,.9)" m="0">
-							Sirve el cargador de motorola, g60 s?
-						</Text>
-						<Flex mt="8px" color="rgba(0,0,0,.55)" ml="12px">
-							<Box
-								h="12px"
-								w="12px"
-								borderBottom="1px solid rgba(0,0,0,.25)"
-								fontSize="16px"
-								borderLeft="1px solid rgba(0,0,0,.25)"
-							/>
-							<Stack ml="8px">
-								<Text m="0">
-									Hola, no, las fichas no son iguales, saludos Respondido por
-									HOTSALE ELECTRO
+					{product_questions?.questions
+						?.slice(0, seeAllQuestions)
+						.map(({ id, text, answer }) => (
+							<Box mt="24px" key={id}>
+								<Text fontSize="16px" color="rgba(0,0,0,.9)" m="0">
+									{text}
 								</Text>
-								<Text m="0" fontSize="14px">
-									Respondido por MACSTATION OFICIAL
-								</Text>
-							</Stack>
-						</Flex>
-					</Box>
-					<Box mt="24px">
-						<Text fontSize="16px" color="rgba(0,0,0,.9)" m="0">
-							Sirve el cargador de motorola, g60 s?
-						</Text>
-						<Flex mt="8px" color="rgba(0,0,0,.55)" ml="12px">
-							<Box
-								h="12px"
-								w="12px"
-								borderBottom="1px solid rgba(0,0,0,.25)"
-								fontSize="16px"
-								borderLeft="1px solid rgba(0,0,0,.25)"
-							/>
-							<Stack ml="8px">
-								<Text m="0">
-									Hola, no, las fichas no son iguales, saludos Respondido por
-									HOTSALE ELECTRO
-								</Text>
-								<Text m="0" fontSize="14px">
-									Respondido por MACSTATION OFICIAL
-								</Text>
-							</Stack>
-						</Flex>
-					</Box>
+								<Flex mt="8px" color="rgba(0,0,0,.55)" ml="12px">
+									<Box
+										h="12px"
+										w="12px"
+										borderBottom="1px solid rgba(0,0,0,.25)"
+										fontSize="16px"
+										borderLeft="1px solid rgba(0,0,0,.25)"
+									/>
+									<Stack ml="8px">
+										<Text m="0">{answer.text}</Text>
+									</Stack>
+								</Flex>
+							</Box>
+						))}
 				</Box>
+				{seeAllQuestions && (
+					<Flex
+						mt="10px"
+						color="#3483fa"
+						fontWeight={600}
+						align="center"
+						fontSize="18px"
+						cursor="pointer"
+						onClick={() => setSeeAllQuestions()}
+					>
+						Ver {product_questions?.questions?.length - 5} resultados más
+						<Box mt="8px" ml="10px">
+							<IoIosArrowDown />
+						</Box>
+					</Flex>
+				)}
 				<Button
 					mt="20px"
-          cursor="pointer"
+					cursor="pointer"
 					borderRadius="4px"
 					border="none"
 					color={"#3483fa"}
 					bg="rgba(65,137,230,.15)"
 					fontWeight={600}
 					fontSize="14px"
-          w="45%"
-          px="24px"
+					w="45%"
+					px="24px"
 				>
 					<Flex justify="center" align="center">
 						<Box fontSize="18px" mt="3px">

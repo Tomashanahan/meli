@@ -134,12 +134,12 @@ function Price({ product_detail }) {
 							</svg>
 						</Flex>
 						<Stack align="flex-start">
-							<Text m={0} mb="-10px">
+							<Box m={0} mb="-10px">
 								Llega gratis el{" "}
 								<Container display="inline-block" fontWeight={800}>
 									lunes
 								</Container>
-							</Text>
+							</Box>
 							<Text
 								color="#3483fa"
 								cursor={"pointer"}
@@ -268,7 +268,7 @@ function Price({ product_detail }) {
 							d="M463.1 112.37C373.68 96.33 336.71 84.45 256 48c-80.71 36.45-117.68 48.33-207.1 64.37C32.7 369.13 240.58 457.79 256 464c15.42-6.21 223.3-94.87 207.1-351.63z"
 						></path>
 					</svg>
-					<Text
+					<Box
 						m={0}
 						mt={10}
 						w="88%"
@@ -280,7 +280,7 @@ function Price({ product_detail }) {
 							Compra Protegida
 						</Text>
 						, recibí tu producto que esperabas o te devolvemos tu dinero.
-					</Text>
+					</Box>
 				</Flex>
 				<Flex justify="space-around" align="center">
 					<svg
@@ -294,12 +294,12 @@ function Price({ product_detail }) {
 					>
 						<path d="M21 4h-3V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v1H3a1 1 0 0 0-1 1v3c0 4.31 1.799 6.91 4.819 7.012A6.001 6.001 0 0 0 11 17.91V20H9v2h6v-2h-2v-2.09a6.01 6.01 0 0 0 4.181-2.898C20.201 14.91 22 12.31 22 8V5a1 1 0 0 0-1-1zM4 8V6h2v6.83C4.216 12.078 4 9.299 4 8zm8 8c-2.206 0-4-1.794-4-4V4h8v8c0 2.206-1.794 4-4 4zm6-3.17V6h2v2c0 1.299-.216 4.078-2 4.83z"></path>
 					</svg>
-					<Text w="88%" textAlign="left" fontSize="14px" fontWeight={400}>
+					<Box w="88%" textAlign="left" fontSize="14px" fontWeight={400}>
 						<Text color="#3483fa" display="inline">
 							Mercado Puntos
 						</Text>
 						. Sumás 22 puntos.
-					</Text>
+					</Box>
 				</Flex>
 				<Flex justify="space-around" align="center">
 					<img

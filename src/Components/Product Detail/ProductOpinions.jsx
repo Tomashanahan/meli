@@ -1,9 +1,81 @@
 import { Box, Flex, Stack, Text } from "@chakra-ui/react";
 import React from "react";
-import { AiFillStar, AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
+import {
+	AiFillStar,
+	AiOutlineStar,
+	AiOutlineLike,
+	AiOutlineDislike,
+} from "react-icons/ai";
 import { BsThreeDotsVertical } from "react-icons/bs";
 
-function ProductOpinions() {
+function ProductOpinions({ product_opinions }) {
+	/*  */
+	const calcStars = (rating, size) => {
+		console.log(rating);
+		const fillStar = new Array(rating || 0);
+		const emptyStar = new Array(5 - rating || 0);
+		fillStar.fill();
+		emptyStar.fill();
+		if (size === "small") {
+			return (
+				<Flex align="flex-end">
+					{fillStar?.map((e, i) => (
+						<Box key={i} fontSize="16px" w="16px" h="16px" mr="7px">
+							<AiFillStar />
+						</Box>
+					))}
+					{emptyStar?.map((e, i) => (
+						<Box key={i} fontSize="16px" w="16px" h="16px" mr="7px">
+							<AiOutlineStar />
+						</Box>
+					))}
+				</Flex>
+			);
+		} else if (size === "large") {
+			return (
+				<Flex align="flex-end">
+					{fillStar?.map((e, i) => (
+						<Box key={i} fontSize="20px" w="20px" h="20px" mr="7px">
+							<AiFillStar />
+						</Box>
+					))}
+					{emptyStar?.map((e, i) => (
+						<Box key={i} fontSize="20px" w="20px" h="20px" mr="7px">
+							<AiOutlineStar />
+						</Box>
+					))}
+				</Flex>
+			);
+		}
+	};
+
+	const getComentDate = (date) => {
+		const months = [
+			"En",
+			"Feb",
+			"Mar",
+			"Abr",
+			"May",
+			"Jun",
+			"Jul",
+			"Ago",
+			"Sept",
+			"Oct",
+			"Nov",
+			"Dic",
+		];
+		date = date.split("T")[0].split("-");
+		let year = date[0];
+		let month = date[1] < 10 && date[1][1];
+		let day = date[2];
+
+		return `${day} ${months[month-1]}. ${year}`;
+	};
+
+	const calSRatinOpinions = (rating) => {
+		return rating * 100 / product_opinions?.paging?.total
+	};
+
 	return (
 		<div>
 			<Text textAlign="left" fontSize="28px" fontWeight={600} mr="10px">
@@ -13,33 +85,17 @@ function ProductOpinions() {
 				<Box color="#3483fa" w="30%">
 					<Flex justify="space-between" align="center">
 						<Text fontSize="47px" m="0" fontWeight={700} mr="18px">
-							4.9
+							{product_opinions?.rating_average}
 						</Text>
 						<Stack align="self-start">
-							<Flex align="flex-end">
-								<Box fontSize="20px" w="20px" h="20px" mr="7px">
-									<AiFillStar />
-								</Box>
-								<Box fontSize="20px" w="20px" h="20px" mr="7px">
-									<AiFillStar />
-								</Box>
-								<Box fontSize="20px" w="20px" h="20px" mr="7px">
-									<AiFillStar />
-								</Box>
-								<Box fontSize="20px" w="20px" h="20px" mr="7px">
-									<AiFillStar />
-								</Box>
-								<Box fontSize="20px" w="20px" h="20px" mr="7px">
-									<AiFillStar />
-								</Box>
-							</Flex>
+							{calcStars(Math.round(product_opinions?.rating_average), "large")}
 							<Text
 								color="#949494"
 								fontWeight={400}
 								fontSize="14px"
 								style={{ marginTop: "6px" }}
 							>
-								364 calificaciones
+								{product_opinions?.paging?.total} calificaciones
 							</Text>
 						</Stack>
 					</Flex>
@@ -51,7 +107,7 @@ function ProductOpinions() {
 									pos="absolute"
 									top="0"
 									borderRadius="100px"
-									w="30%"
+									w={`${calSRatinOpinions(product_opinions?.rating_levels?.five_star)}%`}
 									h="4px"
 									bg="rgba(0,0,0,.55)"
 								/>
@@ -72,7 +128,7 @@ function ProductOpinions() {
 									pos="absolute"
 									top="0"
 									borderRadius="100px"
-									w="30%"
+									w={`${calSRatinOpinions(product_opinions?.rating_levels?.four_star)}%`}
 									h="4px"
 									bg="rgba(0,0,0,.55)"
 								/>
@@ -93,7 +149,7 @@ function ProductOpinions() {
 									pos="absolute"
 									top="0"
 									borderRadius="100px"
-									w="40%"
+									w={`${calSRatinOpinions(product_opinions?.rating_levels?.three_star)}%`}
 									h="4px"
 									bg="rgba(0,0,0,.55)"
 								/>
@@ -114,7 +170,7 @@ function ProductOpinions() {
 									pos="absolute"
 									top="0"
 									borderRadius="100px"
-									w="50%"
+									w={`${calSRatinOpinions(product_opinions?.rating_levels?.two_star)}%`}
 									h="4px"
 									bg="rgba(0,0,0,.55)"
 								/>
@@ -135,7 +191,7 @@ function ProductOpinions() {
 									pos="absolute"
 									top="0"
 									borderRadius="100px"
-									w="60%"
+									w={`${calSRatinOpinions(product_opinions?.rating_levels?.one_star)}%`}
 									h="4px"
 									bg="rgba(0,0,0,.55)"
 								/>
@@ -153,175 +209,70 @@ function ProductOpinions() {
 				</Box>
 				{/*  */}
 				<Stack w="60%">
-					<Box>
-						<Flex justify="space-between" align="center" color="#3483fa">
-							<Flex align="flex-end">
-								<Box fontSize="16px" w="16px" h="16px" mr="7px">
-									<AiFillStar />
-								</Box>
-								<Box fontSize="16px" w="16px" h="16px" mr="7px">
-									<AiFillStar />
-								</Box>
-								<Box fontSize="16px" w="16px" h="16px" mr="7px">
-									<AiFillStar />
-								</Box>
-								<Box fontSize="16px" w="16px" h="16px" mr="7px">
-									<AiFillStar />
-								</Box>
-								<Box fontSize="16px" w="16px" h="16px" mr="7px">
-									<AiFillStar />
-								</Box>
+					{product_opinions?.reviews?.map(({ id, content, likes, rate, date_created }) => (
+						<Box key={id}>
+							<Flex justify="space-between" align="center" color="#3483fa">
+								{calcStars(rate, "small")}
+								<Text color="rgba(0,0,0,.55)" fontSize="12px">
+									{/* 10 Jan. 2020 */}
+									{getComentDate(date_created)}
+								</Text>
 							</Flex>
-							<Text color="rgba(0,0,0,.55)" fontSize="12px">
-								10 Jan. 2020
-							</Text>
-						</Flex>
-						<Box>
-							<Text
-								textAlign="left"
-								color="rgba(0,0,0,.9)"
-								fontSize="16px"
-								fontWeight={400}
-								mt="0"
-							>
-								Excelente como todo lo que produce apple. Pasé de un iphone 7 a
-								un phone 11 (común), no hay grandes cambios, excepto porque es
-								más grande la pantalla, tiene más opciones de fotos (dos
-								cámaras, aún lo estoy explorando jaja), face id, el resto es
-								prácticamente es lo mismo. Como contra para mi es que me resultó
-								mucho más pesado que el 7 y a ser más grande se me complica
-								manejarlo con una sola mano (que es muy necesario para mi que
-								soy mamá jajaja). Pero no cambiaría iphone por ninguna otra
-								marca, es un teléfono excelente en todos los aspectos.
-							</Text>
-							<Flex justify="space-between" align="center">
-								<Flex justify="space-between" align="center" w="37%">
-									<Flex
-										justify="space-between"
-										align="center"
-										fontSize="12px"
-										border="1px solid rgba(0,0,0,.55)"
-										borderRadius="53px"
-										color="rgba(0,0,0,.55)"
-										p="0 11px"
-										mr="5px"
-										h="32px"
-									>
-										<Text fontWeight={600} mx="3px">
-											Es útil
-										</Text>
-										<Box fontSize="16px" mt="3px" fontWeight={600} mx="3px">
-											<AiOutlineLike />
-										</Box>
-										<Text fontWeight={600} ml="3px">
-											74
-										</Text>
+							<Box>
+								<Text
+									textAlign="left"
+									color="rgba(0,0,0,.9)"
+									fontSize="16px"
+									fontWeight={400}
+									mt="0"
+								>
+									{content}
+								</Text>
+								<Flex justify="space-between" align="center">
+									<Flex justify="space-between" align="center" w="37%">
+										<Flex
+											justify="space-between"
+											align="center"
+											fontSize="12px"
+											border="1px solid rgba(0,0,0,.55)"
+											borderRadius="53px"
+											color="rgba(0,0,0,.55)"
+											p="0 11px"
+											mr="5px"
+											h="32px"
+										>
+											<Text fontWeight={600} mx="3px">
+												Es útil
+											</Text>
+											<Box fontSize="16px" mt="3px" fontWeight={600} mx="3px">
+												<AiOutlineLike />
+											</Box>
+											<Text fontWeight={600} ml="3px">
+												{likes}
+											</Text>
+										</Flex>
+										<Flex
+											fontSize="16px"
+											border="1px solid rgba(0,0,0,.55)"
+											borderRadius="53px"
+											color="rgba(0,0,0,.55)"
+											mr="5px"
+											h="32px"
+											align="center"
+											p="0 10px"
+										>
+											<AiOutlineDislike />
+										</Flex>
 									</Flex>
-									<Flex
-										fontSize="16px"
-										border="1px solid rgba(0,0,0,.55)"
-										borderRadius="53px"
-										color="rgba(0,0,0,.55)"
-										mr="5px"
-										h="32px"
-										align="center"
-										p="0 10px"
-									>
-										<AiOutlineDislike />
+									<Flex align="center" color="#ccc" fontSize="25px">
+										<BsThreeDotsVertical />
 									</Flex>
 								</Flex>
-								<Flex align="center" color="#ccc" fontSize="25px">
-									<BsThreeDotsVertical />
-								</Flex>
-							</Flex>
+							</Box>
+							<Box h="1px" w="97%" bg="#e8e8ec" m="auto" mt="24px" />
 						</Box>
-						<Box h="1px" w="97%" bg="#e8e8ec" m="auto" mt="24px" />
-					</Box>
+					))}
 					{/*  */}
-					<Box>
-						<Flex justify="space-between" align="center" color="#3483fa">
-							<Flex align="flex-end">
-								<Box fontSize="16px" w="16px" h="16px" mr="7px">
-									<AiFillStar />
-								</Box>
-								<Box fontSize="16px" w="16px" h="16px" mr="7px">
-									<AiFillStar />
-								</Box>
-								<Box fontSize="16px" w="16px" h="16px" mr="7px">
-									<AiFillStar />
-								</Box>
-								<Box fontSize="16px" w="16px" h="16px" mr="7px">
-									<AiFillStar />
-								</Box>
-								<Box fontSize="16px" w="16px" h="16px" mr="7px">
-									<AiFillStar />
-								</Box>
-							</Flex>
-							<Text color="rgba(0,0,0,.55)" fontSize="12px">
-								10 Jan. 2020
-							</Text>
-						</Flex>
-						<Box>
-							<Text
-								textAlign="left"
-								color="rgba(0,0,0,.9)"
-								fontSize="16px"
-								fontWeight={400}
-								mt="0"
-							>
-								Excelente como todo lo que produce apple. Pasé de un iphone 7 a
-								un phone 11 (común), no hay grandes cambios, excepto porque es
-								más grande la pantalla, tiene más opciones de fotos (dos
-								cámaras, aún lo estoy explorando jaja), face id, el resto es
-								prácticamente es lo mismo. Como contra para mi es que me resultó
-								mucho más pesado que el 7 y a ser más grande se me complica
-								manejarlo con una sola mano (que es muy necesario para mi que
-								soy mamá jajaja). Pero no cambiaría iphone por ninguna otra
-								marca, es un teléfono excelente en todos los aspectos.
-							</Text>
-							<Flex justify="space-between" align="center">
-								<Flex justify="space-between" align="center" w="37%">
-									<Flex
-										justify="space-between"
-										align="center"
-										fontSize="12px"
-										border="1px solid rgba(0,0,0,.55)"
-										borderRadius="53px"
-										color="rgba(0,0,0,.55)"
-										p="0 11px"
-										mr="5px"
-										h="32px"
-									>
-										<Text fontWeight={600} mx="3px">
-											Es útil
-										</Text>
-										<Box fontSize="16px" mt="3px" fontWeight={600} mx="3px">
-											<AiOutlineLike />
-										</Box>
-										<Text fontWeight={600} ml="3px">
-											74
-										</Text>
-									</Flex>
-									<Flex
-										fontSize="16px"
-										border="1px solid rgba(0,0,0,.55)"
-										borderRadius="53px"
-										color="rgba(0,0,0,.55)"
-										p="0 11px"
-										mr="5px"
-										h="32px"
-										align="center"
-									>
-										<AiOutlineDislike />
-									</Flex>
-								</Flex>
-								<Flex align="center" color="#ccc" fontSize="25px">
-									<BsThreeDotsVertical />
-								</Flex>
-							</Flex>
-						</Box>
-						<Box h="1px" w="97%" bg="#e8e8ec" m="auto" mt="24px" />
-					</Box>
 				</Stack>
 			</Flex>
 		</div>
