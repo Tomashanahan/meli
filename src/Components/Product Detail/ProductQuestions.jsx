@@ -146,7 +146,7 @@ function ProductQuestions({ product_questions }) {
 												borderLeft="1px solid rgba(0,0,0,.25)"
 											/>
 											<Stack ml="8px">
-												<Text m="0">{answer.text}</Text>
+												<Text m="0">{answer?.text}</Text>
 											</Stack>
 										</Flex>
 									</Box>

@@ -76,7 +76,7 @@ function Price({ product_detail }) {
 							color="rgba(0,0,0,.55)"
 							fontWeight={400}
 						>
-							$ {formatPrice(original_price)}
+							{currency_id?.symbol} {formatPrice(original_price)}
 						</Box>
 						<Flex align="center" fontSize="36px">
 							{formatPrice(price)}{" "}
@@ -96,7 +96,7 @@ function Price({ product_detail }) {
 				) : (
 					<Box textAlign="left" fontWeight={300}>
 						<Flex align="center" fontSize="36px">
-						{currency_id?.symbol}	{formatPrice(price)}{" "}
+							{currency_id?.symbol} {formatPrice(price)}{" "}
 						</Flex>{" "}
 						en 12x $ {monthlyFee.toFixed(2)} pesos
 					</Box>
@@ -114,43 +114,42 @@ function Price({ product_detail }) {
 			{/* ENVIO */}
 			<Stack spacing={15}>
 				<Box>
-					<Flex color="#05A550" align="center">
-						<Flex m={0} mr="10">
-							<svg
-								stroke="currentColor"
-								fill="none"
-								strokeWidth="0"
-								viewBox="0 0 24 24"
-								className="green-icon"
-								height="23px"
-								width="23px"
-							>
-								<path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z"></path>
-								<path
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									strokeWidth="2"
-									d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"
-								></path>
-							</svg>
+					{product_detail?.shipping?.free_shipping && (
+						<Flex color="#05A550" align="center">
+							<Flex m={0} mr="10">
+								<svg
+									stroke="currentColor"
+									fill="none"
+									strokeWidth="0"
+									viewBox="0 0 24 24"
+									className="green-icon"
+									height="23px"
+									width="23px"
+								>
+									<path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z"></path>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										strokeWidth="2"
+										d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"
+									></path>
+								</svg>
+							</Flex>
+							<Stack align="flex-start">
+								<Box m={0} mb="-10px">
+									Envio gratis
+								</Box>
+								<Text
+									color="#3483fa"
+									cursor={"pointer"}
+									fontSize="14"
+									fontWeight={500}
+								>
+									Ver más formas de entrega
+								</Text>
+							</Stack>
 						</Flex>
-						<Stack align="flex-start">
-							<Box m={0} mb="-10px">
-								Llega gratis el{" "}
-								<Container display="inline-block" fontWeight={800}>
-									lunes
-								</Container>
-							</Box>
-							<Text
-								color="#3483fa"
-								cursor={"pointer"}
-								fontSize="14"
-								fontWeight={500}
-							>
-								Ver más formas de entrega
-							</Text>
-						</Stack>
-					</Flex>
+					)}
 				</Box>
 
 				<Box>

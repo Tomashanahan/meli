@@ -19,6 +19,8 @@ const actionstypes = {
 	SELLER_DATA: "SELLER_DATA",
 	GET_PRODUCT_QUESTIONS: "GET_PRODUCT_QUESTIONS",
 	GET_PRODUCT_OPINIONS: "GET_PRODUCT_OPINIONS",
+	CLEAN_PRODUCT_DETAL: "CLEAN_PRODUCT_DETAL",
+	CLEAN_SEARCHED_PRODUCT: "CLEAN_SEARCHED_PRODUCT",
 };
 
 const reducer = (state = initialState, { type, payload }) => {
@@ -58,6 +60,16 @@ const reducer = (state = initialState, { type, payload }) => {
 				...state,
 				product_detail: { ...state.product_detail, currency_id: payload },
 			};
+		case actionstypes.CLEAN_PRODUCT_DETAL:
+			return {
+				...state,
+				product_detail: {},
+			};
+		case actionstypes.CLEAN_SEARCHED_PRODUCT:
+			return {
+				...state,
+				searchedProduct: {},
+			};
 		default:
 			return state;
 	}
@@ -81,7 +93,7 @@ export function ProductsProvider({ children }) {
 		const data = await products.json();
 		return dispatch({
 			type: actionstypes.SEARCH_PRODUCT,
-			payload: data.results,
+			payload: data,
 		});
 	};
 
@@ -100,7 +112,6 @@ export function ProductsProvider({ children }) {
 			`https://api.mercadolibre.com/currencies/${productData.currency_id}`
 		);
 		const productCurrency = await currency.json();
-		// console.log(productCurrency, " 🎸")
 
 		dispatch({ type: actionstypes.SELLER_DATA, payload: sellerData });
 		dispatch({
@@ -146,6 +157,14 @@ export function ProductsProvider({ children }) {
 		});
 	};
 
+	const cleanProductDetal = () => {
+		return dispatch({ type: actionstypes.CLEAN_PRODUCT_DETAL, payload: "" });
+	};
+
+	const cleanSearchedProduct = () => {
+		return dispatch({ type: actionstypes.CLEAN_SEARCHED_PRODUCT, payload: "" });
+	};
+
 	const value = {
 		searchedProduct,
 		searchProduct,
@@ -159,6 +178,8 @@ export function ProductsProvider({ children }) {
 		product_questions,
 		product_opinions,
 		getProductOpinions,
+		cleanProductDetal,
+		cleanSearchedProduct,
 	};
 	return (
 		<ProductsContext.Provider value={value}>

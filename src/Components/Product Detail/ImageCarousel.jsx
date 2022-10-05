@@ -52,8 +52,10 @@ function ImageCarousel({ images, setShow }) {
 	const keyPress = (e) => {
 		const key = e.key;
 		if (key === "ArrowRight") {
+			setImageScale(1)
 			nexImg(currentImg.url);
 		} else if (key === "ArrowLeft") {
+			setImageScale(1)
 			prevImg(currentImg.url);
 		} else if (key === "ArrowDown") {
 			e.preventDefault();

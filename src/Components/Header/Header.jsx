@@ -1,21 +1,12 @@
 import React from "react";
 import "./Header.css";
 import img_dyney from "../../img/header_disney.png";
-// import logo from "../../img/logo.png";
-import img_ubicacion from "../../img/icons8-marker-o-50.png";
-import svg_lupa from "../../img/icons8-búsqueda.png";
-import flecha from "../../img/flecha.png";
+import { FiMapPin } from "react-icons/fi";
+import { IoIosArrowDown } from "react-icons/io";
 import usuario from "../../img/user_logo.png";
-// import carrito from "../../img/carrito.png";
-import {
-	Box,
-	GridItem,
-	Flex,
-	Grid,
-	Image,
-	Input,
-	Text,
-} from "@chakra-ui/react";
+import { Box, GridItem, Flex, Grid, Image, Text } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
+import SearchBar from "../SearchBar/SearchBar";
 
 function Header() {
 	return (
@@ -25,20 +16,16 @@ function Header() {
                 "direc cate carrito"
                 `}
 				gridTemplateRows={"50px 50px"}
-				gridTemplateColumns={"20% 50% 30%"}
+				gridTemplateColumns={"15% 55% 30%"}
 				color="blackAlpha.700"
 				fontWeight="bold"
 				p="5px"
 				alignItems="center"
-				w="80%"
+				w="82%"
 				m="auto"
 			>
-				<GridItem area={"logo"} justifySelf='flex-start'>
-					<a
-						href="http://mercadolibre.com.ar"
-						target="_blank"
-						rel="noopener noreferrer"
-					>
+				<GridItem area={"logo"} justifySelf="flex-start">
+					<Link to="/">
 						<Image
 							src={
 								"https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/5.19.1/mercadolibre/logo__large_plus@2x.png"
@@ -47,39 +34,10 @@ function Header() {
 							h="34px"
 							alt="Mercado libre donde comprar todo lo que queres"
 						/>
-					</a>
+					</Link>
 				</GridItem>
 				<GridItem area={"input"} className="header_superior-search">
-					<button className="header_superior-input_btn">
-						<Input
-							padding="12px 60px 12px 15px"
-							width="100%"
-							border="none"
-							background-color="#ffffff"
-							fontSize="15px"
-							line-height="12px"
-							box-shadow="0 1px 2px 0 rgb(0 0 0 / 20%)"
-							type="text"
-							placeholder="Buscar productos, marcas y más..."
-							_placeholder={{ color: "#BFBFBF" }}
-							boxShadow="0 1px 2px 0 rgb(0 0 0 / 20%)"
-						/>
-						<Box>
-							<Image
-								position=" relative"
-								right="150%"
-								borderLeft=" 1px solid #E6E6E6"
-								pl="10px"
-								pt="7px"
-								mt="2px"
-								pb="5px"
-								src={svg_lupa}
-								alt="Lupa"
-								height="18px"
-								with="16px"
-							/>
-						</Box>
-					</button>
+					<SearchBar />
 				</GridItem>
 				<GridItem area={"diney"}>
 					<Flex justify="flex-end">
@@ -91,35 +49,40 @@ function Header() {
 						/>
 					</Flex>
 				</GridItem>
-				<GridItem mr="20px" area="direc" justifySelf='flex-start'>
+				<GridItem mr="20px" area="direc" justifySelf="flex-start">
 					<Flex justify="center" align="center">
-						<Image src={img_ubicacion} alt="img" height="27px" with="18px" />
+						<Box fontSize="23px" fontWeight={0} color="rgba(0,0,0,0.55)">
+							<FiMapPin />
+						</Box>
 						<Box ml="5px">
-							<Text mb="-16px" fontWeight={400}>
-								<span>Enviar a Tomas</span>
+							<Text
+								mb="-16px"
+								fontWeight={400}
+								color="rgba(0,0,0,.5)"
+								fontSize="12px"
+							>
+								Enviar a Tomas
 							</Text>
 							<Text color="#363633" fontWeight={400} fontSize="14px">
-								Santa Fe 1200
+								Santa Fe 4200
 							</Text>
 						</Box>
 					</Flex>
 				</GridItem>
 				<GridItem area="cate">
 					<Flex justify="left" align="self-end">
-						<Text
-							mx="10px"
-							fontSize="14px"
-							fontWeight={400}
-							color="rgba(50,50,50,.6)"
-						>
-							Categorías
-							<Image
-								className="flecha"
-								src={flecha}
-								width="10px"
-								alt="Categorias"
-							/>
-						</Text>
+						<Flex align="center">
+							<Text
+								fontSize="14px"
+								fontWeight={400}
+								color="rgba(50,50,50,.6)"
+							>
+								Categorías
+							</Text>
+							<Box fontSize="10px" color="rgba(0,0,0,0.55)" ml="3px" mt="5%">
+								<IoIosArrowDown />
+							</Box>
+						</Flex>
 						<Text mx="10px" fontWeight={400} fontSize="14px" color="#7F793D">
 							Ofertas
 						</Text>
@@ -152,21 +115,22 @@ function Header() {
 									mr="10px"
 								/>
 								Tomas
-								<Image
-									alt="Foto"
-									className="flecha"
-									src={flecha}
-									width="10px"
-								/>
+								<Box fontSize="10px" color="rgba(0,0,0,0.55)" ml="3px" mt="5%">
+									<IoIosArrowDown />
+								</Box>
 							</Flex>
 						</Box>
 						<Text color="#3C3B35" fontSize="14px" fontWeight={400} mx="10px">
 							Mis compras
 						</Text>
-						<Text color="#3C3B35" fontSize="14px" fontWeight={400} mx="10px">
-							Favoritos
-							<Image alt="Foto" className="flecha" src={flecha} width="10px" />
-						</Text>
+						<Flex align="center">
+							<Text color="#3C3B35" fontSize="14px" fontWeight={400} ml="10px">
+								Favoritos
+							</Text>
+							<Box fontSize="10px" color="rgba(0,0,0,0.55)" ml="3px" mt="5%">
+								<IoIosArrowDown />
+							</Box>
+						</Flex>
 					</Flex>
 				</GridItem>
 			</Grid>

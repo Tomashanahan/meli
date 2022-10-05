@@ -1,5 +1,5 @@
 import { Box, Flex, Image, Stack } from "@chakra-ui/react";
-import React, { useEffect, useLayoutEffect } from "react";
+import React, { useLayoutEffect } from "react";
 import Descriptioin from "./Descriptioin";
 import Price from "./Price";
 import Vendedor from "./vendedor";
@@ -11,6 +11,7 @@ import { useState } from "react";
 import "../../index.css";
 import { useRef } from "react";
 import ImageCarousel from "./ImageCarousel";
+import { useParams } from "react-router-dom";
 
 function Detail() {
 	const {
@@ -32,7 +33,7 @@ function Detail() {
 	const img_zoom_lens = useRef();
 	const [imageCarousel, setImageCarousel] = useState({});
 	const [showImageCarousel, setShowImageCarousel] = useState(false);
-	console.log(product_detail)
+	const { id } = useParams();
 	/*  */
 	function imageZoom(imgID, resultID) {
 		var img, lens, result, cx, cy;
@@ -97,11 +98,11 @@ function Detail() {
 	}
 	/*  */
 	useLayoutEffect(() => {
-		dispatch(getProductDetail("MLA1139507191"));
-		dispatch(getProductDescription("MLA1139507191"));
-		dispatch(getProductQuestions("MLA1139507191"));
-		dispatch(getProductOpinions("MLA1139507191"));
-	}, []);
+		dispatch(getProductDetail(id));
+		dispatch(getProductDescription(id));
+		dispatch(getProductQuestions(id));
+		dispatch(getProductOpinions(id));
+	}, [id]);
 
 	return (
 		<>
@@ -125,7 +126,7 @@ function Detail() {
 							{product_detail?.pictures?.length > 7
 								? product_detail?.pictures?.slice(0, 7)?.map(({ id, url }) => (
 										<Image
-											onMouseEnter={(e) => {
+											onClick={(e) => {
 												setImage(url);
 												setBorderImage(e.target.id);
 											}}
@@ -153,7 +154,7 @@ function Detail() {
 								  ))
 								: product_detail?.pictures?.map(({ id, url }) => (
 										<Image
-											onMouseEnter={(e) => {
+											onClick={(e) => {
 												setImage(url);
 												setBorderImage(e.target.id);
 											}}
@@ -200,8 +201,14 @@ function Detail() {
 									</Box>
 									<Image
 										opacity={0.2}
-										onMouseEnter={(e) => {
+										onClick={(e) => {
 											setImage(product_detail?.pictures[7]?.url);
+											setShowImageCarousel(true);
+											window.scrollTo(0, 0);
+											setImageCarousel({
+												urlCurrentImage: product_detail?.pictures[7]?.url,
+												allImages: product_detail?.pictures,
+											});
 											setBorderImage(e.target.id);
 										}}
 										boxSizing="border-box"
@@ -296,10 +303,12 @@ function Detail() {
 							borderBottom="1px solid rgba(0,0,0,.1)"
 							h="3px"
 						/>
-						{product_opinions?.reviews?.length > 0 && <ProductOpinions product_opinions={product_opinions} />}
+						{product_opinions?.reviews?.length > 0 && (
+							<ProductOpinions product_opinions={product_opinions} />
+						)}
 					</Box>
 				</Stack>
-				<Stack pos="relative">
+				<Stack pos="relative" w="30%">
 					{zoom && (
 						<Box
 							id="myresult"
