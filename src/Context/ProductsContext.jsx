@@ -21,6 +21,7 @@ const actionstypes = {
 	GET_PRODUCT_OPINIONS: "GET_PRODUCT_OPINIONS",
 	CLEAN_PRODUCT_DETAL: "CLEAN_PRODUCT_DETAL",
 	CLEAN_SEARCHED_PRODUCT: "CLEAN_SEARCHED_PRODUCT",
+	SORT_PRODUCTS_SEARCHED: "SORT_PRODUCTS_SEARCHED",
 };
 
 const reducer = (state = initialState, { type, payload }) => {
@@ -69,6 +70,11 @@ const reducer = (state = initialState, { type, payload }) => {
 			return {
 				...state,
 				searchedProduct: {},
+			};
+		case actionstypes.SORT_PRODUCTS_SEARCHED:
+			return {
+				...state,
+				searchedProduct: payload,
 			};
 		default:
 			return state;
@@ -165,6 +171,17 @@ export function ProductsProvider({ children }) {
 		return dispatch({ type: actionstypes.CLEAN_SEARCHED_PRODUCT, payload: "" });
 	};
 
+	const sortProductsSearched = async (query, typeofSearchId) => {
+		const products = await fetch(
+			`https://api.mercadolibre.com/sites/MLA/search?q=${query}&sort=${typeofSearchId}`
+		);
+		const data = await products.json();
+		return dispatch({
+			type: actionstypes.SORT_PRODUCTS_SEARCHED,
+			payload: data,
+		});
+	};
+
 	const value = {
 		searchedProduct,
 		searchProduct,
@@ -180,6 +197,7 @@ export function ProductsProvider({ children }) {
 		getProductOpinions,
 		cleanProductDetal,
 		cleanSearchedProduct,
+		sortProductsSearched,
 	};
 	return (
 		<ProductsContext.Provider value={value}>

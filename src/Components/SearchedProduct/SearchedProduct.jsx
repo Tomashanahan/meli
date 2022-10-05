@@ -13,12 +13,15 @@ import { AiFillStar } from "react-icons/ai";
 import { AiOutlineStar } from "react-icons/ai";
 import { ProductsContext } from "../../Context/ProductsContext";
 import { Link } from "react-router-dom";
+import FiltersModal from "../FiltersModal/FiltersModal";
 
 function SearchedProduct() {
-	const { searchedProduct } = useContext(ProductsContext);
-	console.log(searchedProduct);
-	const [openFilterMenu, setOpenFilterMenu] = useState(false);
+	const { searchedProduct, sortProductsSearched } = useContext(ProductsContext);
 	const filterMenu = useRef();
+	const [openFilterMenu, setOpenFilterMenu] = useState(false);
+	const [sortSelection, setSortSelection] = useState("relevance");
+	const [showAllfilters, setShowAllfilters] = useState(false);
+	const [filterName, setFilterName] = useState("");
 
 	const formatPrice = (number) => {
 		return new Intl.NumberFormat("de-DE", {
@@ -46,6 +49,13 @@ function SearchedProduct() {
 
 	return (
 		<>
+			{showAllfilters && (
+				<FiltersModal
+					searchedProduct={searchedProduct?.available_filters}
+					filterName={filterName}
+					setShowAllfilters={setShowAllfilters}
+				/>
+			)}
 			{searchedProduct?.results?.length > 0 ? (
 				<Flex w="82%" m="auto" justify="space-between" mt="32px">
 					<Stack>
@@ -102,32 +112,22 @@ function SearchedProduct() {
 											</Text>
 									  ))}
 								{values?.length > 9 && (
-									<Text as="span" color="#3483fa" fontWeight={400}>
+									<Text
+										as="span"
+										color="#3483fa"
+										fontWeight={400}
+										id={name}
+										onClick={(e) => {
+											setFilterName(name);
+											setShowAllfilters(true);
+										}}
+										cursor="pointer"
+									>
 										Mostrar más
 									</Text>
 								)}
 							</Box>
 						))}
-						{/* <Box>
-							<Text
-								color="#333"
-								fontSize="16px"
-								fontWeight={600}
-								mb="10px"
-								lineHeight={1.25}
-							>
-								Tiendas oficiales
-							</Text>
-							<Text color="#666" fontSize="14px" fontWeight={400}>
-								Tiendas Solo tiendas oficiales{" "}
-								<Text as="span" color="#999">
-									(4.336)
-								</Text>
-							</Text>
-							<Text as="span" color="#3483fa" fontWeight={400}>
-								Mostrar más
-							</Text>
-						</Box> */}
 					</Stack>
 					<Box w="75%" mb="50px">
 						<Flex justify="flex-end">
@@ -149,7 +149,11 @@ function SearchedProduct() {
 									ref={filterMenu}
 								>
 									<Box onClick={() => setOpenFilterMenu(!openFilterMenu)}>
-										Más relevantes
+										{sortSelection === "relevance"
+											? "Más relevantes"
+											: sortSelection === "price_asc"
+											? "Menor precio"
+											: "Mayor precio"}
 									</Box>
 									{openFilterMenu && (
 										<Stack
@@ -164,15 +168,27 @@ function SearchedProduct() {
 										>
 											<Flex
 												style={{ margin: 0 }}
-												borderLeft="5px solid #3483fa"
+												borderLeft={
+													sortSelection === "relevance" && "5px solid #3483fa"
+												}
 												borderTopLeftRadius="6px"
-												color="#3483fa"
-												fontWeight={600}
+												color={
+													sortSelection === "relevance" ? "#3483fa" : "#666"
+												}
+												fontWeight={sortSelection === "relevance" ? 600 : 300}
 												align="center"
 												fontSize="14px"
 												p="10px"
 												h="40px"
 												borderBottom="1px solid #d8d8d8"
+												onClick={() => {
+													setSortSelection("relevance");
+													setOpenFilterMenu(false);
+													sortProductsSearched(
+														searchedProduct?.query,
+														"relevance"
+													);
+												}}
 											>
 												Más relevantes
 											</Flex>
@@ -182,12 +198,22 @@ function SearchedProduct() {
 												fontSize="14px"
 												p="10px"
 												pl="16px"
+												color={
+													sortSelection === "price_asc" ? "#3483fa" : "#666"
+												}
 												h="40px"
-												fontWeight={300}
+												fontWeight={sortSelection === "price_asc" ? 600 : 300}
+												borderLeft={
+													sortSelection === "price_asc" && "5px solid #3483fa"
+												}
 												borderBottom="1px solid #d8d8d8"
 												onClick={() => {
-													// price_desc
-													// price_asc
+													setSortSelection("price_asc");
+													setOpenFilterMenu(false);
+													sortProductsSearched(
+														searchedProduct?.query,
+														"price_asc"
+													);
 												}}
 											>
 												Menor precio
@@ -196,11 +222,25 @@ function SearchedProduct() {
 												style={{ margin: 0 }}
 												align="center"
 												fontSize="14px"
+												color={
+													sortSelection === "price_desc" ? "#3483fa" : "#666"
+												}
 												p="10px"
 												pl="16px"
 												h="40px"
-												fontWeight={300}
+												fontWeight={sortSelection === "price_desc" ? 600 : 300}
+												borderLeft={
+													sortSelection === "price_desc" && "5px solid #3483fa"
+												}
 												borderBottom="1px solid #d8d8d8"
+												onClick={() => {
+													setSortSelection("price_desc");
+													setOpenFilterMenu(false);
+													sortProductsSearched(
+														searchedProduct?.query,
+														"price_desc"
+													);
+												}}
 											>
 												Mayor precio
 											</Flex>
@@ -229,7 +269,6 @@ function SearchedProduct() {
 									price,
 									original_price,
 								}) => {
-									console.log(original_price);
 									return (
 										<Link
 											to={`/productDetail/${id}`}
