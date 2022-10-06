@@ -107,6 +107,7 @@ function SearchedProduct() {
 												<Text
 													key={id}
 													color="#666"
+													cursor="pointer"
 													fontSize="14px"
 													fontWeight={400}
 													m="0 0 6px"
@@ -131,6 +132,7 @@ function SearchedProduct() {
 												<Text
 													key={id}
 													color="#666"
+													cursor="pointer"
 													fontSize="14px"
 													fontWeight={400}
 													m="0 0 6px"
