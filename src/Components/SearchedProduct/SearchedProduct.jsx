@@ -16,7 +16,12 @@ import { Link } from "react-router-dom";
 import FiltersModal from "../FiltersModal/FiltersModal";
 
 function SearchedProduct() {
-	const { searchedProduct, sortProductsSearched } = useContext(ProductsContext);
+	const {
+		searchedProduct,
+		dispatch,
+		sortProductsSearched,
+		filterProductsSearched,
+	} = useContext(ProductsContext);
 	const filterMenu = useRef();
 	const [openFilterMenu, setOpenFilterMenu] = useState(false);
 	const [sortSelection, setSortSelection] = useState("relevance");
@@ -54,6 +59,9 @@ function SearchedProduct() {
 					searchedProduct={searchedProduct?.available_filters}
 					filterName={filterName}
 					setShowAllfilters={setShowAllfilters}
+					filterProductsSearched={filterProductsSearched}
+					query={searchedProduct?.query}
+					dispatch={dispatch}
 				/>
 			)}
 			{searchedProduct?.results?.length > 0 ? (
@@ -71,63 +79,97 @@ function SearchedProduct() {
 						<Text style={{ margin: 0 }} color="#333" fontWeight={300}>
 							{formatPrice(searchedProduct?.paging?.total)} resultados
 						</Text>
-						{searchedProduct?.available_filters?.map(({ id, name, values }) => (
-							<Box key={id}>
-								<Text
-									color="#333"
-									fontSize="16px"
-									fontWeight={600}
-									mb="10px"
-									lineHeight={1.25}
-								>
-									{name}
-								</Text>
-								{values?.length > 9
-									? values?.slice(0, 9)?.map(({ id, name, results }) => (
-											<Text
-												key={id}
-												color="#666"
-												fontSize="14px"
-												fontWeight={400}
-												m="0 0 6px"
-											>
-												{name}{" "}
-												<Text as="span" color="#999">
-													({formatPrice(results)})
-												</Text>
-											</Text>
-									  ))
-									: values?.map(({ id, name, results }) => (
-											<Text
-												key={id}
-												color="#666"
-												fontSize="14px"
-												fontWeight={400}
-												m="0 0 6px"
-											>
-												{name}{" "}
-												<Text as="span" color="#999">
-													({formatPrice(results)})
-												</Text>
-											</Text>
-									  ))}
-								{values?.length > 9 && (
+						{searchedProduct?.available_filters?.map(({ id, name, values }) => {
+							let filterNameID = id;
+							return (
+								<Box key={id}>
 									<Text
-										as="span"
-										color="#3483fa"
-										fontWeight={400}
-										id={name}
-										onClick={(e) => {
-											setFilterName(name);
-											setShowAllfilters(true);
+										color="#333"
+										fontSize="16px"
+										fontWeight={600}
+										mb="10px"
+										onClick={() => {
+											window.scrollTo(0,0)
+											dispatch(
+												filterProductsSearched(
+													searchedProduct?.query,
+													filterNameID,
+													id
+												)
+											);
 										}}
-										cursor="pointer"
+										lineHeight={1.25}
 									>
-										Mostrar más
+										{name}
 									</Text>
-								)}
-							</Box>
-						))}
+									{values?.length > 9
+										? values?.slice(0, 9)?.map(({ id, name, results }) => (
+												<Text
+													key={id}
+													color="#666"
+													fontSize="14px"
+													fontWeight={400}
+													m="0 0 6px"
+													onClick={() => {
+														window.scrollTo(0, 0);
+														dispatch(
+															filterProductsSearched(
+																searchedProduct?.query,
+																filterNameID,
+																id
+															)
+														);
+													}}
+												>
+													{name}{" "}
+													<Text as="span" color="#999">
+														({formatPrice(results)})
+													</Text>
+												</Text>
+										  ))
+										: values?.map(({ id, name, results }) => (
+												<Text
+													key={id}
+													color="#666"
+													fontSize="14px"
+													fontWeight={400}
+													m="0 0 6px"
+													onClick={() => {
+														window.scrollTo(0, 0);
+														dispatch(
+															filterProductsSearched(
+																searchedProduct?.query,
+																filterNameID,
+																id
+															)
+														);
+													}}
+												>
+													{name}{" "}
+													<Text as="span" color="#999">
+														({formatPrice(results)})
+													</Text>
+												</Text>
+										  ))}
+									{values?.length > 9 && (
+										<Text
+											as="span"
+											color="#3483fa"
+											fontWeight={400}
+											id={name}
+											onClick={(e) => {
+												window.scrollTo(0, 0);
+												setFilterName(name);
+												setShowAllfilters(true);
+											}}
+											cursor="pointer"
+										>
+											Mostrar más
+										</Text>
+									)}
+								</Box>
+							);
+						})}
 					</Stack>
 					<Box w="75%" mb="50px">
 						<Flex justify="flex-end">

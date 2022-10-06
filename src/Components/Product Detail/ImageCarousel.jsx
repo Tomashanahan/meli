@@ -1,4 +1,4 @@
-import { Box, Flex, Image } from "@chakra-ui/react";
+import { Flex, Image } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import { IoIosArrowForward, IoIosArrowBack, IoMdClose } from "react-icons/io";
 
@@ -52,10 +52,10 @@ function ImageCarousel({ images, setShow }) {
 	const keyPress = (e) => {
 		const key = e.key;
 		if (key === "ArrowRight") {
-			setImageScale(1)
+			setImageScale(1);
 			nexImg(currentImg.url);
 		} else if (key === "ArrowLeft") {
-			setImageScale(1)
+			setImageScale(1);
 			prevImg(currentImg.url);
 		} else if (key === "ArrowDown") {
 			e.preventDefault();

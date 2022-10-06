@@ -1,11 +1,19 @@
-import React, { useLayoutEffect } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Box, Flex, Input, Text } from "@chakra-ui/react";
 import { IoMdClose } from "react-icons/io";
 
-function FiltersModal({ searchedProduct, filterName, setShowAllfilters }) {
-	console.log(searchedProduct);
+function FiltersModal({
+	searchedProduct,
+	filterName,
+	setShowAllfilters,
+	filterProductsSearched,
+  query,
+  dispatch,
+}) {
+	const filterModal = useRef();
+  const [filterNameID, setFilterNameID] = useState();
+  searchedProduct = searchedProduct.filter((e) => e.name === filterName);
 	const renderFilters = () => {
-		searchedProduct = searchedProduct.filter((e) => e.name === filterName);
 		let obj = {};
 		for (let i = 0; i < searchedProduct?.length; i++) {
 			for (let j = 0; j < searchedProduct[i].values?.length; j++) {
@@ -14,12 +22,14 @@ function FiltersModal({ searchedProduct, filterName, setShowAllfilters }) {
 					searchedProduct[i].values[j].name[0].startsWith(Object.keys(obj)[i])
 				) {
 					obj[searchedProduct[i].values[j].name[0]].push({
+						id: searchedProduct[i].values[j].id,
 						name: searchedProduct[i].values[j].name,
 						results: searchedProduct[i].values[j].results,
 					});
 				} else {
 					obj[searchedProduct[i].values[j].name[0]] = [
 						{
+							id: searchedProduct[i].values[j].id,
 							name: searchedProduct[i].values[j].name,
 							results: searchedProduct[i].values[j].results,
 						},
@@ -35,6 +45,7 @@ function FiltersModal({ searchedProduct, filterName, setShowAllfilters }) {
 				p="30px"
 				h="500px"
 				overflowY="scroll"
+				ref={filterModal}
 				borderRadius="5px"
 			>
 				<Box
@@ -47,7 +58,12 @@ function FiltersModal({ searchedProduct, filterName, setShowAllfilters }) {
 				>
 					<Flex justify="space-between" align="center">
 						<Text>{filterName}</Text>
-						<Box color="#3483fa" fontSize="24px" cursor="pointer" onClick={() => setShowAllfilters(false)}>
+						<Box
+							color="#3483fa"
+							fontSize="24px"
+							cursor="pointer"
+							onClick={() => setShowAllfilters(false)}
+						>
 							<IoMdClose />
 						</Box>
 					</Flex>
@@ -67,35 +83,47 @@ function FiltersModal({ searchedProduct, filterName, setShowAllfilters }) {
 						type="text"
 					/>
 				</Box>
-				{Object.entries(obj)?.sort()?.map((e) => (
-					<Flex key={e.id} bg="#FFF" w="100%" align="self-start" mt="10px">
-						<Text
-							w="5%"
-							pt="32px"
-							mt="0"
-							color="#333"
-							fontWeight={700}
-							fontSize="18px"
-						>
-							{`${e[0]}`}
-						</Text>
-            <Flex
+				{Object.entries(obj)
+					?.sort()
+					?.map((e, i) => {
+						return <Flex key={i} bg="#FFF" w="100%" align="self-start" mt="10px">
+							<Box
+								w="5%"
+								pt="32px"
+								mt="0"
+								color="#333"
+								fontWeight={700}
+								fontSize="18px"
+							>
+								{`${e[0]}`}
+							</Box>
+							<Flex
 								flexWrap="wrap"
 								m="auto"
 								w="100%"
 								borderBottom="1px solid #e6e6e6"
 								p="32px 0 32px 4px"
 							>
-						{e[1]?.length > 1 ? (
-							e[1].map((e, i) => (
-								// <Flex
-								// 	flexWrap="wrap"
-								// 	m="auto"
-								// 	key={i}
-								// 	w="100%"
-								// 	borderBottom="1px solid #e6e6e6"
-								// 	p="32px 0 32px 4px"
-								// >
+								{e[1]?.length > 1 ? (
+									e[1].map((e, i) => (
+										<Text
+											color="#666"
+											w="200px"
+											fontWeight={400}
+											my="0"
+											mb="7px"
+											fontSize="14px"
+											onClick={() => {
+                        dispatch(filterProductsSearched(query, filterNameID[0]?.id, e.id))
+                        setShowAllfilters(false)
+                        window.scrollTo(0,0)
+                      }}
+											mx="10px"
+										>
+											{`${e.name} (${e.results})`}
+										</Text>
+									))
+								) : (
 									<Text
 										color="#666"
 										w="200px"
@@ -103,39 +131,70 @@ function FiltersModal({ searchedProduct, filterName, setShowAllfilters }) {
 										my="0"
 										mb="7px"
 										fontSize="14px"
+										onClick={() => {
+                      dispatch(filterProductsSearched(query, filterNameID[0]?.id, e[1][0].id))
+                      setShowAllfilters(false)
+                      window.scrollTo(0,0)
+                    }}
 										mx="10px"
 									>
-										{`${e.name} (${e.results})`}
+										{`${e[1][0].name} (${e[1][0].results})`}
 									</Text>
-								// </Flex>
-							))
-						) : (
-							// <Flex
-							// 	flexWrap="wrap"
-							// 	m="auto"
-							// 	w="100%"
-							// 	borderBottom="1px solid #e6e6e6"
-							// 	p="32px 0 32px 4px"
-							// >
-							<Text
-								color="#666"
-								w="200px"
-								fontWeight={400}
-								my="0"
-								mb="7px"
-								fontSize="14px"
-								mx="10px"
-							>
-								{`${e[1][0].name} (${e[1][0].results})`}
-							</Text>
-							//</Flex>
-						)}
-            </Flex>
-					</Flex>
-				))}
+								)}
+							</Flex>
+						</Flex>
+          })}
 			</Box>
 		);
 	};
+
+	const keyPress = (e) => {
+		const key = e.key;
+		if (key === "ArrowDown") {
+			e.preventDefault();
+		} else if (key === "Escape") {
+			setShowAllfilters(false);
+		}
+	};
+
+	function preventScroll(e) {
+		let endOfScroll =
+			filterModal?.current?.scrollTop + filterModal?.current?.clientHeight ===
+			filterModal?.current?.scrollHeight;
+
+		if (!filterModal.current.contains(e.target)) {
+			e.preventDefault();
+			e.stopPropagation();
+			return false;
+		} else if (filterModal.current.contains(e.target)) {
+			if (endOfScroll && e.deltaY > 0) {
+				e.preventDefault();
+				e.stopPropagation();
+				return false;
+			}
+		}
+	}
+
+	const closeModal = (e) => {
+		if (!filterModal.current.contains(e.target)) {
+			setShowAllfilters(false);
+		}
+	};
+
+	useEffect(() => {
+    setFilterNameID(searchedProduct)
+		function watchScroll() {
+			window.addEventListener("keydown", keyPress);
+			window.addEventListener("wheel", preventScroll, { passive: false });
+			window.addEventListener("click", closeModal);
+		}
+		watchScroll();
+		return () => {
+			window.removeEventListener("keydown", keyPress);
+			window.removeEventListener("wheel", preventScroll, { passive: false });
+			window.removeEventListener("click", closeModal);
+		};
+	});
 
 	useLayoutEffect(() => {
 		renderFilters();
@@ -153,76 +212,6 @@ function FiltersModal({ searchedProduct, filterName, setShowAllfilters }) {
 			w="100%"
 		>
 			{renderFilters()}
-			{/* <Box
-				bg="#FFF"
-				w="50%"
-				p="30px"
-				h="500px"
-				overflowY="hidden"
-				borderRadius="5px"
-			>
-				<Box
-					my="0"
-					ml="30px"
-					pt="20px"
-					fontSize="20px"
-					fontWeight={600}
-					w="90%"
-				>
-					<Flex justify="space-between" align="center">
-						<Text>Ubicacion</Text>
-						<Box color="#3483fa" fontSize="24px" cursor="pointer">
-							<IoMdClose />
-						</Box>
-					</Flex>
-					<Input
-						borderRadius="8px"
-						border="1px solid rgba(0,0,0,.25)"
-						placeholder="Buscar..."
-						pl="15px"
-						_placeholder={{
-							color: "rgba(0,0,0,.25)",
-							fontWeight: 400,
-						}}
-						fontSize="20px"
-						h="52px"
-						m="0"
-						w="95%"
-						type="text"
-					/>
-				</Box>
-				<Flex bg="#FFF" w="100%" align="self-start" mt="10px">
-					<Text
-						w="5%"
-						pt="32px"
-						mt="0"
-						color="#333"
-						fontWeight={700}
-						fontSize="18px"
-					>
-						A
-					</Text>
-					<Flex
-						flexWrap="wrap"
-						m="auto"
-						w="100%"
-						borderBottom="1px solid #e6e6e6"
-						p="32px 0 32px 4px"
-					>
-						<Text
-							color="#666"
-							w="200px"
-							fontWeight={400}
-							my="0"
-							mb="7px"
-							fontSize="14px"
-							mx="10px"
-						>
-							Bs.As. Costa Atlántica
-						</Text>
-					</Flex>
-				</Flex>
-			</Box> */}
 		</Flex>
 	);
 }
