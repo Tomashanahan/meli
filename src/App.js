@@ -7,7 +7,7 @@ import SearchedProduct from "./Components/SearchedProduct/SearchedProduct";
 
 function App() {
 	return (
-		<Box className="App" bg="#ededed" pos="relative">
+		<Box className="App" bg="#ededed" pos="relative" pb="200px">
 			<Header />
 			<Routes>
 				<Route exact path="/productDetail/:id" element={<Detail />} />

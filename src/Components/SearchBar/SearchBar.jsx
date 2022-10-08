@@ -2,22 +2,34 @@ import React, { useContext, useState } from "react";
 import { Box, Button, Input } from "@chakra-ui/react";
 import { IoIosSearch } from "react-icons/io";
 import { ProductsContext } from "../../Context/ProductsContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 function SearchBar() {
+	const [params, setParams] = useSearchParams();
 	const { searchProduct, dispatch, cleanProductDetal, cleanSearchedProduct } =
 		useContext(ProductsContext);
 	const [searchInput, setSearchInput] = useState("");
-
 	const navigation = useNavigate();
+
+	const deleteAllQuerys = () => {
+		let arr = [];
+		params.forEach((value, key) => {
+			arr.push(key);
+		});
+		arr.map((e) => params.delete(e));
+	};
 
 	const handleSearch = (e) => {
 		e.preventDefault();
 		if (searchInput !== "") {
+			localStorage.setItem("filterNames", JSON.stringify([]));
+			deleteAllQuerys();
+			params.set("q", searchInput)
+			setParams(params)
 			dispatch(searchProduct(searchInput));
 			cleanProductDetal();
 			cleanSearchedProduct();
-			navigation("/searchedProducts");
+			navigation(`/searchedProducts?${params}`);
 		}
 	};
 
@@ -25,12 +37,19 @@ function SearchBar() {
 		<Box mt="0px">
 			<form
 				onSubmit={handleSearch}
-				style={{ position: "relative", width: "90%", height: "41px" }}
+				style={{
+					position: "relative",
+					width: "90%",
+					height: "41px",
+					backgroundColor: "#FFFF",
+					boxShadow: "0 1px 2px 0 rgb(0 0 0 / 20%)",
+				}}
 			>
 				<Input
 					padding="12px 60px 12px 15px"
 					width="90%"
 					_focus={{ outline: "none" }}
+					focusBorderColor="none"
 					border="none"
 					background-color="#ffffff"
 					fontSize="15px"
@@ -39,7 +58,6 @@ function SearchBar() {
 					type="text"
 					placeholder="Buscar productos, marcas y más..."
 					_placeholder={{ color: "#BFBFBF" }}
-					boxShadow="0 1px 2px 0 rgb(0 0 0 / 20%)"
 					onChange={(e) => setSearchInput(e.target.value)}
 				/>
 				<Button
@@ -49,7 +67,8 @@ function SearchBar() {
 					position="absolute"
 					top="25%"
 					cursor="pointer"
-					right="-14px"
+					right="0px"
+					borderRadius={0}
 					borderLeft=" 1px solid #E6E6E6"
 					height="20px"
 					color="rgba(0,0,0,0.55)"

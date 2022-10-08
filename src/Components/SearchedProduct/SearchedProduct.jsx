@@ -12,7 +12,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import { AiFillStar } from "react-icons/ai";
 import { AiOutlineStar } from "react-icons/ai";
 import { ProductsContext } from "../../Context/ProductsContext";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import FiltersModal from "../FiltersModal/FiltersModal";
 
 function SearchedProduct() {
@@ -27,6 +27,7 @@ function SearchedProduct() {
 	const [sortSelection, setSortSelection] = useState("relevance");
 	const [showAllfilters, setShowAllfilters] = useState(false);
 	const [filterName, setFilterName] = useState("");
+	const [params, setParams] = useSearchParams();
 
 	const formatPrice = (number) => {
 		return new Intl.NumberFormat("de-DE", {
@@ -38,6 +39,47 @@ function SearchedProduct() {
 		const diference = originalPrice - price;
 		return Math.ceil((diference * 100) / originalPrice);
 	};
+
+	const addFilterQuerysToParams = (q, filterNameID, id, name) => {
+		let localStorageFilters = localStorage.getItem("filterNames");
+		localStorageFilters === null
+			? localStorage.setItem("filterNames", JSON.stringify([{name, filterNameID}]))
+			: localStorage.setItem(
+					"filterNames",
+					JSON.stringify([...JSON.parse(localStorageFilters), {name, filterNameID}])
+			  );
+		const query = params.get("query");
+
+		if (query) {
+			params.set(filterNameID, id);
+			setParams(params);
+		} else {
+			params.set("q", q);
+			params.set(filterNameID, id);
+			setParams(params);
+		}
+	};
+
+	const deleteFilter = (filterName) => {
+		let localStorageFilters = localStorage.getItem("filterNames");
+		let newFilters = JSON.parse(localStorageFilters).filter(
+			(e) => e.filterNameID !== filterName
+		);
+		localStorage.setItem("filterNames", JSON.stringify(newFilters));
+		params.delete(filterName);
+		setParams(params);
+	};
+
+	const addSortQuerysToParams = (sortID) => {
+		params.set("sort", sortID);
+		setParams(params);
+	};
+
+	useEffect(() => {
+		window.scrollTo(0, 0);
+		dispatch(filterProductsSearched(window.location.search));
+		sortProductsSearched(window.location.search);
+	}, [params]);
 
 	useEffect(() => {
 		window.addEventListener("click", handleMenuFilterClick);
@@ -62,23 +104,50 @@ function SearchedProduct() {
 					filterProductsSearched={filterProductsSearched}
 					query={searchedProduct?.query}
 					dispatch={dispatch}
+					addFilterQuerysToParams={addFilterQuerysToParams}
 				/>
 			)}
 			{searchedProduct?.results?.length > 0 ? (
 				<Flex w="82%" m="auto" justify="space-between" mt="32px">
 					<Stack>
-						<Text
-							mb="0"
-							fontSize="26px"
-							fontWeight={600}
-							textTransform="capitalize"
-							w="70%"
-						>
-							{searchedProduct?.query}
-						</Text>
-						<Text style={{ margin: 0 }} color="#333" fontWeight={300}>
-							{formatPrice(searchedProduct?.paging?.total)} resultados
-						</Text>
+						<Stack>
+							<Text
+								mb="0"
+								fontSize="26px"
+								fontWeight={600}
+								textTransform="capitalize"
+								color="#000"
+								w="70%"
+							>
+								{searchedProduct?.query}
+							</Text>
+							<Text w="50%" style={{ margin: 0 }} color="#333" fontWeight={300}>
+								{formatPrice(searchedProduct?.paging?.total)} resultados
+							</Text>
+							<Flex flexWrap="wrap" w="20em">
+								{JSON.parse(localStorage.getItem("filterNames"))?.map((e,i) => (
+									<Box
+										fontSize="13px"
+										key={i}
+										mb="10px"
+										p="5px"
+										mr="10px"
+										color="rgba(0,0,0,.62)"
+										bg="#FFF"
+									>
+										{e.name}{" "}
+										<Text
+											as="span"
+											cursor="pointer"
+											color="#bfbfbf"
+											onClick={() => deleteFilter(e.filterNameID)}
+										>
+											X
+										</Text>
+									</Box>
+								))}
+							</Flex>
+						</Stack>
 						{searchedProduct?.available_filters?.map(({ id, name, values }) => {
 							let filterNameID = id;
 							return (
@@ -87,14 +156,16 @@ function SearchedProduct() {
 										color="#333"
 										fontSize="16px"
 										fontWeight={600}
+										mt="30px"
 										mb="10px"
 										onClick={() => {
-											window.scrollTo(0,0)
+											window.scrollTo(0, 0);
 											dispatch(
 												filterProductsSearched(
 													searchedProduct?.query,
 													filterNameID,
-													id
+													id,
+													name
 												)
 											);
 										}}
@@ -111,14 +182,14 @@ function SearchedProduct() {
 													fontSize="14px"
 													fontWeight={400}
 													m="0 0 6px"
-													onClick={() => {
+													onClick={(e) => {
+														e.preventDefault();
 														window.scrollTo(0, 0);
-														dispatch(
-															filterProductsSearched(
-																searchedProduct?.query,
-																filterNameID,
-																id
-															)
+														addFilterQuerysToParams(
+															searchedProduct?.query,
+															filterNameID,
+															id,
+															name
 														);
 													}}
 												>
@@ -129,29 +200,33 @@ function SearchedProduct() {
 												</Text>
 										  ))
 										: values?.map(({ id, name, results }) => (
-												<Text
+												<Link
 													key={id}
-													color="#666"
-													cursor="pointer"
-													fontSize="14px"
-													fontWeight={400}
-													m="0 0 6px"
-													onClick={() => {
-														window.scrollTo(0, 0);
-														dispatch(
-															filterProductsSearched(
-																searchedProduct?.query,
-																filterNameID,
-																id
-															)
+													to={`/searchedProducts?${params}`}
+													onClick={(e) => {
+														e.preventDefault();
+														addFilterQuerysToParams(
+															searchedProduct?.query,
+															filterNameID,
+															id,
+															name
 														);
 													}}
+													style={{ width: "30%" }}
 												>
-													{name}{" "}
-													<Text as="span" color="#999">
-														({formatPrice(results)})
+													<Text
+														color="#666"
+														cursor="pointer"
+														fontSize="14px"
+														fontWeight={400}
+														m="0 0 6px"
+													>
+														{name}{" "}
+														<Text as="span" color="#999">
+															({formatPrice(results)})
+														</Text>
 													</Text>
-												</Text>
+												</Link>
 										  ))}
 									{values?.length > 9 && (
 										<Text
@@ -179,7 +254,6 @@ function SearchedProduct() {
 								as="span"
 								color="#333"
 								mr="6px"
-								mt="2px"
 								fontWeight={600}
 								fontSize="16px"
 							>
@@ -190,6 +264,8 @@ function SearchedProduct() {
 									pos="relative"
 									fontSize="14px"
 									cursor="pointer"
+									color="#000"
+									mr="5px"
 									ref={filterMenu}
 								>
 									<Box onClick={() => setOpenFilterMenu(!openFilterMenu)}>
@@ -206,8 +282,8 @@ function SearchedProduct() {
 											bg="#FFFF"
 											color="#666"
 											w="135px"
-											h="135px"
-											boxShadow="0 1px 2px 0 rgb(0 0 0 / 12%)"
+											h="122px"
+											boxShadow="0 1px 2px 0 rgb(0 0 0 / 32%)"
 											borderRadius="6px"
 										>
 											<Flex
@@ -223,15 +299,13 @@ function SearchedProduct() {
 												align="center"
 												fontSize="14px"
 												p="10px"
+												pl="16px"
 												h="40px"
 												borderBottom="1px solid #d8d8d8"
 												onClick={() => {
 													setSortSelection("relevance");
 													setOpenFilterMenu(false);
-													sortProductsSearched(
-														searchedProduct?.query,
-														"relevance"
-													);
+													addSortQuerysToParams("relevance");
 												}}
 											>
 												Más relevantes
@@ -254,10 +328,7 @@ function SearchedProduct() {
 												onClick={() => {
 													setSortSelection("price_asc");
 													setOpenFilterMenu(false);
-													sortProductsSearched(
-														searchedProduct?.query,
-														"price_asc"
-													);
+													addSortQuerysToParams("price_asc");
 												}}
 											>
 												Menor precio
@@ -276,14 +347,10 @@ function SearchedProduct() {
 												borderLeft={
 													sortSelection === "price_desc" && "5px solid #3483fa"
 												}
-												borderBottom="1px solid #d8d8d8"
 												onClick={() => {
 													setSortSelection("price_desc");
 													setOpenFilterMenu(false);
-													sortProductsSearched(
-														searchedProduct?.query,
-														"price_desc"
-													);
+													addSortQuerysToParams("price_desc");
 												}}
 											>
 												Mayor precio
@@ -340,9 +407,9 @@ function SearchedProduct() {
 													<Flex justify="space-between" w="70%" align="center">
 														{original_price ? (
 															<>
-																<Box>
+																<Box mt="10px">
 																	<Box
-																		fontSize="16px"
+																		fontSize="12px"
 																		mb="-8px"
 																		textDecor="line-through"
 																		color="rgba(0,0,0,.55)"
@@ -357,7 +424,8 @@ function SearchedProduct() {
 																		mt="10px"
 																		color="#000"
 																	>
-																		$ {formatPrice(price)}{" "}
+																		{currency_id === "USD" ? "U$S" : "$"}{" "}
+																		{formatPrice(price)}{" "}
 																		<Text
 																			as="span"
 																			color="#00a650"
@@ -426,6 +494,7 @@ function SearchedProduct() {
 																			color="#333"
 																			w="16px"
 																			h="16px"
+																			minW="50px"
 																			mr="7px"
 																		>
 																			1397
@@ -443,7 +512,8 @@ function SearchedProduct() {
 																		mt="10px"
 																		color="#000"
 																	>
-																		$ {formatPrice(price)}{" "}
+																		{currency_id === "USD" ? "U$S" : "$"}{" "}
+																		{formatPrice(price)}{" "}
 																	</Box>
 																	{shipping?.free_shipping && (
 																		<Text
@@ -503,6 +573,7 @@ function SearchedProduct() {
 																			color="#333"
 																			w="16px"
 																			h="16px"
+																			minW="50px"
 																			mr="7px"
 																		>
 																			1397
@@ -523,8 +594,15 @@ function SearchedProduct() {
 					</Box>
 				</Flex>
 			) : (
-				<Flex justify="center" align="center" mt="40px">
-					<Box w="70%" textAlign="center" bg="#FFFF" p="20px">
+				<Flex justify="center" align="center" pb="55vh">
+					<Box
+						w="70%"
+						textAlign="center"
+						mt="50px"
+						bg="#FFFF"
+						p="20px"
+						color="#000"
+					>
 						<Box fontSize="24px" fontWeight={600}>
 							No hay publicaciones que coincidan con tu búsqueda.
 						</Box>

@@ -63,7 +63,12 @@ function Vendedor({ product_detail, seller_data }) {
 	};
 
 	return (
-		<Stack border="1px solid rgba(0,0,0,.1)" borderRadius="8" p="24px 16px">
+		<Stack
+			border="1px solid rgba(0,0,0,.1)"
+			borderRadius="8"
+			p="24px 16px"
+			color="#000"
+		>
 			<Text m={0} fontSize="18px" textAlign="left" fontWeight={400}>
 				Información sobre el vendedor
 			</Text>
@@ -103,7 +108,7 @@ function Vendedor({ product_detail, seller_data }) {
 			{seller_reputation?.power_seller_status === "platinum" && (
 				<Box>
 					<Flex align="flex-start">
-						<Flex mr="8" pt="5">
+						<Flex mr="8px" pt="5">
 							<img
 								decoding="async"
 								src="https://http2.mlstatic.com/frontend-assets/vpp-frontend/medal.svg"
@@ -136,11 +141,12 @@ function Vendedor({ product_detail, seller_data }) {
 						{seller_reputation?.transactions?.completed}
 					</Text>
 					<Text fontSize="12px" m={0} color="#515151">
-						Ventas en los completadas
+						Ventas completadas
 					</Text>
 				</Box>
-				<Box
+				<Stack
 					textAlign="center"
+					align="center"
 					pt="10px"
 					borderRight="1px solid #ddd"
 					w="106px"
@@ -155,8 +161,8 @@ function Vendedor({ product_detail, seller_data }) {
 					<Text fontSize="12px" m={0} color="#515151">
 						Brinda buena atención
 					</Text>
-				</Box>
-				<Box pt="10px" w="106px" textAlign="center">
+				</Stack>
+				<Stack align="center" pt="10px" w="106px" textAlign="center">
 					<Image
 						w="28px"
 						alt="f"
@@ -165,7 +171,7 @@ function Vendedor({ product_detail, seller_data }) {
 					<Text fontSize="12px" pl="3px" m={0} color="#515151">
 						Despacha sus productos a tiempo
 					</Text>
-				</Box>
+				</Stack>
 			</Flex>
 			<Text
 				textAlign="left"

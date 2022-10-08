@@ -29,7 +29,7 @@ function Price({ product_detail }) {
 	const monthlyFee = ((price * 101) / 100 + price) / 12;
 
 	return (
-		<Stack border="1px solid rgba(0,0,0,.1)" borderRadius="8" p="24px 16px">
+		<Stack border="1px solid rgba(0,0,0,.1)" borderRadius="8" p="24px 16px" >
 			<Text
 				m={0}
 				color="rgba(0,0,0,.55)"
@@ -78,8 +78,8 @@ function Price({ product_detail }) {
 						>
 							{currency_id?.symbol} {formatPrice(original_price)}
 						</Box>
-						<Flex align="center" fontSize="36px">
-							{formatPrice(price)}{" "}
+						<Flex align="center" fontSize="36px" color="#000">
+							{currency_id?.symbol} {formatPrice(price)}{" "}
 							<span
 								style={{
 									color: "#00a650",
@@ -95,7 +95,7 @@ function Price({ product_detail }) {
 					</Box>
 				) : (
 					<Box textAlign="left" fontWeight={300}>
-						<Flex align="center" fontSize="36px">
+						<Flex align="center" fontSize="36px" color="#000">
 							{currency_id?.symbol} {formatPrice(price)}{" "}
 						</Flex>{" "}
 						en 12x $ {monthlyFee.toFixed(2)} pesos
@@ -116,7 +116,7 @@ function Price({ product_detail }) {
 				<Box>
 					{product_detail?.shipping?.free_shipping && (
 						<Flex color="#05A550" align="center">
-							<Flex m={0} mr="10">
+							<Flex m={0} mr="10px">
 								<svg
 									stroke="currentColor"
 									fill="none"
@@ -142,7 +142,7 @@ function Price({ product_detail }) {
 								<Text
 									color="#3483fa"
 									cursor={"pointer"}
-									fontSize="14"
+									fontSize="14px"
 									fontWeight={500}
 								>
 									Ver más formas de entrega
@@ -154,7 +154,7 @@ function Price({ product_detail }) {
 
 				<Box>
 					<Flex color="#05A550" align="flex-start">
-						<Box fontSize="23px" m={0} mr="10">
+						<Box fontSize="23px" m={0} mr="10px">
 							<TbArrowBack />
 						</Box>
 						<Stack align="flex-start" spacing={0}>
@@ -183,15 +183,15 @@ function Price({ product_detail }) {
 				{/* nose */}
 				{/* Stock */}
 				<Box textAlign="left">
-					<Text fontWeight={600}>
+					<Text fontWeight={600} color="#000">
 						{available_quantity > 0 ? "Stock disponible" : "Sin Stock"}
 					</Text>
-					<Flex align="center">
+					<Flex align="center" color="#000">
 						Cantidad:
-						<Text m={0} ml="5" fontWeight={600} display="inline-block">
+						<Text m={0} ml="5px" fontWeight={600} display="inline-block">
 							1 unidad
 						</Text>
-						<Box h="18px" mx="3" display="inline" color="#3483fa">
+						<Box h="18px" mx="3px" display="inline" color="#3483fa">
 							<IoIosArrowDown />
 						</Box>
 						<Text
@@ -270,11 +270,11 @@ function Price({ product_detail }) {
 					</svg>
 					<Box
 						m={0}
-						mt={10}
 						w="88%"
 						textAlign="left"
 						fontSize="14px"
 						fontWeight={400}
+						color="#000"
 					>
 						<Text color="#3483fa" display="inline">
 							Compra Protegida
@@ -294,14 +294,14 @@ function Price({ product_detail }) {
 					>
 						<path d="M21 4h-3V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v1H3a1 1 0 0 0-1 1v3c0 4.31 1.799 6.91 4.819 7.012A6.001 6.001 0 0 0 11 17.91V20H9v2h6v-2h-2v-2.09a6.01 6.01 0 0 0 4.181-2.898C20.201 14.91 22 12.31 22 8V5a1 1 0 0 0-1-1zM4 8V6h2v6.83C4.216 12.078 4 9.299 4 8zm8 8c-2.206 0-4-1.794-4-4V4h8v8c0 2.206-1.794 4-4 4zm6-3.17V6h2v2c0 1.299-.216 4.078-2 4.83z"></path>
 					</svg>
-					<Box w="88%" textAlign="left" fontSize="14px" fontWeight={400}>
+					<Box color="#000" w="88%" textAlign="left" fontSize="14px" fontWeight={400}>
 						<Text color="#3483fa" display="inline">
 							Mercado Puntos
 						</Text>
 						. Sumás 22 puntos.
 					</Box>
 				</Flex>
-				<Flex justify="space-around" align="center">
+				<Flex justify="space-around" align="center" color="#000">
 					<img
 						src="https://img.icons8.com/fluency-systems-regular/48/737373/warranty.png"
 						alt="a"

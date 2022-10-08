@@ -163,6 +163,7 @@ function ImageCarousel({ images, setShow }) {
 					transform={`scale(${imageScale})`}
 					onClick={() => setImageScale(imageScale === 1 ? 1.5 : 1)}
 					cursor={imageScale === 1 ? "zoom-in" : "zoom-out"}
+					objectFit="contain"
 					w="600px"
 					src={currentImg?.url && currentImg?.url}
 				/>

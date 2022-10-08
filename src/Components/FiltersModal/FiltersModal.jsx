@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef } from "react";
 import { Box, Flex, Input, Text } from "@chakra-ui/react";
 import { IoMdClose } from "react-icons/io";
 
@@ -6,13 +6,12 @@ function FiltersModal({
 	searchedProduct,
 	filterName,
 	setShowAllfilters,
-	filterProductsSearched,
-  query,
-  dispatch,
+	query,
+	addFilterQuerysToParams,
 }) {
 	const filterModal = useRef();
-  const [filterNameID, setFilterNameID] = useState();
-  searchedProduct = searchedProduct.filter((e) => e.name === filterName);
+	searchedProduct = searchedProduct.filter((e) => e.name === filterName);
+
 	const renderFilters = () => {
 		let obj = {};
 		for (let i = 0; i < searchedProduct?.length; i++) {
@@ -56,7 +55,7 @@ function FiltersModal({
 					fontWeight={600}
 					w="90%"
 				>
-					<Flex justify="space-between" align="center">
+					<Flex justify="space-between" align="center" color="#000">
 						<Text>{filterName}</Text>
 						<Box
 							color="#3483fa"
@@ -68,6 +67,7 @@ function FiltersModal({
 						</Box>
 					</Flex>
 					<Input
+						outline="1px solid rgba(0,0,0,.25)"
 						borderRadius="8px"
 						border="1px solid rgba(0,0,0,.25)"
 						placeholder="Buscar..."
@@ -80,32 +80,59 @@ function FiltersModal({
 						h="52px"
 						m="0"
 						w="95%"
+						mt="20px"
 						type="text"
 					/>
 				</Box>
 				{Object.entries(obj)
 					?.sort()
 					?.map((e, i) => {
-						return <Flex key={i} bg="#FFF" w="100%" align="self-start" mt="10px">
-							<Box
-								w="5%"
-								pt="32px"
-								mt="0"
-								color="#333"
-								fontWeight={700}
-								fontSize="18px"
-							>
-								{`${e[0]}`}
-							</Box>
-							<Flex
-								flexWrap="wrap"
-								m="auto"
-								w="100%"
-								borderBottom="1px solid #e6e6e6"
-								p="32px 0 32px 4px"
-							>
-								{e[1]?.length > 1 ? (
-									e[1].map((e, i) => (
+						return (
+							<Flex key={i} bg="#FFF" w="100%" align="self-start" mt="10px">
+								<Box
+									w="5%"
+									pt="32px"
+									mt="0"
+									color="#333"
+									fontWeight={700}
+									fontSize="18px"
+								>
+									{`${e[0]}`}
+								</Box>
+								<Flex
+									flexWrap="wrap"
+									m="auto"
+									w="100%"
+									borderBottom="1px solid #e6e6e6"
+									p="32px 0 32px 4px"
+								>
+									{e[1]?.length > 1 ? (
+										e[1].map((e, i) => (
+											<Text
+												color="#666"
+												key={i}
+												w="200px"
+												fontWeight={400}
+												my="0"
+												mb="7px"
+												fontSize="14px"
+												onClick={() => {
+													addFilterQuerysToParams(
+														query,
+														searchedProduct[0]?.id,
+														e.id,
+														e.name
+													);
+													setShowAllfilters(false);
+													window.scrollTo(0, 0);
+												}}
+												mx="10px"
+												cursor="pointer"
+											>
+												{`${e.name} (${e.results})`}
+											</Text>
+										))
+									) : (
 										<Text
 											color="#666"
 											w="200px"
@@ -114,40 +141,28 @@ function FiltersModal({
 											mb="7px"
 											fontSize="14px"
 											onClick={() => {
-                        dispatch(filterProductsSearched(query, filterNameID[0]?.id, e.id))
-                        setShowAllfilters(false)
-                        window.scrollTo(0,0)
-                      }}
+												addFilterQuerysToParams(
+													query,
+													searchedProduct[0]?.id,
+													e[1][0].id,
+													e[1][0].name,
+												);
+												setShowAllfilters(false);
+												window.scrollTo(0, 0);
+											}}
 											mx="10px"
+											cursor="pointer"
 										>
-											{`${e.name} (${e.results})`}
+											{`${e[1][0].name} (${e[1][0].results})`}
 										</Text>
-									))
-								) : (
-									<Text
-										color="#666"
-										w="200px"
-										fontWeight={400}
-										my="0"
-										mb="7px"
-										fontSize="14px"
-										onClick={() => {
-                      dispatch(filterProductsSearched(query, filterNameID[0]?.id, e[1][0].id))
-                      setShowAllfilters(false)
-                      window.scrollTo(0,0)
-                    }}
-										mx="10px"
-									>
-										{`${e[1][0].name} (${e[1][0].results})`}
-									</Text>
-								)}
+									)}
+								</Flex>
 							</Flex>
-						</Flex>
-          })}
+						);
+					})}
 			</Box>
 		);
 	};
-
 	const keyPress = (e) => {
 		const key = e.key;
 		if (key === "ArrowDown") {
@@ -182,7 +197,6 @@ function FiltersModal({
 	};
 
 	useEffect(() => {
-    setFilterNameID(searchedProduct)
 		function watchScroll() {
 			window.addEventListener("keydown", keyPress);
 			window.addEventListener("wheel", preventScroll, { passive: false });

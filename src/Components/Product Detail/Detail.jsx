@@ -112,13 +112,13 @@ function Detail() {
 			<Flex
 				boxSizing="border-box"
 				justify="space-between"
-				p="20"
+				p="20px"
 				w="85%"
 				m="auto"
 				bg="#FFFF"
 				boxShadow="0 1px 2px 0 rgb(0 0 0 / 25%)"
 				borderRadius="4"
-				my="40"
+				mt="40px"
 			>
 				<Stack>
 					<Flex h="fit-content" minH="600px">
@@ -144,7 +144,7 @@ function Detail() {
 													: id
 											}
 											borderRadius="6px"
-											p="4"
+											p="4px"
 											h="50px"
 											w="50px"
 											src={url}
@@ -172,7 +172,7 @@ function Detail() {
 													: id
 											}
 											borderRadius="6px"
-											p="4"
+											p="4px"
 											h="50px"
 											w="50px"
 											src={url}

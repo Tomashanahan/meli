@@ -126,7 +126,7 @@ function ProductQuestions({ product_questions }) {
 						<GoSearch />
 					</Button>
 				</Flex>
-				{product_questions?.questions?.length && (
+				{product_questions?.questions?.length > 0 ? (
 					<>
 						<Box mt="40px">
 							<Text>Últimas realizadas</Text>
@@ -188,7 +188,8 @@ function ProductQuestions({ product_questions }) {
 							</Flex>
 						</Button>
 					</>
-				)}
+				) : <></>
+				}
 				{/* <Box mt="40px">
 					<Text>Últimas realizadas</Text>
 					{product_questions?.questions

@@ -177,9 +177,10 @@ export function ProductsProvider({ children }) {
 		return dispatch({ type: actionstypes.CLEAN_SEARCHED_PRODUCT, payload: "" });
 	};
 
-	const sortProductsSearched = async (query, typeofSearchId) => {
+	const sortProductsSearched = async (sortID) => {
 		const products = await fetch(
-			`https://api.mercadolibre.com/sites/MLA/search?q=${query}&sort=${typeofSearchId}`
+			// `https://api.mercadolibre.com/sites/MLA/search?q=${query}&sort=${typeofSearchId}`
+			`https://api.mercadolibre.com/sites/MLA/search${sortID}`
 		);
 		const data = await products.json();
 		return dispatch({
@@ -188,12 +189,10 @@ export function ProductsProvider({ children }) {
 		});
 	};
 
-	const filterProductsSearched = async (query, filterNameID, filterValueID) => {
-		console.log(query, " query")
-		console.log(filterNameID, " filterNameID")
-		console.log(filterValueID, " filterValueID")
+	// const filterProductsSearched = async (query, filterNameID, filterValueID) => {
+	const filterProductsSearched = async (info) => {
 		const products = await fetch(
-			`https://api.mercadolibre.com/sites/MLA/search?q=${query}&${filterNameID}=${filterValueID}`
+			`https://api.mercadolibre.com/sites/MLA/search${info}`
 		);
 		const data = await products.json();
 
