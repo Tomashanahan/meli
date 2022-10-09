@@ -5,7 +5,6 @@ import { FiMapPin } from "react-icons/fi";
 import { IoIosArrowDown } from "react-icons/io";
 import usuario from "../../img/user_logo.png";
 import { Box, GridItem, Flex, Grid, Image, Text } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
 import SearchBar from "../SearchBar/SearchBar";
 
 function Header() {
@@ -29,6 +28,7 @@ function Header() {
 							src={
 								"https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/5.19.1/mercadolibre/logo__large_plus@2x.png"
 							}
+							objectFit="contain"
 							w="134px"
 							h="34px"
 							alt="Mercado libre donde comprar todo lo que queres"

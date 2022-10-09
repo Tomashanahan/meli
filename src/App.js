@@ -12,6 +12,10 @@ function App() {
 			<Routes>
 				<Route exact path="/productDetail/:id" element={<Detail />} />
 				<Route exact path="/searchedProducts" element={<SearchedProduct />} />
+				<Route
+					path="*"
+					element={<SearchedProduct to="/searchedProducts" replace />}
+				/>
 			</Routes>
 		</Box>
 	);
