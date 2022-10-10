@@ -81,7 +81,7 @@ function ProductOpinions({ product_opinions }) {
 				Opiniones del producto
 			</Text>
 			<Flex justify="space-between">
-				<Box color="#3483fa" w="30%">
+				<Box color="meliBlue" w="30%">
 					<Flex justify="space-between" align="center">
 						<Text fontSize="47px" m="0" fontWeight={700} mr="18px">
 							{product_opinions?.rating_average}
@@ -210,7 +210,7 @@ function ProductOpinions({ product_opinions }) {
 				<Stack w="60%">
 					{product_opinions?.reviews?.map(({ id, content, likes, rate, date_created }) => (
 						<Box key={id}>
-							<Flex justify="space-between" align="center" color="#3483fa">
+							<Flex justify="space-between" align="center" color="meliBlue">
 								{calcStars(rate, "small")}
 								<Text color="rgba(0,0,0,.55)" fontSize="12px">
 									{getComentDate(date_created)}

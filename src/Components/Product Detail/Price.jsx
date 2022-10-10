@@ -51,7 +51,7 @@ function Price({ product_detail }) {
 				>
 					{title}
 				</Text>
-				<Box color="#3483fa">
+				<Box color="meliBlue">
 					<svg
 						stroke="currentColor"
 						fill="currentColor"
@@ -78,11 +78,11 @@ function Price({ product_detail }) {
 						>
 							{currency_id?.symbol} {formatPrice(original_price)}
 						</Box>
-						<Flex align="center" fontSize="36px" color="#000">
+						<Flex align="center" fontSize="36px" color="black">
 							{currency_id?.symbol} {formatPrice(price)}{" "}
 							<span
 								style={{
-									color: "#00a650",
+									color: "meliGreen",
 									fontSize: "18px",
 									marginLeft: "10px",
 									fontWeight: 400,
@@ -95,7 +95,7 @@ function Price({ product_detail }) {
 					</Box>
 				) : (
 					<Box textAlign="left" fontWeight={300}>
-						<Flex align="center" fontSize="36px" color="#000">
+						<Flex align="center" fontSize="36px" color="black">
 							{currency_id?.symbol} {formatPrice(price)}{" "}
 						</Flex>{" "}
 						en 12x $ {monthlyFee.toFixed(2)} pesos
@@ -103,7 +103,7 @@ function Price({ product_detail }) {
 				)}
 				<Text
 					textAlign="left"
-					color="#3483fa"
+					color="meliBlue"
 					cursor={"pointer"}
 					fontSize="14"
 					fontWeight={500}
@@ -140,7 +140,7 @@ function Price({ product_detail }) {
 									Envio gratis
 								</Box>
 								<Text
-									color="#3483fa"
+									color="meliBlue"
 									cursor={"pointer"}
 									fontSize="14px"
 									fontWeight={500}
@@ -170,7 +170,7 @@ function Price({ product_detail }) {
 								Tenés 30 días desde que lo recibís.
 							</Box>
 							<Text
-								color="#3483fa"
+								color="meliBlue"
 								cursor={"pointer"}
 								fontSize="14"
 								fontWeight={500}
@@ -183,15 +183,15 @@ function Price({ product_detail }) {
 				{/* nose */}
 				{/* Stock */}
 				<Box textAlign="left">
-					<Text fontWeight={600} color="#000">
+					<Text fontWeight={600} color="black">
 						{available_quantity > 0 ? "Stock disponible" : "Sin Stock"}
 					</Text>
-					<Flex align="center" color="#000">
+					<Flex align="center" color="black">
 						Cantidad:
 						<Text m={0} ml="5px" fontWeight={600} display="inline-block">
 							1 unidad
 						</Text>
-						<Box h="18px" mx="3px" display="inline" color="#3483fa">
+						<Box h="18px" mx="3px" display="inline" color="meliBlue">
 							<IoIosArrowDown />
 						</Box>
 						<Text
@@ -218,8 +218,8 @@ function Price({ product_detail }) {
 						fontSize="16px"
 						fontWeight={600}
 						border="none"
-						bg="#3483fa"
-						color="#FFFF"
+						bg="meliBlue"
+						color="white"
 						m="auto"
 						mb="10px"
 					>
@@ -236,7 +236,7 @@ function Price({ product_detail }) {
 						fontWeight={600}
 						border="none"
 						bg="rgba(65,137,230,.15)"
-						color="#3483fa"
+						color="meliBlue"
 					>
 						Agregar al carrito
 					</Button>
@@ -274,9 +274,9 @@ function Price({ product_detail }) {
 						textAlign="left"
 						fontSize="14px"
 						fontWeight={400}
-						color="#000"
+						color="black"
 					>
-						<Text color="#3483fa" display="inline">
+						<Text color="meliBlue" display="inline">
 							Compra Protegida
 						</Text>
 						, recibí tu producto que esperabas o te devolvemos tu dinero.
@@ -294,14 +294,14 @@ function Price({ product_detail }) {
 					>
 						<path d="M21 4h-3V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v1H3a1 1 0 0 0-1 1v3c0 4.31 1.799 6.91 4.819 7.012A6.001 6.001 0 0 0 11 17.91V20H9v2h6v-2h-2v-2.09a6.01 6.01 0 0 0 4.181-2.898C20.201 14.91 22 12.31 22 8V5a1 1 0 0 0-1-1zM4 8V6h2v6.83C4.216 12.078 4 9.299 4 8zm8 8c-2.206 0-4-1.794-4-4V4h8v8c0 2.206-1.794 4-4 4zm6-3.17V6h2v2c0 1.299-.216 4.078-2 4.83z"></path>
 					</svg>
-					<Box color="#000" w="88%" textAlign="left" fontSize="14px" fontWeight={400}>
-						<Text color="#3483fa" display="inline">
+					<Box color="black" w="88%" textAlign="left" fontSize="14px" fontWeight={400}>
+						<Text color="meliBlue" display="inline">
 							Mercado Puntos
 						</Text>
 						. Sumás 22 puntos.
 					</Box>
 				</Flex>
-				<Flex justify="space-around" align="center" color="#000">
+				<Flex justify="space-around" align="center" color="black">
 					<img
 						src="https://img.icons8.com/fluency-systems-regular/48/737373/warranty.png"
 						alt="a"

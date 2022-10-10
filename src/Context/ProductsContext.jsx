@@ -179,7 +179,6 @@ export function ProductsProvider({ children }) {
 
 	const sortProductsSearched = async (sortID) => {
 		const products = await fetch(
-			// `https://api.mercadolibre.com/sites/MLA/search?q=${query}&sort=${typeofSearchId}`
 			`https://api.mercadolibre.com/sites/MLA/search${sortID}`
 		);
 		const data = await products.json();
@@ -189,7 +188,6 @@ export function ProductsProvider({ children }) {
 		});
 	};
 
-	// const filterProductsSearched = async (query, filterNameID, filterValueID) => {
 	const filterProductsSearched = async (info) => {
 		const products = await fetch(
 			`https://api.mercadolibre.com/sites/MLA/search${info}`

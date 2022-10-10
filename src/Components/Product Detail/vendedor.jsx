@@ -10,7 +10,7 @@ function Vendedor({ product_detail, seller_data }) {
 			case "1_red":
 				return (
 					<>
-						<Box h="12px" w="60px" bg="#F83535"></Box>
+						<Box h="12px" w="60px" bg="meliRed"></Box>
 						<Box h="8px" w="60px" bg="#FFF5E8"></Box>
 						<Box h="8px" w="60px" bg="#FEFCD8"></Box>
 						<Box h="8px" w="60px" bg="#F1FDD6"></Box>
@@ -67,7 +67,7 @@ function Vendedor({ product_detail, seller_data }) {
 			border="1px solid rgba(0,0,0,.1)"
 			borderRadius="8"
 			p="24px 16px"
-			color="#000"
+			color="black"
 		>
 			<Text m={0} fontSize="18px" textAlign="left" fontWeight={400}>
 				Información sobre el vendedor
@@ -175,7 +175,7 @@ function Vendedor({ product_detail, seller_data }) {
 			</Flex>
 			<Text
 				textAlign="left"
-				color="#3483fa"
+				color="meliBlue"
 				cursor={"pointer"}
 				fontSize="14"
 				fontWeight={400}

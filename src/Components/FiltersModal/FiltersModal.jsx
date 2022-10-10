@@ -39,7 +39,7 @@ function FiltersModal({
 
 		return (
 			<Box
-				bg="#FFF"
+				bg="white"
 				w="50%"
 				p="30px"
 				h="500px"
@@ -55,10 +55,10 @@ function FiltersModal({
 					fontWeight={600}
 					w="90%"
 				>
-					<Flex justify="space-between" align="center" color="#000">
+					<Flex justify="space-between" align="center" color="black">
 						<Text>{filterName}</Text>
 						<Box
-							color="#3483fa"
+							color="meliBlue"
 							fontSize="24px"
 							cursor="pointer"
 							onClick={() => setShowAllfilters(false)}
@@ -88,12 +88,12 @@ function FiltersModal({
 					?.sort()
 					?.map((e, i) => {
 						return (
-							<Flex key={i} bg="#FFF" w="100%" align="self-start" mt="10px">
+							<Flex key={i} bg="white" w="100%" align="self-start" mt="10px">
 								<Box
 									w="5%"
 									pt="32px"
 									mt="0"
-									color="#333"
+									color="meliGray"
 									fontWeight={700}
 									fontSize="18px"
 								>
@@ -109,7 +109,7 @@ function FiltersModal({
 									{e[1]?.length > 1 ? (
 										e[1].map((e, i) => (
 											<Text
-												color="#666"
+												color="meliLightGray"
 												key={i}
 												w="200px"
 												fontWeight={400}
@@ -134,7 +134,7 @@ function FiltersModal({
 										))
 									) : (
 										<Text
-											color="#666"
+											color="meliLightGray"
 											w="200px"
 											fontWeight={400}
 											my="0"

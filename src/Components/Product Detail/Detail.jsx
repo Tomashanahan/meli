@@ -115,7 +115,7 @@ function Detail() {
 				p="20px"
 				w="85%"
 				m="auto"
-				bg="#FFFF"
+				bg="white"
 				boxShadow="0 1px 2px 0 rgb(0 0 0 / 25%)"
 				borderRadius="4"
 				mt="40px"
@@ -189,7 +189,7 @@ function Detail() {
 									w="50px"
 								>
 									<Box
-										color="#3483fa"
+										color="meliBlue"
 										pos="absolute"
 										top="50%"
 										transform="translate(-50%,-50%)"
@@ -215,7 +215,7 @@ function Detail() {
 										cursor="pointer"
 										border={
 											borderImage === product_detail?.pictures[7]?.id &&
-											"2px solid #3483fa"
+											"2px solid meliBlue"
 										}
 										p="4"
 										id={product_detail?.pictures[7]?.id}

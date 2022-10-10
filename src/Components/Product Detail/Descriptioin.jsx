@@ -34,7 +34,7 @@ function Descriptioin({ product_description }) {
 			</Text>
 			<Text
 				fontFamily="Proxima Nova"
-				color="#666"
+				color="meliLightGray"
 				wordBreak="break-word"
 				fontSize="20px"
 				textAlign="left"

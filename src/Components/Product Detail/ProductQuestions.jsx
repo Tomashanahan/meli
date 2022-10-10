@@ -20,7 +20,7 @@ function ProductQuestions({ product_questions }) {
 					<Button
 						mr="10px"
 						bg="rgba(65,137,230,.15)"
-						color="#3483fa"
+						color="meliBlue"
 						fontWeight={600}
 						fontFamily="Proxima Nova"
 						fontSize="14px"
@@ -33,7 +33,7 @@ function ProductQuestions({ product_questions }) {
 					<Button
 						mx="5px"
 						bg="rgba(65,137,230,.15)"
-						color="#3483fa"
+						color="meliBlue"
 						fontWeight={600}
 						fontFamily="Proxima Nova"
 						fontSize="14px"
@@ -46,7 +46,7 @@ function ProductQuestions({ product_questions }) {
 					<Button
 						mx="5px"
 						bg="rgba(65,137,230,.15)"
-						color="#3483fa"
+						color="meliBlue"
 						fontWeight={600}
 						fontFamily="Proxima Nova"
 						fontSize="14px"
@@ -59,7 +59,7 @@ function ProductQuestions({ product_questions }) {
 					<Button
 						mx="10px"
 						bg="rgba(65,137,230,.15)"
-						color="#3483fa"
+						color="meliBlue"
 						fontWeight={600}
 						fontFamily="Proxima Nova"
 						fontSize="14px"
@@ -72,7 +72,7 @@ function ProductQuestions({ product_questions }) {
 					<Button
 						mt="20px"
 						bg="rgba(65,137,230,.15)"
-						color="#3483fa"
+						color="meliBlue"
 						fontWeight={600}
 						fontFamily="Proxima Nova"
 						fontSize="14px"
@@ -107,7 +107,7 @@ function ProductQuestions({ product_questions }) {
 					<Button
 						cursor={"pointer"}
 						m="0"
-						bg="#3483fa"
+						bg="meliBlue"
 						position="absolute"
 						boxSizing="border-box"
 						top="0"
@@ -117,7 +117,7 @@ function ProductQuestions({ product_questions }) {
 						border="none"
 						textAlign="center"
 						h="49px"
-						color="#FFFF"
+						color="white"
 						fontSize="18px"
 						w="64px"
 						borderBottomRightRadius="4px"
@@ -155,7 +155,7 @@ function ProductQuestions({ product_questions }) {
 						{seeAllQuestions && (
 							<Flex
 								mt="10px"
-								color="#3483fa"
+								color="meliBlue"
 								fontWeight={600}
 								align="center"
 								fontSize="18px"
@@ -173,7 +173,7 @@ function ProductQuestions({ product_questions }) {
 							cursor="pointer"
 							borderRadius="4px"
 							border="none"
-							color={"#3483fa"}
+							color={"meliBlue"}
 							bg="rgba(65,137,230,.15)"
 							fontWeight={600}
 							fontSize="14px"
@@ -217,7 +217,7 @@ function ProductQuestions({ product_questions }) {
 				{seeAllQuestions && (
 					<Flex
 						mt="10px"
-						color="#3483fa"
+						color="meliBlue"
 						fontWeight={600}
 						align="center"
 						fontSize="18px"
@@ -235,7 +235,7 @@ function ProductQuestions({ product_questions }) {
 					cursor="pointer"
 					borderRadius="4px"
 					border="none"
-					color={"#3483fa"}
+					color={"meliBlue"}
 					bg="rgba(65,137,230,.15)"
 					fontWeight={600}
 					fontSize="14px"

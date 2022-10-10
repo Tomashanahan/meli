@@ -41,7 +41,7 @@ function SearchBar() {
 					position: "relative",
 					width: "90%",
 					height: "41px",
-					backgroundColor: "#FFFF",
+					backgroundColor: "white",
 					boxShadow: "0 1px 2px 0 rgb(0 0 0 / 20%)",
 				}}
 			>
@@ -62,7 +62,7 @@ function SearchBar() {
 				/>
 				<Button
 					border="none"
-					bg="#FFFF"
+					bg="white"
 					type="submit"
 					position="absolute"
 					top="25%"
@@ -71,7 +71,7 @@ function SearchBar() {
 					borderRadius={0}
 					borderLeft=" 1px solid #E6E6E6"
 					height="20px"
-					color="rgba(0,0,0,0.55)"
+					color="transparentBlack"
 					fontSize="21px"
 					px="12px"
 				>
