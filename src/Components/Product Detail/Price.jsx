@@ -37,10 +37,11 @@ function Price({ product_detail }) {
 				textAlign="left"
 				fontWeight={400}
 				textTransform="capitalize"
+				display="none"
 			>
 				{condition} | {sold_quantity} vendidos
 			</Text>
-			<Flex align="flex-start">
+			<Flex align="flex-start" display={["none","none","none","none","yellow","blue"]}>
 				<Text
 					m={0}
 					lineHeight="25px"
@@ -183,12 +184,12 @@ function Price({ product_detail }) {
 				{/* nose */}
 				{/* Stock */}
 				<Box textAlign="left">
-					<Text fontWeight={600} color="black">
+					<Text fontWeight={600} color="black" fontSize={["16px","16px","16px","16px","18px","18px"]}>
 						{available_quantity > 0 ? "Stock disponible" : "Sin Stock"}
 					</Text>
-					<Flex align="center" color="black">
+					<Flex align="center" color="black" fontSize={["12px","12px","16px","16px","18px","18px"]}>
 						Cantidad:
-						<Text m={0} ml="5px" fontWeight={600} display="inline-block">
+						<Text m={0} ml="5px" fontSize={["10px","12px","16px","16px","18px","18px"]} fontWeight={600} display="inline-block">
 							1 unidad
 						</Text>
 						<Box h="18px" mx="3px" display="inline" color="meliBlue">
@@ -198,7 +199,7 @@ function Price({ product_detail }) {
 							m={0}
 							display="inline-block"
 							color="rgba(0,0,0,.55)"
-							fontSize="14"
+							fontSize="12px"
 						>
 							({available_quantity}{" "}
 							{available_quantity > 1 ? "disponibles" : "disponible"})
@@ -212,7 +213,7 @@ function Price({ product_detail }) {
 					<Button
 						alignSelf="center"
 						fontFamily="Proxima Nova"
-						w="318px"
+						w={["100%","100%","100%","100%","318px","318px"]}
 						h="48px"
 						borderRadius="6px"
 						fontSize="16px"
@@ -228,8 +229,8 @@ function Price({ product_detail }) {
 					<Button
 						fontFamily="Proxima Nova"
 						alignSelf="center"
-						m="auto"
-						w="318px"
+						m="auto" 
+						w={["100%","100%","100%","100%","318px","318px"]}
 						h="48px"
 						borderRadius="6px"
 						fontSize="16px"

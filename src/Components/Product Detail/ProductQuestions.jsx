@@ -16,14 +16,15 @@ function ProductQuestions({ product_questions }) {
 				<Text textAlign="left" fontSize="18px" fontWeight={600} mr="10px">
 					¿Qué querés saber?
 				</Text>
-				<Box textAlign="left">
+				<Flex flexWrap="wrap" textAlign="left">
 					<Button
 						mr="10px"
-						bg="rgba(65,137,230,.15)"
+						bg="meliLightBlue"
 						color="meliBlue"
+						mt="20px"
 						fontWeight={600}
 						fontFamily="Proxima Nova"
-						fontSize="14px"
+						fontSize={["14px", "14px", "14px", "14px", "14px", "14px"]}
 						border="none"
 						borderRadius="5px"
 						p="6px 11px"
@@ -32,11 +33,12 @@ function ProductQuestions({ product_questions }) {
 					</Button>
 					<Button
 						mx="5px"
-						bg="rgba(65,137,230,.15)"
+						bg="meliLightBlue"
 						color="meliBlue"
+						mt="20px"
 						fontWeight={600}
 						fontFamily="Proxima Nova"
-						fontSize="14px"
+						fontSize={["14px", "14px", "14px", "14px", "14px", "14px"]}
 						border="none"
 						borderRadius="5px"
 						p="6px 11px"
@@ -45,11 +47,12 @@ function ProductQuestions({ product_questions }) {
 					</Button>
 					<Button
 						mx="5px"
-						bg="rgba(65,137,230,.15)"
+						mt="20px"
+						bg="meliLightBlue"
 						color="meliBlue"
 						fontWeight={600}
 						fontFamily="Proxima Nova"
-						fontSize="14px"
+						fontSize={["14px", "14px", "14px", "14px", "14px", "14px"]}
 						border="none"
 						borderRadius="5px"
 						p="6px 11px"
@@ -58,11 +61,12 @@ function ProductQuestions({ product_questions }) {
 					</Button>
 					<Button
 						mx="10px"
-						bg="rgba(65,137,230,.15)"
+						mt="20px"
+						bg="meliLightBlue"
 						color="meliBlue"
 						fontWeight={600}
 						fontFamily="Proxima Nova"
-						fontSize="14px"
+						fontSize={["14px", "14px", "14px", "14px", "14px", "14px"]}
 						border="none"
 						borderRadius="5px"
 						p="6px 11px"
@@ -71,22 +75,22 @@ function ProductQuestions({ product_questions }) {
 					</Button>
 					<Button
 						mt="20px"
-						bg="rgba(65,137,230,.15)"
+						bg="meliLightBlue"
 						color="meliBlue"
 						fontWeight={600}
 						fontFamily="Proxima Nova"
-						fontSize="14px"
+						fontSize={["14px", "14px", "14px", "14px", "14px", "14px"]}
 						border="none"
 						borderRadius="5px"
 						p="6px 11px"
 					>
 						Cuotas sin tarjeta
 					</Button>
-				</Box>
+				</Flex>
 			</Box>
 
 			<Box textAlign="left" mt="40px">
-				<Text fontSize="18px" fontWeight={600} mr="10px">
+				<Text fontSize="18px" fontWeight={600} mr="10px" mb="10px">
 					Buscá lo que querés saber
 				</Text>
 				<Flex
@@ -116,12 +120,14 @@ function ProductQuestions({ product_questions }) {
 						p="15px 0"
 						border="none"
 						textAlign="center"
-						h="49px"
+						h="46px"
 						color="white"
 						fontSize="18px"
-						w="64px"
-						borderBottomRightRadius="4px"
+						w={["42px","42px","42px","42px","44px","64px"]}
+						borderTopLeftRadius="0"
 						borderTopRightRadius="4px"
+						borderBottomLeftRadius="0"
+						borderBottomRightRadius="4px"
 					>
 						<GoSearch />
 					</Button>
@@ -145,7 +151,7 @@ function ProductQuestions({ product_questions }) {
 												fontSize="16px"
 												borderLeft="1px solid rgba(0,0,0,.25)"
 											/>
-											<Stack ml="8px">
+											<Stack ml="8px" w="90%">
 												<Text m="0">{answer?.text}</Text>
 											</Stack>
 										</Flex>
@@ -174,10 +180,11 @@ function ProductQuestions({ product_questions }) {
 							borderRadius="4px"
 							border="none"
 							color={"meliBlue"}
-							bg="rgba(65,137,230,.15)"
+							bg="meliLightBlue"
 							fontWeight={600}
 							fontSize="14px"
-							w="45%"
+							// w="45%"
+							w={["100%","100%","100%","100%","100%","45%"]}
 							px="24px"
 						>
 							<Flex justify="center" align="center">
@@ -188,8 +195,9 @@ function ProductQuestions({ product_questions }) {
 							</Flex>
 						</Button>
 					</>
-				) : <></>
-				}
+				) : (
+					<></>
+				)}
 				{/* <Box mt="40px">
 					<Text>Últimas realizadas</Text>
 					{product_questions?.questions
@@ -236,7 +244,7 @@ function ProductQuestions({ product_questions }) {
 					borderRadius="4px"
 					border="none"
 					color={"meliBlue"}
-					bg="rgba(65,137,230,.15)"
+					bg="meliLightBlue"
 					fontWeight={600}
 					fontSize="14px"
 					w="45%"

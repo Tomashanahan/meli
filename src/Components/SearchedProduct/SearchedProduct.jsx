@@ -662,13 +662,13 @@ function SearchedProduct() {
 						color="black"
 					>
 						<Box
-							fontSize={["12px", "12px", "15px", "20px", "24px", "24px"]}
+							fontSize={["12px", "12px", "15px", "20px", "20px", "20px"]}
 							fontWeight={600}
 						>
 							No hay publicaciones que coincidan con tu búsqueda.
 						</Box>
 						<UnorderedList
-							fontSize={["12px", "12px", "15px", "18px", "20px", "24px"]}
+							fontSize={["12px", "12px", "15px", "18px", "16px", "16px"]}
 							w={["95%","95%","90%","90%","75%","50%"]}
 							textAlign="left"
 							m="auto"

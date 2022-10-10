@@ -25,6 +25,7 @@ const colors = {
 	meliYellow: "#FFF059",
 	melimediumhGray: "#363633",
 	meliBlue: "#3483fa",
+	meliLightBlue: "rgba(65,137,230,.15)",
 	meliGray: "#333",
 	meliLightGray: "#666",
 	meliBlack: "#3C3B35",

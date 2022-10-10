@@ -80,8 +80,8 @@ function ProductOpinions({ product_opinions }) {
 			<Text textAlign="left" fontSize="28px" fontWeight={600} mr="10px">
 				Opiniones del producto
 			</Text>
-			<Flex justify="space-between">
-				<Box color="meliBlue" w="30%">
+			<Flex flexDirection={["column","column","column","column","column","row"]} justify="space-between">
+				<Box color="meliBlue" w={["100%","100%","100%","50%","100%","30%"]} mb="50px">
 					<Flex justify="space-between" align="center">
 						<Text fontSize="47px" m="0" fontWeight={700} mr="18px">
 							{product_opinions?.rating_average}
@@ -207,7 +207,7 @@ function ProductOpinions({ product_opinions }) {
 					</Stack>
 				</Box>
 				{/*  */}
-				<Stack w="60%">
+				<Stack  w={["100%","100%","100%","100%","200%","60%"]}>
 					{product_opinions?.reviews?.map(({ id, content, likes, rate, date_created }) => (
 						<Box key={id}>
 							<Flex justify="space-between" align="center" color="meliBlue">
@@ -227,7 +227,7 @@ function ProductOpinions({ product_opinions }) {
 									{content}
 								</Text>
 								<Flex justify="space-between" align="center">
-									<Flex justify="space-between" align="center" w="37%">
+									<Flex justify="space-between" align="center"  w={["60%","60%","60%","30%","22%","37%"]}>
 										<Flex
 											justify="space-between"
 											align="center"

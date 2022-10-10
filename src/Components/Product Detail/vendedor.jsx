@@ -69,7 +69,12 @@ function Vendedor({ product_detail, seller_data }) {
 			p="24px 16px"
 			color="black"
 		>
-			<Text m={0} fontSize="18px" textAlign="left" fontWeight={400}>
+			<Text
+				m={0}
+				fontSize={["15px", "15px", "15px", "16px", "16px", "18px"]}
+				textAlign="left"
+				fontWeight={400}
+			>
 				Información sobre el vendedor
 			</Text>
 			<Box>
@@ -108,21 +113,24 @@ function Vendedor({ product_detail, seller_data }) {
 			{seller_reputation?.power_seller_status === "platinum" && (
 				<Box>
 					<Flex align="flex-start">
-						<Flex mr="8px" pt="5">
+						<Flex mr="8px" pt="5px">
 							<img
 								decoding="async"
 								src="https://http2.mlstatic.com/frontend-assets/vpp-frontend/medal.svg"
 								alt="s"
 							/>
 						</Flex>
-						<Stack align="flex-start">
+						<Stack
+							align="flex-start"
+							fontSize={["15px", "15px", "15px", "16px", "16px", "18px"]}
+						>
 							<Text m={0} mb="-10px" fontWeight={400} color="#05A550">
 								MercadoLíder Platinum{" "}
 							</Text>
 							<Text
 								color="rgba(0,0,0,.55)"
 								cursor={"pointer"}
-								fontSize="14"
+								fontSize="14px"
 								fontWeight={300}
 							>
 								¡Es uno de los mejores del sitio!
@@ -131,13 +139,27 @@ function Vendedor({ product_detail, seller_data }) {
 					</Flex>
 				</Box>
 			)}
-			<Flex justifyContent="space-between" align="center" pt="20px">
+			<Flex
+				justifyContent="space-between"
+				align="center"
+				pt="20px"
+				w={["100%", "100%", "100%", "50%", "100%", "100%"]}
+			>
 				{colorReputation(seller_reputation?.level_id)}
 			</Flex>
 
-			<Flex marginTop={10} align="center" justify="space-between" w="100%">
+			<Flex
+				marginTop={10}
+				align="center"
+				justify="space-between"
+				w={["100%", "100%", "100%", "50%", "100%", "100%"]}
+			>
 				<Box borderRight="1px solid #ddd" w="106px" m="auto" textAlign="center">
-					<Text fontSize="24px" display="inline-block" m={0}>
+					<Text
+						fontSize={["15px", "15px", "18px", "20px", "20px", "24px"]}
+						display="inline-block"
+						m={0}
+					>
 						{seller_reputation?.transactions?.completed}
 					</Text>
 					<Text fontSize="12px" m={0} color="#515151">

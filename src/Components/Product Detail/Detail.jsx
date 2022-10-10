@@ -1,4 +1,4 @@
-import { Box, Flex, Image, Stack } from "@chakra-ui/react";
+import { Box, Flex, Image, Stack, useMediaQuery } from "@chakra-ui/react";
 import React, { useLayoutEffect } from "react";
 import Descriptioin from "./Descriptioin";
 import Price from "./Price";
@@ -12,6 +12,7 @@ import "../../index.css";
 import { useRef } from "react";
 import ImageCarousel from "./ImageCarousel";
 import { useParams } from "react-router-dom";
+import ProductDetailResponsive from "../Responsive/ProductDetailResponsive/ProductDetailResponsive";
 
 function Detail() {
 	const {
@@ -34,6 +35,7 @@ function Detail() {
 	const [imageCarousel, setImageCarousel] = useState({});
 	const [showImageCarousel, setShowImageCarousel] = useState(false);
 	const { id } = useParams();
+	const [isMobile] = useMediaQuery("(max-width: 794px)");
 	/*  */
 	function imageZoom(imgID, resultID) {
 		var img, lens, result, cx, cy;
@@ -106,227 +108,258 @@ function Detail() {
 
 	return (
 		<>
-			{showImageCarousel && (
-				<ImageCarousel images={imageCarousel} setShow={setShowImageCarousel} />
-			)}
-			<Flex
-				boxSizing="border-box"
-				justify="space-between"
-				p="20px"
-				w="85%"
-				m="auto"
-				bg="white"
-				boxShadow="0 1px 2px 0 rgb(0 0 0 / 25%)"
-				borderRadius="4"
-				mt="40px"
-			>
-				<Stack>
-					<Flex h="fit-content" minH="600px">
-						<Stack>
-							{product_detail?.pictures?.length > 7
-								? product_detail?.pictures?.slice(0, 7)?.map(({ id, url }) => (
-										<Image
-											onClick={(e) => {
-												setImage(url);
-												setBorderImage(e.target.id);
-											}}
-											boxSizing="border-box"
-											cursor="pointer"
-											border={
-												borderImage === id
-													? "2px solid #3483fa"
-													: "1px solid rgba(0,0,0,.25)"
-											}
-											key={url}
-											id={
-												borderImage === undefined
-													? setBorderImage(product_detail?.pictures[0]?.id)
-													: id
-											}
-											borderRadius="6px"
-											p="4px"
-											h="50px"
-											w="50px"
-											src={url}
-											alt="profucto_1"
-											objectFit={"contain"}
-										/>
-								  ))
-								: product_detail?.pictures?.map(({ id, url }) => (
-										<Image
-											onClick={(e) => {
-												setImage(url);
-												setBorderImage(e.target.id);
-											}}
-											boxSizing="border-box"
-											cursor="pointer"
-											border={
-												borderImage === id
-													? "2px solid #3483fa"
-													: "1px solid rgba(0,0,0,.25)"
-											}
-											key={url}
-											id={
-												borderImage === undefined
-													? setBorderImage(product_detail?.pictures[0]?.id)
-													: id
-											}
-											borderRadius="6px"
-											p="4px"
-											h="50px"
-											w="50px"
-											src={url}
-											alt="profucto_1"
-											objectFit={"contain"}
-										/>
-								  ))}
-							{product_detail?.pictures?.length > 7 && (
-								<Box
-									pos="relative"
-									border="1px solid rgba(0,0,0,.25)"
-									h="50px"
-									borderRadius="6px"
-									w="50px"
-								>
-									<Box
-										color="meliBlue"
-										pos="absolute"
-										top="50%"
-										transform="translate(-50%,-50%)"
-										left="50%"
-										fontSize="25px"
-										fontWeight={400}
-									>
-										+{product_detail?.pictures?.length - 6}
-									</Box>
-									<Image
-										opacity={0.2}
-										onClick={(e) => {
-											setImage(product_detail?.pictures[7]?.url);
-											setShowImageCarousel(true);
-											window.scrollTo(0, 0);
-											setImageCarousel({
-												urlCurrentImage: product_detail?.pictures[7]?.url,
-												allImages: product_detail?.pictures,
-											});
-											setBorderImage(e.target.id);
-										}}
-										boxSizing="border-box"
-										cursor="pointer"
-										border={
-											borderImage === product_detail?.pictures[7]?.id &&
-											"2px solid meliBlue"
-										}
-										p="4"
-										id={product_detail?.pictures[7]?.id}
-										h="50px"
-										w="50px"
-										src={product_detail?.pictures[7]?.url}
-										alt="profucto_1"
-										objectFit={"contain"}
-									/>
-								</Box>
-							)}
-						</Stack>
-						<Flex w="100%" justify="center">
-							<Box
-								id={"img-zoom-container"}
-								pos="relative"
-								cursor="zoom-in"
-								onMouseMove={() => {
-									setZoom(true);
-									imageZoom("myimage", "myresult");
-								}}
-								onMouseLeave={() => setZoom(false)}
-							>
-								{zoom && (
-									<Box
-										ref={img_zoom_lens}
-										pos="absolute"
-										bg="rgba(0,0,0,.43)"
-										w="182px"
-										h="182px"
-										onClick={(e) => {
-											setShowImageCarousel(true);
-											window.scrollTo(0, 0);
-											setImageCarousel({
-												urlCurrentImage:
-													image === undefined
-														? product_detail?.pictures &&
-														  product_detail?.pictures[0]?.url
-														: image,
-												allImages: product_detail?.pictures,
-											});
-										}}
-									/>
-								)}
-								<Image
-									h="500px"
-									w="500px"
-									id="myimage"
-									objectFit="contain"
-									src={
-										image === undefined
-											? product_detail?.pictures &&
-											  product_detail?.pictures[0]?.url
-											: image
-									}
-									alt="image"
-								/>
-							</Box>
-						</Flex>
-					</Flex>
-					<Box px="45px">
-						<Box
-							w="100%"
-							pt="30px"
-							m="auto"
-							alignSelf="center"
-							borderBottom="1px solid rgba(0,0,0,.1)"
-							h="3px"
-						/>
-						<Descriptioin product_description={product_description} />
-						<Box
-							w="100%"
-							m="auto"
-							mt="30px"
-							alignSelf="center"
-							borderBottom="1px solid rgba(0,0,0,.1)"
-							h="3px"
-						/>
-						<ProductQuestions product_questions={product_questions} />
-						<Box
-							w="100%"
-							m="auto"
-							mt="30px"
-							alignSelf="center"
-							borderBottom="1px solid rgba(0,0,0,.1)"
-							h="3px"
-						/>
-						{product_opinions?.reviews?.length > 0 && (
-							<ProductOpinions product_opinions={product_opinions} />
-						)}
-					</Box>
-				</Stack>
-				<Stack pos="relative" w="30%">
-					{zoom && (
-						<Box
-							id="myresult"
-							ref={imagen}
-							pos="absolute"
-							r="0"
-							top="8px"
-							border="1px solid #d4d4d4"
-							w="100%"
-							h="500px"
-							backgroundSize="1650px 2400px"
-							zIndex={1000}
+			{isMobile ? (
+				<ProductDetailResponsive
+					image={image}
+					setImage={setImage}
+					borderImage={borderImage}
+					setBorderImage={setBorderImage}
+					zoom={zoom}
+					setZoom={setZoom}
+					imageZoom={imageZoom}
+					setImageCarousel={setImageCarousel}
+					product_detail={product_detail}
+					product_description={product_description}
+					seller_data={seller_data}
+					product_questions={product_questions}
+					product_opinions={product_opinions}
+					setShowImageCarousel={setShowImageCarousel}
+				/>
+			) : (
+				<>
+					{showImageCarousel && (
+						<ImageCarousel
+							images={imageCarousel}
+							setShow={setShowImageCarousel}
 						/>
 					)}
-					<Price product_detail={product_detail} />
-					<Vendedor product_detail={product_detail} seller_data={seller_data} />
-				</Stack>
-			</Flex>
+					<Flex
+						boxSizing="border-box"
+						justify="space-between"
+						p="20px"
+						w="85%"
+						m="auto"
+						bg="white"
+						boxShadow="0 1px 2px 0 rgb(0 0 0 / 25%)"
+						borderRadius="4"
+						mt="40px"
+					>
+						<Stack>
+							<Flex h="fit-content" minH="600px">
+								<Stack>
+									{product_detail?.pictures?.length > 7
+										? product_detail?.pictures
+												?.slice(0, 7)
+												?.map(({ id, url }) => (
+													<Image
+														onClick={(e) => {
+															setImage(url);
+															setBorderImage(e.target.id);
+														}}
+														boxSizing="border-box"
+														cursor="pointer"
+														border={
+															borderImage === id
+																? "2px solid #3483fa"
+																: "1px solid rgba(0,0,0,.25)"
+														}
+														key={url}
+														id={
+															borderImage === undefined
+																? setBorderImage(
+																		product_detail?.pictures[0]?.id
+																  )
+																: id
+														}
+														borderRadius="6px"
+														p="4px"
+														h="50px"
+														w="50px"
+														src={url}
+														alt="profucto_1"
+														objectFit={"contain"}
+													/>
+												))
+										: product_detail?.pictures?.map(({ id, url }) => (
+												<Image
+													onClick={(e) => {
+														setImage(url);
+														setBorderImage(e.target.id);
+													}}
+													boxSizing="border-box"
+													cursor="pointer"
+													border={
+														borderImage === id
+															? "2px solid #3483fa"
+															: "1px solid rgba(0,0,0,.25)"
+													}
+													key={url}
+													id={
+														borderImage === undefined
+															? setBorderImage(product_detail?.pictures[0]?.id)
+															: id
+													}
+													borderRadius="6px"
+													p="4px"
+													h="50px"
+													w="50px"
+													src={url}
+													alt="profucto_1"
+													objectFit={"contain"}
+												/>
+										  ))}
+									{product_detail?.pictures?.length > 7 && (
+										<Box
+											pos="relative"
+											border="1px solid rgba(0,0,0,.25)"
+											h="50px"
+											borderRadius="6px"
+											w="50px"
+										>
+											<Box
+												color="meliBlue"
+												pos="absolute"
+												top="50%"
+												transform="translate(-50%,-50%)"
+												left="50%"
+												fontSize="25px"
+												fontWeight={400}
+											>
+												+{product_detail?.pictures?.length - 6}
+											</Box>
+											<Image
+												opacity={0.2}
+												onClick={(e) => {
+													setImage(product_detail?.pictures[7]?.url);
+													setShowImageCarousel(true);
+													window.scrollTo(0, 0);
+													setImageCarousel({
+														urlCurrentImage: product_detail?.pictures[7]?.url,
+														allImages: product_detail?.pictures,
+													});
+													setBorderImage(e.target.id);
+												}}
+												boxSizing="border-box"
+												cursor="pointer"
+												border={
+													borderImage === product_detail?.pictures[7]?.id &&
+													"2px solid meliBlue"
+												}
+												p="4"
+												id={product_detail?.pictures[7]?.id}
+												h="50px"
+												w="50px"
+												src={product_detail?.pictures[7]?.url}
+												alt="profucto_1"
+												objectFit={"contain"}
+											/>
+										</Box>
+									)}
+								</Stack>
+								<Flex w="100%" justify="center">
+									<Box
+										id={"img-zoom-container"}
+										pos="relative"
+										cursor="zoom-in"
+										onMouseMove={() => {
+											setZoom(true);
+											imageZoom("myimage", "myresult");
+										}}
+										onMouseLeave={() => setZoom(false)}
+									>
+										{zoom && (
+											<Box
+												ref={img_zoom_lens}
+												pos="absolute"
+												bg="rgba(0,0,0,.43)"
+												w="182px"
+												h="182px"
+												onClick={(e) => {
+													setShowImageCarousel(true);
+													window.scrollTo(0, 0);
+													setImageCarousel({
+														urlCurrentImage:
+															image === undefined
+																? product_detail?.pictures &&
+																  product_detail?.pictures[0]?.url
+																: image,
+														allImages: product_detail?.pictures,
+													});
+												}}
+											/>
+										)}
+										<Image
+											h="500px"
+											w="500px"
+											id="myimage"
+											objectFit="contain"
+											src={
+												image === undefined
+													? product_detail?.pictures &&
+													  product_detail?.pictures[0]?.url
+													: image
+											}
+											alt="image"
+										/>
+									</Box>
+								</Flex>
+							</Flex>
+							<Box px="45px">
+								<Box
+									w="100%"
+									pt="30px"
+									m="auto"
+									alignSelf="center"
+									borderBottom="1px solid rgba(0,0,0,.1)"
+									h="3px"
+								/>
+								<Descriptioin product_description={product_description} />
+								<Box
+									w="100%"
+									m="auto"
+									mt="30px"
+									alignSelf="center"
+									borderBottom="1px solid rgba(0,0,0,.1)"
+									h="3px"
+								/>
+								<ProductQuestions product_questions={product_questions} />
+								<Box
+									w="100%"
+									m="auto"
+									mt="30px"
+									alignSelf="center"
+									borderBottom="1px solid rgba(0,0,0,.1)"
+									h="3px"
+								/>
+								{product_opinions?.reviews?.length > 0 && (
+									<ProductOpinions product_opinions={product_opinions} />
+								)}
+							</Box>
+						</Stack>
+						<Stack pos="relative" w={["90%","90%","90%","90%","90%","30%"]}>
+							{zoom && (
+								<Box
+									id="myresult"
+									ref={imagen}
+									pos="absolute"
+									r="0"
+									top="8px"
+									border="1px solid #d4d4d4"
+									w="100%"
+									h="500px"
+									backgroundSize="1650px 2400px"
+									zIndex={1000}
+								/>
+							)}
+							<Price product_detail={product_detail} />
+							<Vendedor
+								product_detail={product_detail}
+								seller_data={seller_data}
+							/>
+						</Stack>
+					</Flex>
+				</>
+			)}
 		</>
 	);
 }
