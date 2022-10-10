@@ -109,22 +109,30 @@ function Detail() {
 	return (
 		<>
 			{isMobile ? (
-				<ProductDetailResponsive
-					image={image}
-					setImage={setImage}
-					borderImage={borderImage}
-					setBorderImage={setBorderImage}
-					zoom={zoom}
-					setZoom={setZoom}
-					imageZoom={imageZoom}
-					setImageCarousel={setImageCarousel}
-					product_detail={product_detail}
-					product_description={product_description}
-					seller_data={seller_data}
-					product_questions={product_questions}
-					product_opinions={product_opinions}
-					setShowImageCarousel={setShowImageCarousel}
-				/>
+				<>
+					{showImageCarousel && (
+						<ImageCarousel
+							images={imageCarousel}
+							setShow={setShowImageCarousel}
+						/>
+					)}
+					<ProductDetailResponsive
+						image={image}
+						setImage={setImage}
+						borderImage={borderImage}
+						setBorderImage={setBorderImage}
+						zoom={zoom}
+						setZoom={setZoom}
+						imageZoom={imageZoom}
+						setImageCarousel={setImageCarousel}
+						product_detail={product_detail}
+						product_description={product_description}
+						seller_data={seller_data}
+						product_questions={product_questions}
+						product_opinions={product_opinions}
+						setShowImageCarousel={setShowImageCarousel}
+					/>
+				</>
 			) : (
 				<>
 					{showImageCarousel && (
@@ -336,7 +344,10 @@ function Detail() {
 								)}
 							</Box>
 						</Stack>
-						<Stack pos="relative" w={["90%","90%","90%","90%","90%","30%"]}>
+						<Stack
+							pos="relative"
+							w={["90%", "90%", "90%", "90%", "90%", "30%"]}
+						>
 							{zoom && (
 								<Box
 									id="myresult"

@@ -84,11 +84,18 @@ function ProductDetailResponsive({
 										: image
 								}
 								alt="image"
+								onClick={() => {
+									setShowImageCarousel(true)
+									setImageCarousel({
+										urlCurrentImage: product_detail?.pictures[7]?.url,
+										allImages: product_detail?.pictures,
+									});
+								}}
 							/>
 						</Box>
 					</Flex>
 				</Flex>
-        <Price product_detail={product_detail} />
+				<Price product_detail={product_detail} />
 				<Box>
 					<Box
 						w="100%"
@@ -99,7 +106,7 @@ function ProductDetailResponsive({
 						h="3px"
 					/>
 					<Descriptioin product_description={product_description} />
-          <Vendedor product_detail={product_detail} seller_data={seller_data} />
+					<Vendedor product_detail={product_detail} seller_data={seller_data} />
 					<Box
 						w="100%"
 						m="auto"

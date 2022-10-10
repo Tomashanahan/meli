@@ -147,7 +147,7 @@ function ImageCarousel({ images, setShow }) {
 					justify="center"
 					cursor="pointer"
 					align="center"
-					ml="46px"
+					ml={["10px","20px","40px","40px","40px","46px"]}
 					color="white"
 					h="50px"
 					w="50px"
@@ -164,7 +164,7 @@ function ImageCarousel({ images, setShow }) {
 					onClick={() => setImageScale(imageScale === 1 ? 1.5 : 1)}
 					cursor={imageScale === 1 ? "zoom-in" : "zoom-out"}
 					objectFit="contain"
-					w="600px"
+					w={["250px","250px","250px","500px","500px","600px"]}
 					src={currentImg?.url && currentImg?.url}
 				/>
 				<Flex

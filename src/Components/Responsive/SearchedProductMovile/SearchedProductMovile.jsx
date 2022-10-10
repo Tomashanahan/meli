@@ -52,6 +52,8 @@ function SearchedProductMovile({
 							h="400px"
 							overflowY="scroll"
 							boxShadow="0 1px 2px 0 rgb(0 0 0 / 45%)"
+							w="80%"
+							ml="20px"
 						>
 							<MenuGroup>
 								<Stack>
@@ -194,6 +196,7 @@ function SearchedProductMovile({
 															window.scrollTo(0, 0);
 															setFilterName(name);
 															setShowAllfilters(true);
+															console.log("aaaaa")
 														}}
 														cursor="pointer"
 													>

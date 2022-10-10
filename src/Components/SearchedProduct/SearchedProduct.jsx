@@ -129,6 +129,7 @@ function SearchedProduct() {
 							deleteFilter={deleteFilter}
 							filterProductsSearched={filterProductsSearched}
 							dispatch={dispatch}
+							setFilterName={setFilterName}
 						/>
 					) : (
 						<>

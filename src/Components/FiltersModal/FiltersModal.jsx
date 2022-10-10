@@ -40,7 +40,7 @@ function FiltersModal({
 		return (
 			<Box
 				bg="white"
-				w="50%"
+				w={["95%","95%","95%","95%","70%","50%"]}
 				p="30px"
 				h="500px"
 				overflowY="scroll"
@@ -49,11 +49,11 @@ function FiltersModal({
 			>
 				<Box
 					my="0"
-					ml="30px"
+					ml={["0","0","0","0","10px","30px"]}
 					pt="20px"
 					fontSize="20px"
 					fontWeight={600}
-					w="90%"
+					w="100%"
 				>
 					<Flex justify="space-between" align="center" color="black">
 						<Text>{filterName}</Text>
