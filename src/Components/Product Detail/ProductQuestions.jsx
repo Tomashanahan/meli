@@ -147,7 +147,7 @@ function ProductQuestions({ product_questions }) {
 				{product_questions?.questions?.length > 0 ? (
 					<>
 						<Box mt="40px">
-							<Text>Últimas realizadas</Text>
+							<Text color="black">Últimas realizadas</Text>
 							{product_questions?.questions
 								?.slice(0, seeAllQuestions)
 								.map(({ id, text, answer }) => (
@@ -170,7 +170,7 @@ function ProductQuestions({ product_questions }) {
 									</Box>
 								))}
 						</Box>
-						{seeAllQuestions && (
+						{seeAllQuestions && product_questions?.questions?.length > 5 && (
 							<Flex
 								mt="10px"
 								color="meliBlue"

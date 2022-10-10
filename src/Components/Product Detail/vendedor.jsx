@@ -201,7 +201,7 @@ function Vendedor({ product_detail, seller_data }) {
 				cursor={"pointer"}
 				fontSize="14"
 				fontWeight={400}
-				pt={"20"}
+				pt="20px"
 			>
 				Ver más datos de este vendedor
 			</Text>

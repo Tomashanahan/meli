@@ -43,13 +43,14 @@ function Price({ product_detail }) {
 			</Text>
 			<Flex
 				align="flex-start"
-				display={["none", "none", "none", "none", "block", "block"]}
+				display={["none", "none", "none", "none", "flex", "flex"]}
 			>
 				<Text
 					m={0}
 					lineHeight="25px"
 					textAlign="left"
-					fontSize={22}
+					fontSize="22px"
+					mr="28px"
 					color="rgba(0,0,0,.9)"
 					fontWeight={500}
 				>

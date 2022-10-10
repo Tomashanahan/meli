@@ -29,6 +29,9 @@ function Descriptioin({ product_description }) {
 				fontWeight={400}
 				fontSize={["20px","20px","20px","20px","20px","24px"]}
 				fontFamily="Proxima Nova"
+				color="black"
+				mt="40px"
+				mb="24px"
 			>
 				Descripción
 			</Text>
@@ -36,7 +39,7 @@ function Descriptioin({ product_description }) {
 				fontFamily="Proxima Nova"
 				color="meliLightGray"
 				wordBreak="break-word"
-				fontSize={["14px","14px","14px","18px","20px","24px"]}
+				fontSize={["14px","14px","14px","18px","20px","20px"]}
 				textAlign="left"
 			>
 				{urlTags?.reduce((total, line) => [total, <br key={line} />, line])}
