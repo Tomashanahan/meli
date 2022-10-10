@@ -48,14 +48,6 @@ function Header() {
 				p="5px"
 				alignItems="center"
 				w={["95%", "95%", "95%", "95%", "95%", "82%"]}
-				bg={[
-					"white",
-					"meliGreen",
-					"melimediumhGray",
-					"meliRed",
-					"yellow",
-					"blue",
-				]}
 				m="auto"
 			>
 				<GridItem area={"logo"} justifySelf="flex-start">
