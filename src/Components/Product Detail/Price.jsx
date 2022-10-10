@@ -29,7 +29,7 @@ function Price({ product_detail }) {
 	const monthlyFee = ((price * 101) / 100 + price) / 12;
 
 	return (
-		<Stack border="1px solid rgba(0,0,0,.1)" borderRadius="8" p="24px 16px" >
+		<Stack border="1px solid rgba(0,0,0,.1)" borderRadius="8" p="24px 16px">
 			<Text
 				m={0}
 				color="rgba(0,0,0,.55)"
@@ -37,11 +37,14 @@ function Price({ product_detail }) {
 				textAlign="left"
 				fontWeight={400}
 				textTransform="capitalize"
-				display="none"
+				display={["none", "none", "none", "none", "block", "block"]}
 			>
 				{condition} | {sold_quantity} vendidos
 			</Text>
-			<Flex align="flex-start" display={["none","none","none","none","yellow","blue"]}>
+			<Flex
+				align="flex-start"
+				display={["none", "none", "none", "none", "block", "block"]}
+			>
 				<Text
 					m={0}
 					lineHeight="25px"
@@ -184,12 +187,26 @@ function Price({ product_detail }) {
 				{/* nose */}
 				{/* Stock */}
 				<Box textAlign="left">
-					<Text fontWeight={600} color="black" fontSize={["16px","16px","16px","16px","18px","18px"]}>
+					<Text
+						fontWeight={600}
+						color="black"
+						fontSize={["16px", "16px", "16px", "16px", "18px", "18px"]}
+					>
 						{available_quantity > 0 ? "Stock disponible" : "Sin Stock"}
 					</Text>
-					<Flex align="center" color="black" fontSize={["12px","12px","16px","16px","18px","18px"]}>
+					<Flex
+						align="center"
+						color="black"
+						fontSize={["12px", "12px", "16px", "16px", "18px", "18px"]}
+					>
 						Cantidad:
-						<Text m={0} ml="5px" fontSize={["10px","12px","16px","16px","18px","18px"]} fontWeight={600} display="inline-block">
+						<Text
+							m={0}
+							ml="5px"
+							fontSize={["10px", "12px", "16px", "16px", "18px", "18px"]}
+							fontWeight={600}
+							display="inline-block"
+						>
 							1 unidad
 						</Text>
 						<Box h="18px" mx="3px" display="inline" color="meliBlue">
@@ -213,7 +230,7 @@ function Price({ product_detail }) {
 					<Button
 						alignSelf="center"
 						fontFamily="Proxima Nova"
-						w={["100%","100%","100%","100%","318px","318px"]}
+						w={["100%", "100%", "100%", "100%", "318px", "318px"]}
 						h="48px"
 						borderRadius="6px"
 						fontSize="16px"
@@ -229,8 +246,8 @@ function Price({ product_detail }) {
 					<Button
 						fontFamily="Proxima Nova"
 						alignSelf="center"
-						m="auto" 
-						w={["100%","100%","100%","100%","318px","318px"]}
+						m="auto"
+						w={["100%", "100%", "100%", "100%", "318px", "318px"]}
 						h="48px"
 						borderRadius="6px"
 						fontSize="16px"
@@ -295,7 +312,13 @@ function Price({ product_detail }) {
 					>
 						<path d="M21 4h-3V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v1H3a1 1 0 0 0-1 1v3c0 4.31 1.799 6.91 4.819 7.012A6.001 6.001 0 0 0 11 17.91V20H9v2h6v-2h-2v-2.09a6.01 6.01 0 0 0 4.181-2.898C20.201 14.91 22 12.31 22 8V5a1 1 0 0 0-1-1zM4 8V6h2v6.83C4.216 12.078 4 9.299 4 8zm8 8c-2.206 0-4-1.794-4-4V4h8v8c0 2.206-1.794 4-4 4zm6-3.17V6h2v2c0 1.299-.216 4.078-2 4.83z"></path>
 					</svg>
-					<Box color="black" w="88%" textAlign="left" fontSize="14px" fontWeight={400}>
+					<Box
+						color="black"
+						w="88%"
+						textAlign="left"
+						fontSize="14px"
+						fontWeight={400}
+					>
 						<Text color="meliBlue" display="inline">
 							Mercado Puntos
 						</Text>
