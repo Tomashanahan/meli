@@ -90,7 +90,13 @@ function ProductQuestions({ product_questions }) {
 			</Box>
 
 			<Box textAlign="left" mt="40px">
-				<Text fontSize="18px" fontWeight={600} mr="10px" mb="10px">
+				<Text
+					color="black"
+					fontSize="18px"
+					fontWeight={600}
+					mr="10px"
+					mb="10px"
+				>
 					Buscá lo que querés saber
 				</Text>
 				<Flex
@@ -103,10 +109,16 @@ function ProductQuestions({ product_questions }) {
 					<Input
 						w="90%"
 						_focus={{ outline: "none" }}
+						focusBorderColor="none"
+						color="black"
 						border="none"
 						pl="16px"
 						placeholder="Escribí una pregunta o palabra clave..."
-						_placeholder={{ fontFamily: "Proxima Nova", fontSize: "16px" }}
+						_placeholder={{
+							fontFamily: "Proxima Nova",
+							fontSize: "16px",
+							color: "meliLightGray",
+						}}
 					/>
 					<Button
 						cursor={"pointer"}
@@ -123,7 +135,7 @@ function ProductQuestions({ product_questions }) {
 						h="46px"
 						color="white"
 						fontSize="18px"
-						w={["42px","42px","42px","42px","44px","64px"]}
+						w={["42px", "42px", "42px", "42px", "44px", "64px"]}
 						borderTopLeftRadius="0"
 						borderTopRightRadius="4px"
 						borderBottomLeftRadius="0"
@@ -184,7 +196,7 @@ function ProductQuestions({ product_questions }) {
 							fontWeight={600}
 							fontSize="14px"
 							// w="45%"
-							w={["100%","100%","100%","100%","100%","45%"]}
+							w={["100%", "100%", "100%", "100%", "100%", "45%"]}
 							px="24px"
 						>
 							<Flex justify="center" align="center">
