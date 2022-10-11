@@ -87,7 +87,7 @@ function Price({ product_detail }) {
 							{currency_id?.symbol} {formatPrice(price)}{" "}
 							<span
 								style={{
-									color: "meliGreen",
+									color: "#00a650",
 									fontSize: "18px",
 									marginLeft: "10px",
 									fontWeight: 400,

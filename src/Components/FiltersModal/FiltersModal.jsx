@@ -117,7 +117,7 @@ function FiltersModal({
 												fontWeight={400}
 												my="0"
 												mb="7px"
-												fontSize="14px"
+												fontSize="14px" 
 												onClick={() => {
 													params.set("offset", 0);
 													params.set("pagina", 1);
