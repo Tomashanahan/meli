@@ -191,20 +191,20 @@ function Price({ product_detail }) {
 					<Text
 						fontWeight={600}
 						color="black"
-						fontSize={["16px", "16px", "16px", "16px", "18px", "18px"]}
+						fontSize={["16px", "16px", "16px", "16px", "16px", "16px"]}
 					>
 						{available_quantity > 0 ? "Stock disponible" : "Sin Stock"}
 					</Text>
 					<Flex
 						align="center"
 						color="black"
-						fontSize={["12px", "12px", "16px", "16px", "18px", "18px"]}
+						fontSize={["12px", "12px", "16px", "16px", "16px", "16px"]}
 					>
 						Cantidad:
 						<Text
 							m={0}
 							ml="5px"
-							fontSize={["10px", "12px", "16px", "16px", "18px", "18px"]}
+							fontSize={["10px", "12px", "16px", "16px", "16px", "16px"]}
 							fontWeight={600}
 							display="inline-block"
 						>
