@@ -1,6 +1,7 @@
 import React, { useEffect, useLayoutEffect, useRef } from "react";
 import { Box, Flex, Input, Text } from "@chakra-ui/react";
 import { IoMdClose } from "react-icons/io";
+import { useSearchParams } from "react-router-dom";
 
 function FiltersModal({
 	searchedProduct,
@@ -11,6 +12,7 @@ function FiltersModal({
 }) {
 	const filterModal = useRef();
 	searchedProduct = searchedProduct.filter((e) => e.name === filterName);
+	const [params, setParams] = useSearchParams();
 
 	const renderFilters = () => {
 		let obj = {};
@@ -40,7 +42,7 @@ function FiltersModal({
 		return (
 			<Box
 				bg="white"
-				w={["95%","95%","95%","95%","70%","50%"]}
+				w={["95%", "95%", "95%", "95%", "70%", "50%"]}
 				p="30px"
 				h="500px"
 				overflowY="scroll"
@@ -49,7 +51,7 @@ function FiltersModal({
 			>
 				<Box
 					my="0"
-					ml={["0","0","0","0","10px","30px"]}
+					ml={["0", "0", "0", "0", "10px", "30px"]}
 					pt="20px"
 					fontSize="20px"
 					fontWeight={600}
@@ -117,6 +119,9 @@ function FiltersModal({
 												mb="7px"
 												fontSize="14px"
 												onClick={() => {
+													params.set("offset", 0);
+													params.set("pagina", 1);
+													setParams(params);
 													addFilterQuerysToParams(
 														query,
 														searchedProduct[0]?.id,
@@ -141,11 +146,14 @@ function FiltersModal({
 											mb="7px"
 											fontSize="14px"
 											onClick={() => {
+												params.set("offset", 0);
+												params.set("pagina", 1);
+												setParams(params);
 												addFilterQuerysToParams(
 													query,
 													searchedProduct[0]?.id,
 													e[1][0].id,
-													e[1][0].name,
+													e[1][0].name
 												);
 												setShowAllfilters(false);
 												window.scrollTo(0, 0);

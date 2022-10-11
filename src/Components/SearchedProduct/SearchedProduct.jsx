@@ -191,17 +191,6 @@ function SearchedProduct() {
 													fontWeight={600}
 													mt="30px"
 													mb="10px"
-													onClick={() => {
-														window.scrollTo(0, 0);
-														dispatch(
-															filterProductsSearched(
-																searchedProduct?.query,
-																filterNameID,
-																id,
-																name
-															)
-														);
-													}}
 													lineHeight={1.25}
 												>
 													{name}
@@ -219,6 +208,9 @@ function SearchedProduct() {
 																	m="0 0 6px"
 																	onClick={(e) => {
 																		e.preventDefault();
+																		params.set("offset", 0);
+																		params.set("pagina", 1);
+																		setParams(params);
 																		window.scrollTo(0, 0);
 																		addFilterQuerysToParams(
 																			searchedProduct?.query,
@@ -240,6 +232,9 @@ function SearchedProduct() {
 																to={`/searchedProducts?${params}`}
 																onClick={(e) => {
 																	e.preventDefault();
+																	params.set("offset", 0);
+																	params.set("pagina", 1);
+																	setParams(params);
 																	addFilterQuerysToParams(
 																		searchedProduct?.query,
 																		filterNameID,

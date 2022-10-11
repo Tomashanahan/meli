@@ -8,7 +8,6 @@ import { ProductsContext } from "../../Context/ProductsContext";
 function Pagination() {
 	const [params, setParams] = useSearchParams();
 	const { searchedProduct } = useContext(ProductsContext);
-	console.log("window.location:", window.location);
 
 	return (
 		<Flex justify="center" align="center" mt="32px">
@@ -67,7 +66,7 @@ function Pagination() {
 						if (
 							currentOffset &&
 							currentOffset < searchedProduct?.paging?.primary_results
-						) {
+							) {
 							let nextPage = Number(currentOffset) + 50;
 							if (nextPage > searchedProduct?.paging?.primary_results) {
 								nextPage =
@@ -78,13 +77,26 @@ function Pagination() {
 							}
 							params.set("offset", nextPage);
 							let pagina = Number(params.get("pagina"));
-							params.set("pagina", pagina === null ? 2 : pagina + 1);
+							console.log('pagina:', pagina)
+							params.set("pagina", pagina === null || pagina === 0 ? 2 : pagina + 1);
 							setParams(params);
 						} else {
-							params.set("offset", 50);
-							let pagina = Number(params.get("pagina"));
-							params.set("pagina", pagina === null ? 2 : pagina + 1);
+							let nextPage = Number(currentOffset) + 50;
+							if (nextPage > searchedProduct?.paging?.primary_results) {
+								nextPage =
+									searchedProduct?.paging?.primary_results -
+									Number(currentOffset) -
+									1 +
+									Number(currentOffset);
+								let pagina = Number(params.get("pagina"));
+								params.set("pagina", pagina === null ? 2 : pagina + 1);
+								setParams(params);
+								console.log("estoy adentro");
+							}
+							console.log("estoy afuera");
+							params.set("offset", nextPage);
 							setParams(params);
+							params.set("offset", 50);
 						}
 					}}
 				>
