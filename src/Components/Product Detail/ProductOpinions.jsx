@@ -222,11 +222,11 @@ function ProductOpinions({ product_opinions }) {
 									color="rgba(0,0,0,.9)"
 									fontSize="16px"
 									fontWeight={400}
-									mt="0"
+									mt="12px"
 								>
 									{content}
 								</Text>
-								<Flex justify="space-between" align="center">
+								<Flex justify="space-between" align="center" mt="12px">
 									<Flex justify="space-between" align="center"  w={["60%","60%","60%","30%","22%","37%"]}>
 										<Flex
 											justify="space-between"
