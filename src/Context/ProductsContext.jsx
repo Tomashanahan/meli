@@ -10,6 +10,7 @@ const initialState = {
 	seller_data: {},
 	product_questions: [],
 	product_opinions: [],
+	paginationOffset: 0,
 };
 
 const actionstypes = {
@@ -23,6 +24,7 @@ const actionstypes = {
 	CLEAN_SEARCHED_PRODUCT: "CLEAN_SEARCHED_PRODUCT",
 	SORT_PRODUCTS_SEARCHED: "SORT_PRODUCTS_SEARCHED",
 	FILTER_PRODUCTS_SEARCHED: "FILTER_PRODUCTS_SEARCHED",
+	NEXT_PAGE_IN_SEARCHED_PRODUCTS: "NEXT_PAGE_IN_SEARCHED_PRODUCTS",
 };
 
 const reducer = (state = initialState, { type, payload }) => {
@@ -98,11 +100,12 @@ export function ProductsProvider({ children }) {
 		product_opinions,
 	} = state;
 
-	const searchProduct = async (productName) => {
+	const searchProduct = async (productName, offset) => {
 		const products = await fetch(
 			`https://api.mercadolibre.com/sites/MLA/search?q=${productName}`
 		);
 		const data = await products.json();
+		console.log("data:", data.results.length);
 		return dispatch({
 			type: actionstypes.SEARCH_PRODUCT,
 			payload: data,
@@ -202,16 +205,16 @@ export function ProductsProvider({ children }) {
 
 	const value = {
 		searchedProduct,
+		product_detail,
+		product_description,
+		seller_data,
+		product_questions,
+		product_opinions,
 		searchProduct,
 		dispatch,
 		getProductDetail,
-		product_detail,
 		getProductDescription,
-		product_description,
-		seller_data,
 		getProductQuestions,
-		product_questions,
-		product_opinions,
 		getProductOpinions,
 		cleanProductDetal,
 		cleanSearchedProduct,

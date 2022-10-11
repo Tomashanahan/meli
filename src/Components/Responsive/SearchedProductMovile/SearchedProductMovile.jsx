@@ -1,25 +1,20 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import {
 	Flex,
 	Box,
 	Stack,
 	Image,
-	UnorderedList,
-	ListItem,
 	Menu,
 	MenuButton,
-	Button,
 	MenuList,
 	MenuGroup,
-	MenuItem,
 	MenuDivider,
 } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
 import { ProductsContext } from "../../../Context/ProductsContext";
 import { Link } from "react-router-dom";
 import { IoIosArrowDown } from "react-icons/io";
-import { AiFillStar } from "react-icons/ai";
-import { AiOutlineStar } from "react-icons/ai";
+import Pagination from "../../Pagination/Pagination";
 
 function SearchedProductMovile({
 	deleteFilter,
@@ -457,151 +452,10 @@ function SearchedProductMovile({
 							}
 						)}
 					</Stack>
+					<Pagination />
 				</Box>
 			</Flex>
 		</>
 	);
 }
 export default SearchedProductMovile;
-/* 🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸🎸 */
-
-// {/* <Stack> */}
-// {/* <Stack>
-// 	<Text
-// 		mb="0"
-// 		fontSize="26px"
-// 		fontWeight={600}
-// 		textTransform="capitalize"
-// 		color="black"
-// 		w="70%"
-// 	>
-// 		{searchedProduct?.query}
-// 	</Text>
-// 	<Text w="50%" style={{ margin: 0 }} color="meliGray" fontWeight={300}>
-// 		{formatPrice(searchedProduct?.paging?.total)} resultados
-// 	</Text>
-// 	<Flex flexWrap="wrap" w="20em">
-// 		{JSON.parse(localStorage.getItem("filterNames"))?.map((e, i) => (
-// 			<Box
-// 				fontSize="13px"
-// 				key={i}
-// 				mb="10px"
-// 				p="5px"
-// 				mr="10px"
-// 				color="rgba(0,0,0,.62)"
-// 				bg="white"
-// 			>
-// 				{e.name}{" "}
-// 				<Text
-// 					as="span"
-// 					cursor="pointer"
-// 					color="#bfbfbf"
-// 					onClick={() => deleteFilter(e.filterNameID)}
-// 				>
-// 					X
-// 				</Text>
-// 			</Box>
-// 		))}
-// 	</Flex>
-// </Stack> */}
-// </Stack>;
-
-// {searchedProduct?.available_filters?.map(({ id, name, values }) => {
-// 	let filterNameID = id;
-// 	return (
-// 		<Box key={id}>
-// 			<Text
-// 				color="meliGray"
-// 				fontSize="16px"
-// 				fontWeight={600}
-// 				mt="30px"
-// 				mb="10px"
-// 				// onClick={() => {
-// 				// 	window.scrollTo(0, 0);
-// 				// 	dispatch(
-// 				// 		filterProductsSearched(
-// 				// 			searchedProduct?.query,
-// 				// 			filterNameID,
-// 				// 			id,
-// 				// 			name
-// 				// 		)
-// 				// 	);
-// 				// }}
-// 				lineHeight={1.25}
-// 			>
-// 				{name}
-// 			</Text>
-// 			{values?.length > 9
-// 				? values?.slice(0, 9)?.map(({ id, name, results }) => (
-// 						<Text
-// 							key={id}
-// 							color="meliLightGray"
-// 							cursor="pointer"
-// 							fontSize="14px"
-// 							fontWeight={400}
-// 							m="0 0 6px"
-// 							onClick={(e) => {
-// 								e.preventDefault();
-// 								window.scrollTo(0, 0);
-// 								addFilterQuerysToParams(
-// 									searchedProduct?.query,
-// 									filterNameID,
-// 									id,
-// 									name
-// 								);
-// 							}}
-// 						>
-// 							{name}{" "}
-// 							<Text as="span" color="#999">
-// 								({formatPrice(results)})
-// 							</Text>
-// 						</Text>
-// 				  ))
-// 				: values?.map(({ id, name, results }) => (
-// 						<Link
-// 							key={id}
-// 							to={`/searchedProducts?${params}`}
-// 							onClick={(e) => {
-// 								e.preventDefault();
-// 								addFilterQuerysToParams(
-// 									searchedProduct?.query,
-// 									filterNameID,
-// 									id,
-// 									name
-// 								);
-// 							}}
-// 							style={{ width: "30%" }}
-// 						>
-// 							<Text
-// 								color="meliLightGray"
-// 								cursor="pointer"
-// 								fontSize="14px"
-// 								fontWeight={400}
-// 								m="0 0 6px"
-// 							>
-// 								{name}{" "}
-// 								<Text as="span" color="#999">
-// 									({formatPrice(results)})
-// 								</Text>
-// 							</Text>
-// 						</Link>
-// 				  ))}
-// 			{values?.length > 9 && (
-// 				<Text
-// 					as="span"
-// 					color="meliBlue"
-// 					fontWeight={400}
-// 					id={name}
-// 					onClick={(e) => {
-// 						window.scrollTo(0, 0);
-// 						setFilterName(name);
-// 						setShowAllfilters(true);
-// 					}}
-// 					cursor="pointer"
-// 				>
-// 					Mostrar más
-// 				</Text>
-// 			)}
-// 		</Box>
-// 	);
-// })}

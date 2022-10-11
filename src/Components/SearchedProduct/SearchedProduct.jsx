@@ -16,6 +16,7 @@ import { ProductsContext } from "../../Context/ProductsContext";
 import { Link, useSearchParams } from "react-router-dom";
 import FiltersModal from "../FiltersModal/FiltersModal";
 import SearchedProductMovile from "../Responsive/SearchedProductMovile/SearchedProductMovile";
+import Pagination from "../Pagination/Pagination";
 
 function SearchedProduct() {
 	const {
@@ -648,11 +649,12 @@ function SearchedProduct() {
 										}
 									)}
 								</Stack>
+								<Pagination />
 							</Box>
 						</>
 					)}
 				</Flex>
-			) : (
+			) : searchedProduct?.results?.length === 0 ? (
 				<Flex justify="center" align="center" pb="55vh">
 					<Box
 						w="70%"
@@ -670,7 +672,7 @@ function SearchedProduct() {
 						</Box>
 						<UnorderedList
 							fontSize={["12px", "12px", "15px", "18px", "16px", "16px"]}
-							w={["95%","95%","90%","90%","75%","50%"]}
+							w={["95%", "95%", "90%", "90%", "75%", "50%"]}
 							textAlign="left"
 							m="auto"
 							my="20px"
@@ -685,6 +687,11 @@ function SearchedProduct() {
 						</UnorderedList>
 					</Box>
 				</Flex>
+			) : (
+				<Box
+					bg="white"
+					h={searchedProduct?.results?.length === 0 ? "100%" : "100vh"}
+				/>
 			)}
 		</>
 	);
