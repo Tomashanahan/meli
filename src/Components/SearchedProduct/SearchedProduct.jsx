@@ -18,6 +18,7 @@ import FiltersModal from "../FiltersModal/FiltersModal";
 import SearchedProductMovile from "../Responsive/SearchedProductMovile/SearchedProductMovile";
 import Pagination from "../Pagination/Pagination";
 import SearchedProductfilters from "../SearchedProductfilters/SearchedProductfilters";
+import SearchedProductNotfound from "../SearchedProductNotfound/SearchedProductNotfound";
 
 function SearchedProduct() {
 	const {
@@ -569,38 +570,7 @@ function SearchedProduct() {
 					)}
 				</Flex>
 			) : searchedProduct?.results?.length === 0 ? (
-				<Flex justify="center" align="center" pb="55vh">
-					<Box
-						w="70%"
-						textAlign="center"
-						mt="50px"
-						bg="white"
-						p="20px"
-						color="black"
-					>
-						<Box
-							fontSize={["12px", "12px", "15px", "20px", "20px", "20px"]}
-							fontWeight={600}
-						>
-							No hay publicaciones que coincidan con tu búsqueda.
-						</Box>
-						<UnorderedList
-							fontSize={["12px", "12px", "15px", "18px", "16px", "16px"]}
-							w={["95%", "95%", "90%", "90%", "75%", "50%"]}
-							textAlign="left"
-							m="auto"
-							my="20px"
-						>
-							<ListItem>Revisá la ortografía de la palabra.</ListItem>
-							<ListItem>
-								Utilizá palabras más genéricas o menos palabras.
-							</ListItem>
-							<ListItem>
-								Navegá por las categorías para encontrar un producto similar
-							</ListItem>
-						</UnorderedList>
-					</Box>
-				</Flex>
+				<SearchedProductNotfound />
 			) : (
 				<Box
 					bg="white"
