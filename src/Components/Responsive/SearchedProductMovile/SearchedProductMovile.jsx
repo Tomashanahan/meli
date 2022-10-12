@@ -16,6 +16,7 @@ import { Link } from "react-router-dom";
 import { IoIosArrowDown } from "react-icons/io";
 import Pagination from "../../Pagination/Pagination";
 import SearchedProductfilters from "../../SearchedProductfilters/SearchedProductfilters";
+import SearchedProductResults from "../../SearchedProductResults/SearchedProductResults";
 
 function SearchedProductMovile({
 	deleteFilter,
@@ -245,118 +246,15 @@ function SearchedProductMovile({
 						boxShadow="0 1px 2px 0 rgb(0 0 0 / 20%)"
 						borderRadius="5px"
 					>
-						{searchedProduct?.results?.map(
-							({
-								thumbnail,
-								title,
-								id,
-								shipping,
-								currency_id,
-								price,
-								original_price,
-							}) => {
-								return (
-									<Link
-										to={`/productDetail/${id}`}
-										key={id}
-										style={{ textDecoration: "none" }}
-									>
-										<Flex pr="10px" pb="24px" pt="20px">
-											<Box w="160px" px="24px">
-												<Image
-													w="160px"
-													h="160px"
-													objectFit="contain"
-													src={thumbnail}
-												/>
-											</Box>
-											<Box w="100%">
-												<Text
-													m="0"
-													color="meliGray"
-													fontSize="12px"
-													fontWeight={300}
-												>
-													{title}
-												</Text>
-												<Flex justify="space-between" w="100%" align="center">
-													{original_price ? (
-														<>
-															<Box mt="10px">
-																<Box
-																	fontSize="10px"
-																	mb="-8px"
-																	textDecor="line-through"
-																	color="rgba(0,0,0,.55)"
-																	fontWeight={400}
-																>
-																	$ {formatPrice(original_price)}
-																</Box>
-																<Text
-																	fontWeight={400}
-																	fontSize="20px"
-																	m="0"
-																	mt="10px"
-																	color="black"
-																>
-																	{currency_id === "USD" ? "U$S" : "$"}{" "}
-																	{formatPrice(price)}{" "}
-																	<Text
-																		as="span"
-																		color="meliGreen"
-																		fontWeight={400}
-																		fontSize="10px"
-																	>
-																		{calculateDiscount(price, original_price)}%
-																		OFF
-																	</Text>
-																</Text>
-																{shipping?.free_shipping && (
-																	<Text
-																		color="meliGreen"
-																		fontWeight={600}
-																		fontSize="10px"
-																		m="0"
-																	>
-																		Envío gratis
-																	</Text>
-																)}
-															</Box>
-														</>
-													) : (
-														<>
-															<Box>
-																<Box
-																	fontWeight={400}
-																	fontSize="20px"
-																	m="0"
-																	mt="10px"
-																	color="black"
-																>
-																	{currency_id === "USD" ? "U$S" : "$"}{" "}
-																	{formatPrice(price)}{" "}
-																</Box>
-																{shipping?.free_shipping && (
-																	<Text
-																		color="meliGreen"
-																		fontWeight={600}
-																		fontSize="10px"
-																		m="0"
-																	>
-																		Envío gratis
-																	</Text>
-																)}
-															</Box>
-														</>
-													)}
-												</Flex>
-											</Box>
-										</Flex>
-										<Box w="100%" borderBottom="thin solid #eee" />
-									</Link>
-								);
-							}
-						)}
+						{searchedProduct?.results?.map((searchedProductResult) => {
+							return (
+								<SearchedProductResults
+									{...searchedProductResult}
+									formatPrice={formatPrice}
+									calculateDiscount={calculateDiscount}
+								/>
+							);
+						})}
 					</Stack>
 					<Pagination />
 				</Box>
