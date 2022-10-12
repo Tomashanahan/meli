@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { Flex, Box, Stack, useMediaQuery } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
 import { ProductsContext } from "../../Context/ProductsContext";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import FiltersModal from "../FiltersModal/FiltersModal";
 import SearchedProductMovile from "../Responsive/SearchedProductMovile/SearchedProductMovile";
 import Pagination from "../Pagination/Pagination";
@@ -178,6 +178,7 @@ function SearchedProduct() {
 										let filterNameID = searchedProductFilters.id;
 										return (
 											<SearchedProductfilters
+												key={filterNameID}
 												formatPrice={formatPrice}
 												addFilterQuerysToParams={addFilterQuerysToParams}
 												setFilterName={setFilterName}
@@ -219,11 +220,17 @@ function SearchedProduct() {
 								>
 									{searchedProduct?.results?.map((searchedProductResult) => {
 										return (
-											<SearchedProductResults
-												formatPrice={formatPrice}
-												calculateDiscount={calculateDiscount}
-												{...searchedProductResult}
-											/>
+											<Link
+												to={`/productDetail/${searchedProductResult.id}`}
+												key={searchedProductResult.id}
+												style={{ textDecoration: "none" }}
+											>
+												<SearchedProductResults
+													formatPrice={formatPrice}
+													calculateDiscount={calculateDiscount}
+													{...searchedProductResult}
+												/>
+											</Link>
 										);
 									})}
 								</Stack>

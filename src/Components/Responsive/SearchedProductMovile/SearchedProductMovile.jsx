@@ -148,11 +148,17 @@ function SearchedProductMovile({
 					>
 						{searchedProduct?.results?.map((searchedProductResult) => {
 							return (
-								<SearchedProductResults
-									{...searchedProductResult}
-									formatPrice={formatPrice}
-									calculateDiscount={calculateDiscount}
-								/>
+								<Link
+									to={`/productDetail/${searchedProductResult.id}`}
+									key={searchedProductResult.id}
+									style={{ textDecoration: "none" }}
+								>
+									<SearchedProductResults
+										{...searchedProductResult}
+										formatPrice={formatPrice}
+										calculateDiscount={calculateDiscount}
+									/>
+								</Link>
 							);
 						})}
 					</Stack>

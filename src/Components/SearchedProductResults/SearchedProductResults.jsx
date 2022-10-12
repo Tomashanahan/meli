@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Text } from "@chakra-ui/react";
+import { Text } from "@chakra-ui/react";
 import { Flex } from "@chakra-ui/react";
 import { Box } from "@chakra-ui/react";
 import { Image } from "@chakra-ui/react";
@@ -18,11 +18,7 @@ function SearchedProductResults({
 	calculateDiscount,
 }) {
 	return (
-		<Link
-			to={`/productDetail/${id}`}
-			key={id}
-			style={{ textDecoration: "none" }}
-		>
+		<>
 			<Flex px="24px" pb="24px" p="20px 50px 20px 0">
 				<Box w="160px" px="24px">
 					<Image w="160px" h="160px" objectFit="contain" src={thumbnail} />
@@ -160,7 +156,7 @@ function SearchedProductResults({
 				</Box>
 			</Flex>
 			<Box w="100%" borderBottom="thin solid #eee" />
-		</Link>
+		</>
 	);
 }
 
