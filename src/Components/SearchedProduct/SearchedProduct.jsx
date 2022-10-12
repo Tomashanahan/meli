@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { Flex, Box, Stack, useMediaQuery } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
-import { IoIosArrowDown } from "react-icons/io";
 import { ProductsContext } from "../../Context/ProductsContext";
 import { useSearchParams } from "react-router-dom";
 import FiltersModal from "../FiltersModal/FiltersModal";
@@ -10,6 +9,7 @@ import Pagination from "../Pagination/Pagination";
 import SearchedProductfilters from "../SearchedProductfilters/SearchedProductfilters";
 import SearchedProductNotfound from "../SearchedProductNotfound/SearchedProductNotfound";
 import SearchedProductResults from "../SearchedProductResults/SearchedProductResults";
+import SearchedProductSorts from "../SearchedProductSorts/SearchedProductSorts";
 
 function SearchedProduct() {
 	const {
@@ -101,13 +101,13 @@ function SearchedProduct() {
 		<>
 			{showAllfilters && (
 				<FiltersModal
+					setShowAllfilters={setShowAllfilters}
+					addFilterQuerysToParams={addFilterQuerysToParams}
 					searchedProduct={searchedProduct?.available_filters}
 					filterName={filterName}
-					setShowAllfilters={setShowAllfilters}
 					filterProductsSearched={filterProductsSearched}
 					query={searchedProduct?.query}
 					dispatch={dispatch}
-					addFilterQuerysToParams={addFilterQuerysToParams}
 				/>
 			)}
 			{searchedProduct?.results?.length > 0 ? (
@@ -119,11 +119,11 @@ function SearchedProduct() {
 							addSortQuerysToParams={addSortQuerysToParams}
 							calculateDiscount={calculateDiscount}
 							setShowAllfilters={setShowAllfilters}
-							params={params}
 							deleteFilter={deleteFilter}
+							setFilterName={setFilterName}
+							params={params}
 							filterProductsSearched={filterProductsSearched}
 							dispatch={dispatch}
-							setFilterName={setFilterName}
 						/>
 					) : (
 						<>
@@ -178,12 +178,12 @@ function SearchedProduct() {
 										let filterNameID = searchedProductFilters.id;
 										return (
 											<SearchedProductfilters
-												{...searchedProductFilters}
-												filterNameID={filterNameID}
 												formatPrice={formatPrice}
 												addFilterQuerysToParams={addFilterQuerysToParams}
 												setFilterName={setFilterName}
 												setShowAllfilters={setShowAllfilters}
+												{...searchedProductFilters}
+												filterNameID={filterNameID}
 												searchedProductQuery={searchedProduct?.query}
 											/>
 										);
@@ -201,124 +201,14 @@ function SearchedProduct() {
 									>
 										Ordenar por
 									</Text>
-									<Flex align="center" _hover={{ color: "meliBlue" }}>
-										<Box
-											pos="relative"
-											fontSize="14px"
-											cursor="pointer"
-											color="black"
-											mr="5px"
-											ref={filterMenu}
-										>
-											<Box onClick={() => setOpenFilterMenu(!openFilterMenu)}>
-												{sortSelection === "relevance"
-													? "Más relevantes"
-													: sortSelection === "price_asc"
-													? "Menor precio"
-													: "Mayor precio"}
-											</Box>
-											{openFilterMenu && (
-												<Stack
-													pos="absolute"
-													top="130%"
-													bg="white"
-													color="meliLightGray"
-													w="135px"
-													h="122px"
-													boxShadow="0 1px 2px 0 rgb(0 0 0 / 32%)"
-													borderRadius="6px"
-												>
-													<Flex
-														style={{ margin: 0 }}
-														borderLeft={
-															sortSelection === "relevance" &&
-															"5px solid meliBlue"
-														}
-														borderTopLeftRadius="6px"
-														color={
-															sortSelection === "relevance"
-																? "meliBlue"
-																: "meliLightGray"
-														}
-														fontWeight={
-															sortSelection === "relevance" ? 600 : 300
-														}
-														align="center"
-														fontSize="14px"
-														p="10px"
-														pl="16px"
-														h="40px"
-														borderBottom="1px solid #d8d8d8"
-														onClick={() => {
-															setSortSelection("relevance");
-															setOpenFilterMenu(false);
-															addSortQuerysToParams("relevance");
-														}}
-													>
-														Más relevantes
-													</Flex>
-													<Flex
-														style={{ margin: 0 }}
-														align="center"
-														fontSize="14px"
-														p="10px"
-														pl="16px"
-														color={
-															sortSelection === "price_asc"
-																? "meliBlue"
-																: "meliLightGray"
-														}
-														h="40px"
-														fontWeight={
-															sortSelection === "price_asc" ? 600 : 300
-														}
-														borderLeft={
-															sortSelection === "price_asc" &&
-															"5px solid meliBlue"
-														}
-														borderBottom="1px solid #d8d8d8"
-														onClick={() => {
-															setSortSelection("price_asc");
-															setOpenFilterMenu(false);
-															addSortQuerysToParams("price_asc");
-														}}
-													>
-														Menor precio
-													</Flex>
-													<Flex
-														style={{ margin: 0 }}
-														align="center"
-														fontSize="14px"
-														color={
-															sortSelection === "price_desc"
-																? "meliBlue"
-																: "meliLightGray"
-														}
-														p="10px"
-														pl="16px"
-														h="40px"
-														fontWeight={
-															sortSelection === "price_desc" ? 600 : 300
-														}
-														borderLeft={
-															sortSelection === "price_desc" &&
-															"5px solid meliBlue"
-														}
-														onClick={() => {
-															setSortSelection("price_desc");
-															setOpenFilterMenu(false);
-															addSortQuerysToParams("price_desc");
-														}}
-													>
-														Mayor precio
-													</Flex>
-												</Stack>
-											)}
-										</Box>
-										<Box color="meliBlue" mt="5px">
-											<IoIosArrowDown />
-										</Box>
-									</Flex>
+									<SearchedProductSorts
+										setOpenFilterMenu={setOpenFilterMenu}
+										setSortSelection={setSortSelection}
+										addSortQuerysToParams={addSortQuerysToParams}
+										filterMenu={filterMenu}
+										openFilterMenu={openFilterMenu}
+										sortSelection={sortSelection}
+									/>
 								</Flex>
 								<Stack
 									w="100%"
@@ -330,9 +220,9 @@ function SearchedProduct() {
 									{searchedProduct?.results?.map((searchedProductResult) => {
 										return (
 											<SearchedProductResults
-												{...searchedProductResult}
 												formatPrice={formatPrice}
 												calculateDiscount={calculateDiscount}
+												{...searchedProductResult}
 											/>
 										);
 									})}
