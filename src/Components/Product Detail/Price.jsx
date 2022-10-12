@@ -185,7 +185,6 @@ function Price({ product_detail }) {
 						</Stack>
 					</Flex>
 				</Box>
-				{/* nose */}
 				{/* Stock */}
 				<Box textAlign="left">
 					<Text
@@ -261,7 +260,6 @@ function Price({ product_detail }) {
 					</Button>
 				</Box>
 				{/* Botones */}
-				{/* Datos de color */}
 				<Flex justify="space-around" align="center" pt="20px">
 					<svg
 						stroke="#737373"
@@ -337,7 +335,6 @@ function Price({ product_detail }) {
 						{warranty}
 					</Text>
 				</Flex>
-				{/* Datos de color */}
 			</Stack>
 		</Stack>
 	);

@@ -28,8 +28,6 @@ function Detail() {
 		getProductOpinions,
 	} = useContext(ProductsContext);
 
-	console.log("product_detail:", product_detail);
-
 	const [image, setImage] = useState();
 	const [borderImage, setBorderImage] = useState();
 	const [zoom, setZoom] = useState(false);

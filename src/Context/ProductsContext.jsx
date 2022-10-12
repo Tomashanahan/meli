@@ -1,5 +1,6 @@
 import { useReducer } from "react";
 import { createContext } from "react";
+import { fetchData } from "../Helpers/fetchToBackend";
 
 export const ProductsContext = createContext();
 
@@ -100,75 +101,55 @@ export function ProductsProvider({ children }) {
 		product_opinions,
 	} = state;
 
-	const searchProduct = async (productName, offset) => {
-		const products = await fetch(
-			`https://api.mercadolibre.com/sites/MLA/search?q=${productName}`
-		);
-		const data = await products.json();
-		console.log("data:", data.results.length);
+	const searchProduct = async (productName) => {
+		const products = await fetchData(`/sites/MLA/search?q=${productName}`);
 		return dispatch({
 			type: actionstypes.SEARCH_PRODUCT,
-			payload: data,
+			payload: products,
 		});
 	};
 
 	const getProductDetail = async (productId) => {
-		const product = await fetch(
-			`https://api.mercadolibre.com/items/${productId}`
-		);
-		const productData = await product.json();
+		const product = await fetchData(`/items/${productId}`);
+		const seller = await fetchData(`/users/${product.seller_id}`);
+		const currency = await fetchData(`/currencies/${product.currency_id}`);
 
-		const seller = await fetch(
-			`https://api.mercadolibre.com/users/${productData.seller_id}`
-		);
-		const sellerData = await seller.json();
-
-		const currency = await fetch(
-			`https://api.mercadolibre.com/currencies/${productData.currency_id}`
-		);
-		const productCurrency = await currency.json();
-
-		dispatch({ type: actionstypes.SELLER_DATA, payload: sellerData });
+		dispatch({ type: actionstypes.SELLER_DATA, payload: seller });
 		dispatch({
 			type: actionstypes.PRODUCT_DETAIL,
-			payload: productData,
+			payload: product,
 		});
 		dispatch({
 			type: actionstypes.PRODUCT_CURRENCY,
-			payload: productCurrency,
+			payload: currency,
 		});
 	};
 
 	const getProductDescription = async (productId) => {
-		const products = await fetch(
-			`https://api.mercadolibre.com/items/${productId}/description?api_version=2`
+		const products = await fetchData(
+			`/items/${productId}/description?api_version=2`
 		);
-		const data = await products.json();
 		return dispatch({
 			type: actionstypes.GET_PRODUCT_DESCRIPTION,
-			payload: data,
+			payload: products,
 		});
 	};
 
 	const getProductQuestions = async (productId) => {
-		const products = await fetch(
-			`https://api.mercadolibre.com/questions/search?item=${productId}&api_version=4`
+		const products = await fetchData(
+			`/questions/search?item=${productId}&api_version=4`
 		);
-		const data = await products.json();
 		return dispatch({
 			type: actionstypes.GET_PRODUCT_QUESTIONS,
-			payload: data,
+			payload: products,
 		});
 	};
 
 	const getProductOpinions = async (productId) => {
-		const products = await fetch(
-			`https://api.mercadolibre.com/reviews/item/${productId}`
-		);
-		const data = await products.json();
+		const products = await fetchData(`/reviews/item/${productId}`);
 		return dispatch({
 			type: actionstypes.GET_PRODUCT_OPINIONS,
-			payload: data,
+			payload: products,
 		});
 	};
 
@@ -181,25 +162,18 @@ export function ProductsProvider({ children }) {
 	};
 
 	const sortProductsSearched = async (sortID) => {
-		const products = await fetch(
-			`https://api.mercadolibre.com/sites/MLA/search${sortID}`
-		);
-		const data = await products.json();
+		const products = await fetchData(`/sites/MLA/search${sortID}`);
 		return dispatch({
 			type: actionstypes.SORT_PRODUCTS_SEARCHED,
-			payload: data,
+			payload: products,
 		});
 	};
 
 	const filterProductsSearched = async (info) => {
-		const products = await fetch(
-			`https://api.mercadolibre.com/sites/MLA/search${info}`
-		);
-		const data = await products.json();
-
+		const products = await fetchData(`/sites/MLA/search${info}`);
 		return dispatch({
 			type: actionstypes.FILTER_PRODUCTS_SEARCHED,
-			payload: data,
+			payload: products,
 		});
 	};
 
